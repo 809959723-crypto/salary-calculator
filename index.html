@@ -39,6 +39,16 @@
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
             --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -0.5px 0 rgba(255, 255, 255, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.04);
             --glass-radius: 24px;
+
+            /* Siri 渐变配色 */
+            --siri-purple: #af82ff;
+            --siri-blue: #64b4ff;
+            --siri-pink: #ff8cb4;
+            --siri-orange: #ffaa64;
+            --siri-green: #78dcb4;
+            --siri-gradient: linear-gradient(135deg, #af82ff, #64b4ff, #ff8cb4);
+            --siri-gradient-h: linear-gradient(90deg, #af82ff, #64b4ff, #ff8cb4);
+            --siri-gradient-soft: linear-gradient(135deg, rgba(175,130,255,0.25), rgba(100,180,255,0.25), rgba(255,140,180,0.25));
         }
 
         html {
@@ -811,12 +821,13 @@
             align-items: center;
             gap: 10px;
             padding: 10px 20px;
-            background: rgba(0, 113, 227, 0.2);
-            border: 1px solid rgba(0, 113, 227, 0.3);
+            background: var(--siri-gradient-soft);
+            border: 1px solid rgba(175,130,255,0.35);
             border-radius: 100px;
             font-size: 15px;
             font-weight: 600;
-            color: #4da3ff;
+            color: var(--siri-purple);
+            background-clip: padding-box;
         }
 
         .ai-refresh-btn {
@@ -857,7 +868,10 @@
         .ai-content .ai-section-title {
             font-size: 16px;
             font-weight: 600;
-            color: #4da3ff;
+            background: var(--siri-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -879,17 +893,21 @@
         }
 
         .ai-content .highlight-value {
-            color: #4da3ff;
+            background: var(--siri-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 600;
         }
 
         .ai-content .ai-tag {
             display: inline-block;
             padding: 3px 10px;
-            background: rgba(0, 113, 227, 0.15);
+            background: var(--siri-gradient-soft);
+            border: 1px solid rgba(175,130,255,0.2);
             border-radius: 6px;
             font-size: 13px;
-            color: #4da3ff;
+            color: var(--siri-purple);
             margin: 2px 4px;
         }
 
@@ -904,13 +922,13 @@
         .ai-content .ai-bar-fill {
             height: 100%;
             border-radius: 3px;
-            background: linear-gradient(90deg, #0071e3, #42a5f5);
+            background: var(--siri-gradient-h);
             transition: width 1s var(--ease-out-expo);
         }
 
         .ai-content .ai-summary-box {
-            background: rgba(0, 113, 227, 0.1);
-            border: 1px solid rgba(0, 113, 227, 0.2);
+            background: var(--siri-gradient-soft);
+            border: 1px solid rgba(175,130,255,0.25);
             border-radius: 12px;
             padding: 20px;
             margin-top: 16px;
@@ -919,7 +937,10 @@
         .ai-content .ai-summary-box .ai-final-salary {
             font-size: 28px;
             font-weight: 700;
-            color: #4da3ff;
+            background: var(--siri-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 8px 0;
         }
 
@@ -943,7 +964,7 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #4da3ff;
+            background: var(--siri-purple);
             animation: typingBounce 1.4s infinite ease-in-out;
         }
 
@@ -954,6 +975,16 @@
         @keyframes typingBounce {
             0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
             40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Siri 渐变文字 */
+        .siri-text {
+            font-weight: 600;
+            font-size: 14px;
+            background: var(--siri-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* ===== DATA SOURCE ===== */
@@ -2533,7 +2564,7 @@
                     <input type="password" id="hunyuanApiKeyInput" placeholder="输入混元大模型 API Key"
                         style="width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-size:15px;outline:none;transition:border-color 0.3s;"
                         onfocus="this.style.borderColor='rgba(0,113,227,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
-                    <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:8px;">前往 <a href="https://console.cloud.tencent.com/hunyuan" target="_blank" style="color:#4da3ff;text-decoration:none;">腾讯云混元控制台</a> 获取 API Key</p>
+                    <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:8px;">前往 <a href="https://console.cloud.tencent.com/hunyuan" target="_blank" style="color:var(--siri-purple);text-decoration:none;">腾讯云混元控制台</a> 获取 API Key</p>
                 </div>
                 <div style="margin-bottom:24px;">
                     <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">模型</label>
@@ -2617,7 +2648,7 @@
             const status = document.getElementById('settingsStatus');
             if (key) {
                 status.textContent = '✅ 配置已保存，AI 分析已启用';
-                status.style.color = '#4da3ff';
+                status.style.color = '#af82ff';
             } else {
                 status.textContent = '⚠️ 未配置 API Key，将使用本地规则分析';
                 status.style.color = 'rgba(255,255,255,0.5)';
@@ -4067,7 +4098,7 @@
                         ${scores.map(s => `
                             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
                                 <span style="color:rgba(255,255,255,0.7);font-size:14px;">${s.name}</span>
-                                <span style="color:#4da3ff;font-weight:600;font-size:14px;">${s.score}分</span>
+                                <span class="siri-text">${s.score}分</span>
                             </div>
                             <div class="ai-bar"><div class="ai-bar-fill" style="width:${s.score}%;"></div></div>
                         `).join('')}
@@ -4122,7 +4153,7 @@
                             ${scores.map(s => `
                                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
                                     <span style="color:rgba(255,255,255,0.7);font-size:14px;">${s.name}</span>
-                                    <span style="color:#4da3ff;font-weight:600;font-size:14px;">${s.score}分</span>
+                                    <span class="siri-text">${s.score}分</span>
                                 </div>
                                 <div class="ai-bar"><div class="ai-bar-fill" style="width:${s.score}%;"></div></div>
                             `).join('')}
@@ -4679,7 +4710,7 @@
                         </div>
                         <span class="ai-tag" style="font-size:11px;">${c.level}</span>
                     </div>
-                    <div style="font-size:22px;font-weight:700;color:#4da3ff;margin-bottom:6px;">${c.range}</div>
+                    <div style="font-size:22px;font-weight:700;margin-bottom:6px;" class="siri-text">${c.range}</div>
                     <div style="font-size:13px;color:rgba(255,255,255,0.5);">${c.note}</div>
                 </div>
             `).join('');
