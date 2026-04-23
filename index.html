@@ -47,7 +47,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #e0e5ec 0%, #f0f2f5 25%, #e8ecf4 50%, #f5f0f0 75%, #ece5f0 100%);
+            background: #f2f0f5;
             color: var(--apple-text);
             line-height: 1.47059;
             -webkit-font-smoothing: antialiased;
@@ -117,10 +117,10 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0, 113, 227, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 80% 20%, rgba(100, 100, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(0, 113, 227, 0.04) 0%, transparent 50%),
-                linear-gradient(180deg, #f5f5f7 0%, #ffffff 50%, #f5f5f7 100%);
+                radial-gradient(ellipse 80% 60% at 20% 80%, rgba(175, 130, 255, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 20%, rgba(100, 180, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 40% at 50% 60%, rgba(255, 140, 180, 0.06) 0%, transparent 50%),
+                linear-gradient(180deg, #f2f0f5 0%, #f8f6fb 50%, #f2f0f5 100%);
             animation: heroGradient 20s ease-in-out infinite;
         }
 
@@ -1675,66 +1675,104 @@
         .shape {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(0, 113, 227, 0.04) 0%, rgba(0, 113, 227, 0.1) 100%);
-            filter: blur(60px);
-            animation: float 20s ease-in-out infinite;
+            filter: blur(80px);
+            will-change: transform;
         }
 
+        /* Siri 配色：淡紫、淡蓝、淡橙、淡绿、淡粉、淡靛 */
         .shape:nth-child(1) {
-            width: 500px;
-            height: 500px;
-            top: 5%;
-            left: -150px;
-            animation-delay: 0s;
-            background: linear-gradient(135deg, rgba(0, 113, 227, 0.06) 0%, rgba(0, 113, 227, 0.12) 100%);
+            width: 600px;
+            height: 600px;
+            top: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(175, 130, 255, 0.18) 0%, rgba(175, 130, 255, 0) 70%);
+            animation: siriFloat1 25s ease-in-out infinite;
         }
 
         .shape:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            top: 50%;
-            right: -100px;
-            animation-delay: -5s;
-            background: linear-gradient(135deg, rgba(100, 100, 255, 0.04) 0%, rgba(100, 100, 255, 0.1) 100%);
+            width: 500px;
+            height: 500px;
+            top: 40%;
+            right: -8%;
+            background: radial-gradient(circle, rgba(100, 180, 255, 0.15) 0%, rgba(100, 180, 255, 0) 70%);
+            animation: siriFloat2 30s ease-in-out infinite;
         }
 
         .shape:nth-child(3) {
-            width: 300px;
-            height: 300px;
-            bottom: 15%;
-            left: 15%;
-            animation-delay: -10s;
-            background: linear-gradient(135deg, rgba(0, 180, 227, 0.04) 0%, rgba(0, 180, 227, 0.1) 100%);
+            width: 450px;
+            height: 450px;
+            bottom: -5%;
+            left: 10%;
+            background: radial-gradient(circle, rgba(255, 170, 100, 0.14) 0%, rgba(255, 170, 100, 0) 70%);
+            animation: siriFloat3 28s ease-in-out infinite;
         }
 
         .shape:nth-child(4) {
-            width: 250px;
-            height: 250px;
-            top: 30%;
-            right: 20%;
-            animation-delay: -15s;
-            background: linear-gradient(135deg, rgba(0, 113, 227, 0.03) 0%, rgba(80, 80, 255, 0.08) 100%);
+            width: 380px;
+            height: 380px;
+            top: 25%;
+            right: 15%;
+            background: radial-gradient(circle, rgba(120, 220, 180, 0.13) 0%, rgba(120, 220, 180, 0) 70%);
+            animation: siriFloat4 22s ease-in-out infinite;
         }
 
         .shape:nth-child(5) {
-            width: 350px;
-            height: 350px;
-            bottom: 40%;
-            left: 40%;
-            animation-delay: -8s;
-            background: linear-gradient(135deg, rgba(0, 200, 200, 0.03) 0%, rgba(0, 113, 227, 0.06) 100%);
+            width: 420px;
+            height: 420px;
+            bottom: 30%;
+            left: 35%;
+            background: radial-gradient(circle, rgba(255, 140, 180, 0.13) 0%, rgba(255, 140, 180, 0) 70%);
+            animation: siriFloat5 26s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            33% {
-                transform: translateY(-30px) rotate(120deg);
-            }
-            66% {
-                transform: translateY(30px) rotate(240deg);
-            }
+        .shape:nth-child(6) {
+            width: 350px;
+            height: 350px;
+            top: 60%;
+            left: -5%;
+            background: radial-gradient(circle, rgba(130, 140, 255, 0.12) 0%, rgba(130, 140, 255, 0) 70%);
+            animation: siriFloat6 32s ease-in-out infinite;
+        }
+
+        /* Siri 流动动画 — 缓慢漂移 + 微妙缩放 */
+        @keyframes siriFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(80px, 40px) scale(1.08); }
+            50% { transform: translate(30px, 80px) scale(0.95); }
+            75% { transform: translate(-40px, 30px) scale(1.05); }
+        }
+
+        @keyframes siriFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-70px, 50px) scale(1.1); }
+            50% { transform: translate(-30px, -60px) scale(0.92); }
+            75% { transform: translate(50px, -30px) scale(1.06); }
+        }
+
+        @keyframes siriFloat3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(60px, -50px) scale(0.94); }
+            50% { transform: translate(-40px, -20px) scale(1.1); }
+            75% { transform: translate(-60px, 40px) scale(1.02); }
+        }
+
+        @keyframes siriFloat4 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-50px, -70px) scale(1.08); }
+            66% { transform: translate(40px, 30px) scale(0.93); }
+        }
+
+        @keyframes siriFloat5 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(70px, 20px) scale(0.96); }
+            66% { transform: translate(-30px, -60px) scale(1.1); }
+        }
+
+        @keyframes siriFloat6 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -40px) scale(1.07); }
+            50% { transform: translate(-20px, 60px) scale(0.95); }
+            75% { transform: translate(-50px, -10px) scale(1.04); }
         }
 
         /* ===== iOS 26 LIQUID GLASS ===== */
@@ -2084,6 +2122,7 @@
 
     <!-- Floating Background Shapes -->
     <div class="floating-shapes">
+        <div class="shape"></div>
         <div class="shape"></div>
         <div class="shape"></div>
         <div class="shape"></div>
@@ -3052,7 +3091,7 @@
 
             // --- Parallax on floating shapes ---
             const shapes = document.querySelectorAll('.shape');
-            const parallaxSpeeds = [0.03, -0.02, 0.04, -0.015, 0.025];
+            const parallaxSpeeds = [0.03, -0.02, 0.04, -0.015, 0.025, -0.018];
 
             window.addEventListener('scroll', () => {
                 const scrollY = window.scrollY;
