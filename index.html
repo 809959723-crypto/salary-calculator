@@ -2304,11 +2304,12 @@
             const marketInsight = generateMarketInsight(ctx);
             const riskAnalysis = generateRiskAnalysis(ctx);
             const negotiationStrategy = generateNegotiationStrategy(ctx, scores);
+            const companyRef = generateCompanyRef(ctx);
 
             // Calculate AI-recommended salary
             const aiSalary = calculateAISalary(ctx, scores);
 
-            const html = `
+            let html = `
                 <div class="ai-section">
                     <div class="ai-section-title">综合评估</div>
                     <p>基于岗位竞争力、人才稀缺度、行业趋势、城市薪资水平四大维度建模分析：</p>
@@ -2349,7 +2350,245 @@
                 </div>
             `;
 
+            // Add company reference section if data available
+            if (companyRef) {
+                html += companyRef;
+            }
+
             aiContent.innerHTML = html;
+        }
+
+        // ========================================
+        // COMPANY REFERENCE DATABASE
+        // ========================================
+        const companySalaryDB = {
+            // IVD/体外诊断
+            '迈瑞医疗': {
+                industry: 'IVD/医疗器械',
+                city: '深圳',
+                positions: {
+                    'ivd_reagent_rd': { range: '21.6-32.4万', level: '行业头部', note: '研发人均年薪约53万(含年终)' },
+                    'ivd_instrument_rd': { range: '24-40万', level: '行业头部', note: '机械开发工程师月薪2.3w+' },
+                    'ivd_registration': { range: '19.2-28.8万', level: '行业头部', note: '产品注册专员月薪1.8w' },
+                    'ivd_product_manager': { range: '28.8-45.6万', level: '行业头部', note: '产品线核心岗位' },
+                    'ivd_marketing': { range: '26.4-42万', level: '行业头部', note: '学术推广体系成熟' },
+                    'ivd_sales': { range: '24-48万', level: '行业头部', note: '销售人均年薪约78万(含提成)' },
+                    'ivd_fas': { range: '26.4-40万', level: '行业头部', note: '应用科学家需求大' },
+                    'devops': { range: '19.2-30万', level: '行业头部', note: 'ARM软件工程师月薪1.3w' },
+                }
+            },
+            '新产业生物': {
+                industry: 'IVD/化学发光',
+                city: '深圳',
+                positions: {
+                    'ivd_immuno_rd': { range: '21.6-33.6万', level: '赛道龙头', note: '化学发光国内领先' },
+                    'ivd_reagent_rd': { range: '19.2-30万', level: '赛道龙头', note: '试剂研发为核心' },
+                    'ivd_product_manager': { range: '26.4-42万', level: '赛道龙头', note: '海外市场扩张中' },
+                    'ivd_registration': { range: '18-27.6万', level: '赛道龙头', note: '国内外注册并行' },
+                }
+            },
+            '安图生物': {
+                industry: 'IVD/微生物检测',
+                city: '郑州',
+                positions: {
+                    'ivd_reagent_rd': { range: '16.8-27.6万', level: '行业头部', note: '微生物检测国内第一' },
+                    'ivd_immuno_rd': { range: '18-28.8万', level: '行业头部', note: '免疫赛道加速布局' },
+                    'ivd_product_manager': { range: '24-38.4万', level: '行业头部', note: '自动化流水线产品' },
+                }
+            },
+            '亚辉龙': {
+                industry: 'IVD/化学发光',
+                city: '深圳',
+                positions: {
+                    'ivd_immuno_rd': { range: '19.2-30万', level: '行业新锐', note: '自研发光仪器+试剂' },
+                    'ivd_reagent_rd': { range: '18-28.8万', level: '行业新锐', note: '试剂平台完善' },
+                    'ivd_product_manager': { range: '24-38.4万', level: '行业新锐', note: '市场快速扩张' },
+                }
+            },
+            // 基因检测
+            '华大基因': {
+                industry: '基因检测/测序',
+                city: '深圳',
+                positions: {
+                    'ngs_engineer': { range: '18-30万', level: '行业龙头', note: '全球最大基因组学研发机构' },
+                    'bioinfo_analyst': { range: '22.8-38.4万', level: '行业龙头', note: '生信团队规模行业最大' },
+                    'gene_rd': { range: '20.4-33.6万', level: '行业龙头', note: '自研测序平台DNBSEQ' },
+                    'genetic_counselor': { range: '18-30万', level: '行业龙头', note: '遗传咨询体系完善' },
+                    'single_cell_engineer': { range: '24-40万', level: '行业龙头', note: '单细胞平台齐全' },
+                    'gene_product': { range: '24-40万', level: '行业龙头', note: '产品线覆盖NIPT+肿瘤+感染' },
+                }
+            },
+            '燃石医学': {
+                industry: '基因检测/肿瘤NGS',
+                city: '广州',
+                positions: {
+                    'ngs_engineer': { range: '18-30万', level: '肿瘤NGS头部', note: '国内首个获FDA批准的NGS肿瘤产品' },
+                    'bioinfo_analyst': { range: '24-40万', level: '肿瘤NGS头部', note: '生信算法团队实力强' },
+                    'gene_rd': { range: '21.6-36万', level: '肿瘤NGS头部', note: '专注肿瘤基因检测' },
+                    'gene_product': { range: '26.4-42万', level: '肿瘤NGS头部', note: 'LDT+IVD双模式' },
+                }
+            },
+            '诺禾致源': {
+                industry: '基因检测/科研服务',
+                city: '北京',
+                positions: {
+                    'ngs_engineer': { range: '16.8-27.6万', level: '科研测序龙头', note: '国内最大科研测序平台' },
+                    'bioinfo_analyst': { range: '21.6-36万', level: '科研测序龙头', note: '生信分析量大质优' },
+                    'gene_rd': { range: '19.2-32.4万', level: '科研测序龙头', note: '多组学技术平台' },
+                }
+            },
+            // 生物医药
+            '恒瑞医药': {
+                industry: '生物医药/创新药',
+                city: '连云港/上海',
+                positions: {
+                    'drug_research': { range: '24-42万', level: '创新药龙头', note: '研发投入行业第一' },
+                    'clinical_research': { range: '18-30万', level: '创新药龙头', note: '临床管线丰富' },
+                    'medical_affairs': { range: '26.4-45万', level: '创新药龙头', note: '创新药上市加速' },
+                    'medical_representative': { range: '15.6-30万', level: '创新药龙头', note: '销售体系强大' },
+                    'regulatory': { range: '19.2-32.4万', level: '创新药龙头', note: '注册经验丰富' },
+                }
+            },
+            '药明康德': {
+                industry: '生物医药/CRO',
+                city: '上海',
+                positions: {
+                    'drug_research': { range: '19.2-33.6万', level: 'CRO全球龙头', note: '研发人均年薪约25万(含年终)' },
+                    'synthesis_engineer': { range: '16.8-28.8万', level: 'CRO全球龙头', note: '合成研究员月薪7-12K' },
+                    'bio_research': { range: '18-30万', level: 'CRO全球龙头', note: '生物药板块增长快' },
+                    'clinical_pm': { range: '25-42万', level: 'CRO全球龙头', note: '项目管理培训生约25万' },
+                    'process_engineer': { range: '18-30万', level: 'CRO全球龙头', note: 'CDMO工艺开发核心' },
+                }
+            },
+            '信达生物': {
+                industry: '生物医药/创新药',
+                city: '苏州',
+                positions: {
+                    'bio_research': { range: '22.8-38.4万', level: 'Biotech头部', note: 'PD-1明星企业' },
+                    'clinical_research': { range: '18-32.4万', level: 'Biotech头部', note: '临床开发能力强' },
+                    'medical_affairs': { range: '26.4-45万', level: 'Biotech头部', note: '上市后医学支持' },
+                    'regulatory': { range: '19.2-32.4万', level: 'Biotech头部', note: '多产品注册经验' },
+                }
+            },
+            // 互联网
+            '字节跳动': {
+                industry: '互联网/科技',
+                city: '北京',
+                positions: {
+                    'java': { range: '30-55万', level: 'T1', note: '1-2级 月薪22-35K×15薪' },
+                    'frontend': { range: '28-50万', level: 'T1', note: '1-2级 月薪20-32K×15薪' },
+                    'ai': { range: '40-65万', level: 'T1', note: '算法岗 月薪30-50K×15薪' },
+                    'pm': { range: '30-55万', level: 'T1', note: '2-1起 月薪22-35K×15薪' },
+                    'data_analyst': { range: '28-48万', level: 'T1', note: '1-2级 月薪20-30K×15薪' },
+                }
+            },
+            '腾讯': {
+                industry: '互联网/科技',
+                city: '深圳',
+                positions: {
+                    'java': { range: '30-55万', level: 'T9起', note: 'T9-T11 月薪22-40K×16薪' },
+                    'frontend': { range: '28-50万', level: 'T9起', note: 'T9-T11 月薪20-35K×16薪' },
+                    'ai': { range: '42-70万', level: 'T10起', note: 'AI Lab 月薪30-50K×16薪' },
+                    'pm': { range: '28-52万', level: 'P9起', note: 'P9-P11 月薪20-35K×16薪' },
+                }
+            },
+            '华为': {
+                industry: '科技/通信',
+                city: '深圳',
+                positions: {
+                    'java': { range: '30-55万', level: '15A起', note: '13-15级 月薪20-38K×14-16薪' },
+                    'embedded': { range: '28-50万', level: '15A起', note: '核心岗位 月薪20-35K×14-16薪' },
+                    'ai': { range: '40-65万', level: '16A起', note: '2012实验室 月薪30-48K×14-16薪' },
+                    'hardware': { range: '26-45万', level: '15A起', note: '硬件工程师 月薪18-30K×14-16薪' },
+                    'security': { range: '30-50万', level: '15A起', note: '安全岗 月薪20-35K×14-16薪' },
+                }
+            },
+            '阿里巴巴': {
+                industry: '互联网/电商',
+                city: '杭州',
+                positions: {
+                    'java': { range: '30-55万', level: 'P6起', note: 'P6-P7 月薪22-38K×16薪' },
+                    'frontend': { range: '28-50万', level: 'P6起', note: 'P6-P7 月薪20-35K×16薪' },
+                    'ai': { range: '40-70万', level: 'P7起', note: '达摩院 月薪30-50K×16薪' },
+                    'pm': { range: '28-52万', level: 'P6起', note: 'P6-P7 月薪20-35K×16薪' },
+                    'data_analyst': { range: '28-48万', level: 'P6起', note: 'P6-P7 月薪20-30K×16薪' },
+                }
+            },
+            // 医学检验
+            '金域医学': {
+                industry: '医学检验/第三方检验',
+                city: '广州',
+                positions: {
+                    'lab_doctor': { range: '18-32.4万', level: '第三方检验龙头', note: '检验医师核心岗位' },
+                    'pathologist': { range: '30-55万', level: '第三方检验龙头', note: '病理诊断中心' },
+                    'molecular_lab_tech': { range: '13.2-22.8万', level: '第三方检验龙头', note: '分子诊断量大' },
+                    'third_party_lab': { range: '24-42万', level: '第三方检验龙头', note: '技术管理岗' },
+                    'lab_quality_manager': { range: '22-38万', level: '第三方检验龙头', note: 'ISO15189/CAP认证' },
+                }
+            },
+            '迪安诊断': {
+                industry: '医学检验/第三方检验',
+                city: '杭州',
+                positions: {
+                    'lab_doctor': { range: '16.8-28.8万', level: '第三方检验头部', note: '综合检验服务商' },
+                    'pathologist': { range: '28-48万', level: '第三方检验头部', note: '病理业务增长快' },
+                    'third_party_lab': { range: '22-38万', level: '第三方检验头部', note: '技术管理岗' },
+                    'lab_quality_manager': { range: '20-35万', level: '第三方检验头部', note: '质量体系完善' },
+                }
+            },
+        };
+
+        function generateCompanyRef(ctx) {
+            const posId = ctx.position.id;
+            const posCategory = ctx.position.category;
+            const cityName = ctx.city.name;
+            const matchedCompanies = [];
+
+            // Search all companies for matching positions
+            for (const [companyName, companyData] of Object.entries(companySalaryDB)) {
+                if (companyData.positions[posId]) {
+                    matchedCompanies.push({
+                        name: companyName,
+                        industry: companyData.industry,
+                        city: companyData.city,
+                        level: companyData.positions[posId].level,
+                        range: companyData.positions[posId].range,
+                        note: companyData.positions[posId].note,
+                    });
+                }
+            }
+
+            if (matchedCompanies.length === 0) return null;
+
+            // Sort by relevance (same city first)
+            matchedCompanies.sort((a, b) => {
+                const aCityMatch = a.city.includes(cityName) ? 1 : 0;
+                const bCityMatch = b.city.includes(cityName) ? 1 : 0;
+                return bCityMatch - aCityMatch;
+            });
+
+            const companyCards = matchedCompanies.map(c => `
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;margin-bottom:12px;transition:all 0.3s;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+                        <div>
+                            <div style="font-size:16px;font-weight:600;color:#f5f5f7;margin-bottom:4px;">${c.name}</div>
+                            <div style="font-size:12px;color:rgba(255,255,255,0.45);">${c.industry} · ${c.city}</div>
+                        </div>
+                        <span class="ai-tag" style="font-size:11px;">${c.level}</span>
+                    </div>
+                    <div style="font-size:22px;font-weight:700;color:#4da3ff;margin-bottom:6px;">${c.range}</div>
+                    <div style="font-size:13px;color:rgba(255,255,255,0.5);">${c.note}</div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="ai-section">
+                    <div class="ai-section-title">企业薪资参照</div>
+                    <p style="margin-bottom:16px;">AI 搜索到 <span class="highlight-value">${matchedCompanies.length}</span> 家企业招聘「<span class="highlight-value">${ctx.position.name}</span>」岗位的公开薪酬数据：</p>
+                    ${companyCards}
+                    <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:12px;">* 数据来源于BOSS直聘、牛客网、看准网等公开平台，仅供参考。实际薪资因个人能力、面试表现、职级等有所差异。</p>
+                </div>
+            `;
         }
 
         function calculateAIScores(ctx) {
