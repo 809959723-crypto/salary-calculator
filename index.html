@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薪资参考 - HR智能定薪系统</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+            --apple-gray: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --apple-text: #1d1d1f;
+            --apple-text-secondary: #86868b;
+            --apple-border: #d2d2d7;
+            --apple-card: #ffffff;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
+            background: var(--apple-gray);
+            color: var(--apple-text);
+            line-height: 1.47059;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 52px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-content {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 600;
+            color: var(--apple-text);
+            text-decoration: none;
+            letter-spacing: -0.021em;
+            transition: transform 0.3s var(--ease-spring);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(0, 113, 227, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 113, 227, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+            animation: heroGradient 20s ease-in-out infinite;
+        }
+
+        @keyframes heroGradient {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 980px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 10vw, 96px);
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #434344 50%, #1d1d1f 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s var(--ease-out-expo) 0.3s forwards;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(21px, 4vw, 28px);
+            line-height: 1.3;
+            font-weight: 400;
+            color: var(--apple-text-secondary);
+            letter-spacing: 0.007em;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s var(--ease-out-expo) 0.5s forwards;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
+            padding: 12px 24px;
+            background: rgba(0, 113, 227, 0.1);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--apple-blue);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s var(--ease-out-expo) 0.7s forwards;
+            transition: all 0.3s var(--ease-spring);
+        }
+
+        .hero-badge:hover {
+            transform: translateY(-2px) scale(1.02);
+            background: rgba(0, 113, 227, 0.15);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeInUp 1s var(--ease-out-expo) 1s forwards, bounce 2s ease-in-out 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            color: var(--apple-text-secondary);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 20px 120px;
+        }
+
+        /* ===== INPUT CARD ===== */
+        .input-card {
+            background: var(--apple-card);
+            border-radius: 32px;
+            padding: 60px;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.04),
+                0 16px 64px rgba(0, 0, 0, 0.06);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s var(--ease-out-expo);
+        }
+
+        .input-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .input-card:hover {
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.06),
+                0 24px 80px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== POSITION SEARCH ===== */
+        .position-search {
+            margin-bottom: 48px;
+        }
+
+        .position-search label {
+            display: block;
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--apple-text);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .search-input-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 24px;
+            font-size: 19px;
+            border: 2px solid var(--apple-border);
+            border-radius: 16px;
+            background: var(--apple-gray);
+            color: var(--apple-text);
+            transition: all 0.4s var(--ease-spring);
+            outline: none;
+        }
+
+        .search-input:hover {
+            border-color: #b0b0b5;
+        }
+
+        .search-input:focus {
+            border-color: var(--apple-blue);
+            background: var(--apple-card);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15), 0 8px 32px rgba(0, 113, 227, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .search-input::placeholder {
+            color: #a1a1a6;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus::placeholder {
+            opacity: 0.5;
+        }
+
+        /* ===== AUTOCOMPLETE DROPDOWN ===== */
+        .autocomplete-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: var(--apple-card);
+            border-radius: 16px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.98);
+            transition: all 0.3s var(--ease-out-expo);
+            z-index: 100;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .autocomplete-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .autocomplete-item {
+            padding: 16px 24px;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out-expo);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            opacity: 0;
+            transform: translateX(-10px);
+            animation: slideIn 0.4s var(--ease-out-expo) forwards;
+        }
+
+        .autocomplete-item:nth-child(1) { animation-delay: 0.05s; }
+        .autocomplete-item:nth-child(2) { animation-delay: 0.1s; }
+        .autocomplete-item:nth-child(3) { animation-delay: 0.15s; }
+        .autocomplete-item:nth-child(4) { animation-delay: 0.2s; }
+        .autocomplete-item:nth-child(5) { animation-delay: 0.25s; }
+        .autocomplete-item:nth-child(6) { animation-delay: 0.3s; }
+        .autocomplete-item:nth-child(7) { animation-delay: 0.35s; }
+        .autocomplete-item:nth-child(8) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-item:hover,
+        .autocomplete-item.selected {
+            background: var(--apple-gray);
+            padding-left: 28px;
+        }
+
+        .autocomplete-item .position-name {
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--apple-text);
+            margin-bottom: 4px;
+        }
+
+        .autocomplete-item .position-category {
+            font-size: 13px;
+            color: var(--apple-text-secondary);
+        }
+
+        .autocomplete-item .match-source {
+            float: right;
+            font-size: 11px;
+            color: var(--apple-blue);
+            background: rgba(0, 113, 227, 0.1);
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+
+        /* ===== SEARCH LOADING ===== */
+        .search-loading {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        .search-loading.active {
+            display: block;
+        }
+
+        .search-loading::after {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--apple-border);
+            border-top-color: var(--apple-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== FORM GRID ===== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .form-group.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--apple-text);
+            transition: all 0.3s;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 17px;
+            border: 2px solid var(--apple-border);
+            border-radius: 14px;
+            background: var(--apple-gray);
+            color: var(--apple-text);
+            cursor: pointer;
+            transition: all 0.4s var(--ease-spring);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2386868b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 44px;
+        }
+
+        .form-group select:hover {
+            border-color: #b0b0b5;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--apple-blue);
+            background-color: var(--apple-card);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* ===== CALCULATE BUTTON ===== */
+        .calculate-btn {
+            width: 100%;
+            padding: 22px 40px;
+            font-size: 19px;
+            font-weight: 600;
+            color: white;
+            background: var(--apple-blue);
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-spring);
+            letter-spacing: -0.021em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .calculate-btn:hover {
+            background: var(--apple-blue-hover);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 113, 227, 0.35);
+        }
+
+        .calculate-btn:hover::before {
+            opacity: 1;
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* ===== RESULTS SECTION ===== */
+        .results-section {
+            margin-top: 80px;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s var(--ease-out-expo);
+        }
+
+        .results-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== SALARY HERO ===== */
+        .salary-hero {
+            text-align: center;
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #000000 0%, #1d1d1f 100%);
+            border-radius: 32px;
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.8s var(--ease-out-expo);
+        }
+
+        .results-section.active .salary-hero {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .salary-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 113, 227, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 113, 227, 0.2) 0%, transparent 50%);
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .salary-hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .salary-hero .label {
+            font-size: 21px;
+            font-weight: 600;
+            color: #86868b;
+            margin-bottom: 20px;
+            letter-spacing: 0.023em;
+        }
+
+        .salary-hero .salary-range {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 700;
+            letter-spacing: -0.021em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .salary-hero .salary-note {
+            font-size: 17px;
+            color: #86868b;
+        }
+
+        /* ===== DETAIL GRID ===== */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detail-card {
+            background: var(--apple-card);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .results-section.active .detail-card:nth-child(1) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+        .results-section.active .detail-card:nth-child(2) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+        .results-section.active .detail-card:nth-child(3) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+
+        .detail-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .detail-card h3 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--apple-text);
+            letter-spacing: -0.021em;
+        }
+
+        /* ===== PLATFORM LIST ===== */
+        .platform-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .platform-item:hover {
+            padding-left: 8px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 8px;
+        }
+
+        .platform-item:last-child {
+            border-bottom: none;
+        }
+
+        .platform-name {
+            font-size: 15px;
+            color: var(--apple-text);
+        }
+
+        .platform-salary {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--apple-blue);
+            transition: transform 0.3s var(--ease-spring);
+        }
+
+        .platform-item:hover .platform-salary {
+            transform: scale(1.1);
+        }
+
+        /* ===== FACTOR LIST ===== */
+        .factor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+        }
+
+        .factor-item:hover {
+            padding-left: 4px;
+        }
+
+        .factor-item:last-child {
+            border-bottom: none;
+        }
+
+        .factor-name {
+            font-size: 15px;
+            color: var(--apple-text-secondary);
+        }
+
+        .factor-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--apple-text);
+            transition: all 0.3s var(--ease-spring);
+        }
+
+        .factor-item:hover .factor-value {
+            color: var(--apple-blue);
+            transform: scale(1.05);
+        }
+
+        /* ===== SUGGESTIONS ===== */
+        .suggestion-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--apple-text);
+        }
+
+        .suggestion-text p {
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateX(-10px);
+            animation: fadeInRight 0.6s var(--ease-out-expo) forwards;
+        }
+
+        .suggestion-text p:nth-child(1) { animation-delay: 0.5s; }
+        .suggestion-text p:nth-child(2) { animation-delay: 0.6s; }
+        .suggestion-text p:nth-child(3) { animation-delay: 0.7s; }
+        .suggestion-text p:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .suggestion-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .suggestion-text strong {
+            color: var(--apple-blue);
+        }
+
+        /* ===== DATA SOURCE ===== */
+        .data-source {
+            background: var(--apple-card);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s var(--ease-out-expo) 0.5s;
+        }
+
+        .results-section.active .data-source {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .data-source h3 {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .source-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .source-tag {
+            background: var(--apple-gray);
+            padding: 10px 18px;
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--apple-text-secondary);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-spring);
+            border: none;
+            font-family: inherit;
+        }
+
+        .source-tag:hover {
+            background: var(--apple-blue);
+            color: white;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);
+        }
+
+        /* ===== DISCLAIMER ===== */
+        .disclaimer {
+            background: linear-gradient(135deg, #fef9e7 0%, #fff9e6 100%);
+            border-radius: 18px;
+            padding: 28px 32px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #946f00;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s var(--ease-out-expo) 0.6s;
+        }
+
+        .results-section.active .disclaimer {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--apple-card);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 720px;
+            max-height: 85vh;
+            overflow: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s var(--ease-spring);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--apple-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--apple-gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s var(--ease-spring);
+            font-size: 18px;
+            color: var(--apple-text-secondary);
+        }
+
+        .modal-close:hover {
+            background: var(--apple-border);
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            padding: 32px;
+            overflow-y: auto;
+            max-height: calc(85vh - 80px);
+        }
+
+        .data-detail-item {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--apple-border);
+        }
+
+        .data-detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .data-detail-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--apple-text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .data-detail-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--apple-blue);
+            border-radius: 2px;
+        }
+
+        .data-detail-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--apple-text-secondary);
+        }
+
+        .data-detail-content p {
+            margin-bottom: 8px;
+        }
+
+        .data-detail-content ul {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .data-detail-content li {
+            margin-bottom: 6px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--apple-border);
+        }
+
+        .data-table th {
+            font-weight: 600;
+            color: var(--apple-text);
+            background: var(--apple-gray);
+        }
+
+        .data-table td {
+            color: var(--apple-text-secondary);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(0, 113, 227, 0.05);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--apple-text-secondary);
+            font-size: 13px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== FLOATING ELEMENTS ===== */
+        .floating-shapes {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 113, 227, 0.03) 0%, rgba(0, 113, 227, 0.08) 100%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(30px) rotate(240deg);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .input-card {
+                padding: 32px;
+            }
+
+            .salary-hero {
+                padding: 60px 24px;
+            }
+
+            .modal {
+                width: 95%;
+                max-height: 90vh;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">薪资参考</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>智能定薪系统</h1>
+            <p class="subtitle">输入岗位名称，获取精准的市场薪资参考</p>
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0L10.5 5.5L16 6.5L12 10.5L13 16L8 13.5L3 16L4 10.5L0 6.5L5.5 5.5L8 0Z"/>
+                </svg>
+                基于 2024-2025 行业薪酬数据
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="input-card" id="inputCard">
+            <!-- Position Search -->
+            <div class="position-search">
+                <label for="positionInput">目标岗位</label>
+                <div class="search-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="positionInput" 
+                        class="search-input" 
+                        placeholder="输入岗位名称，如：Java开发、产品经理、药物研发..."
+                        autocomplete="off"
+                    >
+                    <div class="search-loading" id="searchLoading"></div>
+                    <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
+                </div>
+            </div>
+
+            <!-- Form Grid -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="experience">工作年限</label>
+                    <select id="experience">
+                        <option value="">选择年限</option>
+                        <option value="0">应届生/实习</option>
+                        <option value="1">1-3年</option>
+                        <option value="3">3-5年</option>
+                        <option value="5">5-8年</option>
+                        <option value="8">8-10年</option>
+                        <option value="10">10年以上</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">所在城市</label>
+                    <select id="city">
+                        <option value="">选择城市</option>
+                        <option value="beijing">北京</option>
+                        <option value="shanghai">上海</option>
+                        <option value="shenzhen">深圳</option>
+                        <option value="guangzhou">广州</option>
+                        <option value="hangzhou">杭州</option>
+                        <option value="chengdu">成都</option>
+                        <option value="nanjing">南京</option>
+                        <option value="wuhan">武汉</option>
+                        <option value="xian">西安</option>
+                        <option value="other">其他城市</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="education">学历背景</label>
+                    <select id="education">
+                        <option value="">选择学历</option>
+                        <option value="college">大专</option>
+                        <option value="bachelor">普通本科</option>
+                        <option value="bachelor_985211">985/211本科</option>
+                        <option value="master">普通硕士</option>
+                        <option value="master_985211">985/211硕士</option>
+                        <option value="phd">博士</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="industry">所在行业</label>
+                    <select id="industry">
+                        <option value="">选择行业</option>
+                        <option value="internet">互联网/科技</option>
+                        <option value="finance">金融/投资</option>
+                        <option value="ai">人工智能</option>
+                        <option value="ecommerce">电子商务</option>
+                        <option value="newenergy">新能源</option>
+                        <option value="biotech">生物医药</option>
+                        <option value="education">教育培训</option>
+                        <option value="gaming">游戏/娱乐</option>
+                        <option value="media">传媒/广告</option>
+                        <option value="manufacturing">制造业</option>
+                        <option value="realestate">房地产/建筑</option>
+                        <option value="consulting">咨询/服务</option>
+                        <option value="other">其他行业</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="calculate-btn" id="calculateBtn" onclick="calculateSalary()">
+                生成薪资报告
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="salary-hero">
+                <div class="label">市场参考薪资</div>
+                <div class="salary-range" id="salaryRange">-</div>
+                <div class="salary-note">基于多平台数据综合分析 · 年薪制</div>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-card">
+                    <h3>平台对比</h3>
+                    <div id="platformList"></div>
+                </div>
+
+                <div class="detail-card">
+                    <h3>影响因素</h3>
+                    <div id="factorList"></div>
+                </div>
+
+                <div class="detail-card">
+                    <h3>定薪建议</h3>
+                    <div class="suggestion-text" id="suggestionContent"></div>
+                </div>
+            </div>
+
+            <div class="data-source">
+                <h3>数据来源</h3>
+                <div class="source-list">
+                    <button class="source-tag" onclick="showDataDetail('zhilian')">智联招聘2024Q3</button>
+                    <button class="source-tag" onclick="showDataDetail('boss')">BOSS直聘</button>
+                    <button class="source-tag" onclick="showDataDetail('liepin')">猎聘</button>
+                    <button class="source-tag" onclick="showDataDetail('51job')">前程无忧</button>
+                    <button class="source-tag" onclick="showDataDetail('xinzhi')">薪智白皮书</button>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <strong>免责声明</strong>
+                本系统提供的薪资数据仅供参考，实际定薪需结合公司实际情况、候选人面试表现、市场供需关系等因素综合考量。数据来源于公开薪酬报告和市场调研。
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <p>© 2025 薪资参考系统 · 智能定薪 · 数据驱动决策</p>
+    </footer>
+
+    <!-- Data Detail Modal -->
+    <div class="modal-overlay" id="dataModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">数据来源详情</h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // POSITION DATABASE
+        // ========================================
+        const positionDatabase = [
+            // ===== 技术研发 =====
+            { id: 'java', name: 'Java开发工程师', category: '技术研发', keywords: ['java', '后端', '开发', '工程师', '服务端', 'spring', 'springboot'], base: 180000, growth: 0.12 },
+            { id: 'python', name: 'Python开发工程师', category: '技术研发', keywords: ['python', '后端', '开发', 'django', 'flask', '爬虫'], base: 192000, growth: 0.15 },
+            { id: 'golang', name: 'Go开发工程师', category: '技术研发', keywords: ['go', 'golang', '后端', '开发', '高并发'], base: 216000, growth: 0.16 },
+            { id: 'php', name: 'PHP开发工程师', category: '技术研发', keywords: ['php', '后端', '开发', 'laravel', 'thinkphp'], base: 144000, growth: 0.08 },
+            { id: 'nodejs', name: 'Node.js开发工程师', category: '技术研发', keywords: ['node', 'nodejs', '后端', '全栈', 'javascript'], base: 180000, growth: 0.12 },
+            { id: 'frontend', name: '前端开发工程师', category: '技术研发', keywords: ['前端', 'web', 'vue', 'react', 'angular', 'javascript', 'js', 'css', 'html'], base: 168000, growth: 0.10 },
+            { id: 'ios', name: 'iOS开发工程师', category: '技术研发', keywords: ['ios', '苹果', 'swift', 'objective-c', 'app', '移动端'], base: 192000, growth: 0.11 },
+            { id: 'android', name: 'Android开发工程师', category: '技术研发', keywords: ['android', '安卓', 'kotlin', 'java', 'app', '移动端'], base: 180000, growth: 0.10 },
+            { id: 'miniapp', name: '小程序开发工程师', category: '技术研发', keywords: ['小程序', '微信', 'uniapp', 'taro', '移动端'], base: 168000, growth: 0.09 },
+            { id: 'ai', name: 'AI算法工程师', category: '技术研发', keywords: ['ai', '算法', '人工智能', '机器学习', '深度学习', 'nlp', 'cv'], base: 300000, growth: 0.20 },
+            { id: 'nlp_engineer', name: 'NLP工程师', category: '技术研发', keywords: ['nlp', '自然语言', '文本', '大模型', 'llm'], base: 336000, growth: 0.22 },
+            { id: 'cv_engineer', name: '计算机视觉工程师', category: '技术研发', keywords: ['cv', '视觉', '图像', '识别', '深度学习'], base: 312000, growth: 0.20 },
+            { id: 'llm_engineer', name: '大模型工程师', category: '技术研发', keywords: ['大模型', 'llm', 'gpt', 'bert', 'transformer', 'aigc'], base: 420000, growth: 0.25 },
+            { id: 'data_analyst', name: '数据分析师', category: '技术研发', keywords: ['数据', '分析', 'analyst', 'sql', 'python', 'bi', '可视化'], base: 168000, growth: 0.12 },
+            { id: 'data_engineer', name: '数据工程师', category: '技术研发', keywords: ['数据', 'etl', '数据仓库', 'hadoop', 'spark', 'flink', '大数据'], base: 216000, growth: 0.14 },
+            { id: 'data_scientist', name: '数据科学家', category: '技术研发', keywords: ['数据科学', '建模', '统计', '机器学习', '预测'], base: 300000, growth: 0.18 },
+            { id: 'bi_engineer', name: 'BI工程师', category: '技术研发', keywords: ['bi', '商业智能', '报表', '数据可视化', 'tableau'], base: 192000, growth: 0.11 },
+            { id: 'devops', name: '运维工程师', category: '技术研发', keywords: ['运维', 'devops', 'docker', 'k8s', 'kubernetes', 'linux', '服务器'], base: 180000, growth: 0.13 },
+            { id: 'sre', name: 'SRE工程师', category: '技术研发', keywords: ['sre', '运维', '可靠性', '稳定性', 'devops'], base: 216000, growth: 0.15 },
+            { id: 'cloud_engineer', name: '云计算工程师', category: '技术研发', keywords: ['云', 'aws', '阿里云', '腾讯云', '架构', '基础设施'], base: 240000, growth: 0.16 },
+            { id: 'qa', name: '测试工程师', category: '技术研发', keywords: ['测试', 'qa', '自动化', '功能测试', '性能测试', 'selenium'], base: 144000, growth: 0.09 },
+            { id: 'security', name: '安全工程师', category: '技术研发', keywords: ['安全', 'security', '渗透', '攻防', '漏洞', '网络安全'], base: 216000, growth: 0.15 },
+            { id: 'dba', name: '数据库管理员', category: '技术研发', keywords: ['dba', '数据库', 'mysql', 'oracle', 'sql', 'mongodb'], base: 192000, growth: 0.12 },
+            { id: 'blockchain', name: '区块链工程师', category: '技术研发', keywords: ['区块链', 'blockchain', '智能合约', 'web3', 'solidity'], base: 264000, growth: 0.18 },
+            { id: 'embedded', name: '嵌入式工程师', category: '技术研发', keywords: ['嵌入式', '单片机', 'c', '硬件', '物联网'], base: 180000, growth: 0.11 },
+            { id: 'hardware', name: '硬件工程师', category: '技术研发', keywords: ['硬件', '电路', 'pcb', '电子', '原理图'], base: 168000, growth: 0.10 },
+
+            // ===== 产品 =====
+            { id: 'pm', name: '产品经理', category: '产品', keywords: ['产品', 'pm', '产品经理', 'prd', '需求', '原型'], base: 204000, growth: 0.11 },
+            { id: 'po', name: '产品负责人', category: '产品', keywords: ['产品负责人', 'po', 'product owner', '敏捷'], base: 264000, growth: 0.14 },
+            { id: 'pmo', name: '项目管理', category: '产品', keywords: ['项目', '管理', 'pmo', 'pmp', '敏捷', 'scrum'], base: 216000, growth: 0.12 },
+            { id: 'growth_pm', name: '增长产品经理', category: '产品', keywords: ['增长', 'growth', '裂变', '拉新', '留存'], base: 240000, growth: 0.15 },
+            { id: 'data_pm', name: '数据产品经理', category: '产品', keywords: ['数据产品', 'bi', '报表', '数据中台'], base: 264000, growth: 0.14 },
+
+            // ===== 设计 =====
+            { id: 'ui', name: 'UI设计师', category: '设计', keywords: ['ui', '界面', '视觉', '设计', 'icon', 'app', 'web'], base: 144000, growth: 0.08 },
+            { id: 'ux', name: 'UX设计师', category: '设计', keywords: ['ux', '交互', '体验', '用户研究', 'wireframe', 'prototype'], base: 180000, growth: 0.10 },
+            { id: 'graphic', name: '平面设计师', category: '设计', keywords: ['平面', '海报', '画册', '品牌', '视觉', 'ps', 'ai'], base: 96000, growth: 0.06 },
+            { id: '3d', name: '3D设计师', category: '设计', keywords: ['3d', 'c4d', 'blender', 'maya', '建模', '渲染'], base: 156000, growth: 0.09 },
+            { id: 'video', name: '视频剪辑师', category: '设计', keywords: ['视频', '剪辑', 'pr', 'ae', 'premiere', '短视频'], base: 120000, growth: 0.07 },
+            { id: 'motion', name: '动效设计师', category: '设计', keywords: ['动效', '动画', 'ae', 'motion', '特效'], base: 180000, growth: 0.10 },
+            { id: 'illustrator', name: '插画师', category: '设计', keywords: ['插画', '手绘', '原画', '角色', '场景'], base: 144000, growth: 0.08 },
+            { id: 'game_design', name: '游戏设计师', category: '设计', keywords: ['游戏', '策划', '关卡', '系统', '数值'], base: 216000, growth: 0.12 },
+
+            // ===== 运营 =====
+            { id: 'operation', name: '运营专员', category: '运营', keywords: ['运营', '内容', '活动', '用户', '社群', '新媒体'], base: 108000, growth: 0.07 },
+            { id: 'content', name: '内容运营', category: '运营', keywords: ['内容', '文案', '编辑', '新媒体', '公众号', '知乎'], base: 120000, growth: 0.08 },
+            { id: 'user_operation', name: '用户运营', category: '运营', keywords: ['用户', '运营', '留存', '活跃', '生命周期'], base: 132000, growth: 0.09 },
+            { id: 'community', name: '社群运营', category: '运营', keywords: ['社群', '私域', '微信', '群', '用户'], base: 120000, growth: 0.08 },
+            { id: 'live_streaming', name: '直播运营', category: '运营', keywords: ['直播', '主播', '带货', '抖音', '快手', '淘宝'], base: 144000, growth: 0.10 },
+            { id: 'ecommerce_operation', name: '电商运营', category: '运营', keywords: ['电商', '运营', '淘宝', '天猫', '京东', '拼多多'], base: 132000, growth: 0.09 },
+            { id: 'growth_hacker', name: '增长黑客', category: '运营', keywords: ['增长', '黑客', 'growth', '裂变', '病毒'], base: 216000, growth: 0.15 },
+            { id: 'seo', name: 'SEO优化师', category: '运营', keywords: ['seo', '优化', '搜索引擎', '排名', 'sem'], base: 120000, growth: 0.08 },
+            { id: 'aso', name: 'ASO优化师', category: '运营', keywords: ['aso', '应用商店', '优化', '排名', 'app推广'], base: 132000, growth: 0.09 },
+
+            // ===== 市场/销售 =====
+            { id: 'marketing', name: '市场营销专员', category: '市场', keywords: ['市场', '营销', '推广', '品牌', 'marketing'], base: 120000, growth: 0.08 },
+            { id: 'brand', name: '品牌专员', category: '市场', keywords: ['品牌', 'branding', 'vi', '定位', '传播'], base: 144000, growth: 0.09 },
+            { id: 'pr', name: '公关专员', category: '市场', keywords: ['公关', 'pr', '媒介', '媒体', '危机'], base: 132000, growth: 0.08 },
+            { id: 'sales', name: '销售代表', category: '销售', keywords: ['销售', '客户', '业务', 'bd', 'sales'], base: 108000, growth: 0.10 },
+            { id: 'bd', name: '商务拓展', category: '销售', keywords: ['bd', '商务', '拓展', '合作', '渠道'], base: 144000, growth: 0.11 },
+            { id: 'key_account', name: '大客户经理', category: '销售', keywords: ['大客户', 'ka', '销售', '企业', 'b端'], base: 180000, growth: 0.12 },
+            { id: 'sales_manager', name: '销售经理', category: '销售', keywords: ['销售', '经理', '团队', '管理', '业绩'], base: 216000, growth: 0.13 },
+
+            // ===== 职能 =====
+            { id: 'hr', name: '人力资源专员', category: '职能', keywords: ['hr', '人力', '招聘', '薪酬', '绩效', '员工关系'], base: 108000, growth: 0.07 },
+            { id: 'hrd', name: '人力资源总监', category: '职能', keywords: ['hrd', '人力总监', '人力资源', 'hrbp', 'coe'], base: 360000, growth: 0.12 },
+            { id: 'recruiter', name: '招聘专员', category: '职能', keywords: ['招聘', '猎头', 'sourcing', '人才'], base: 108000, growth: 0.08 },
+            { id: 'c&b', name: '薪酬绩效专员', category: '职能', keywords: ['薪酬', '绩效', 'c&b', '激励', '福利'], base: 132000, growth: 0.09 },
+            { id: 'finance', name: '财务专员', category: '职能', keywords: ['财务', '会计', '出纳', '税务', '报表'], base: 114000, growth: 0.08 },
+            { id: 'auditor', name: '审计师', category: '职能', keywords: ['审计', '风控', '合规', '内审', '外审'], base: 144000, growth: 0.10 },
+            { id: 'admin', name: '行政专员', category: '职能', keywords: ['行政', '前台', '文员', '助理', '后勤'], base: 84000, growth: 0.05 },
+            { id: 'legal', name: '法务专员', category: '职能', keywords: ['法务', '律师', '法律', '合规', '合同'], base: 144000, growth: 0.09 },
+
+            // ===== 生物医药 =====
+            { id: 'drug_research', name: '药物研发工程师', category: '生物医药', keywords: ['药物', '研发', '新药', 'drug', 'discovery', 'medicine'], base: 240000, growth: 0.15 },
+            { id: 'synthesis_engineer', name: '药物合成工程师', category: '生物医药', keywords: ['合成', '有机', '化学', 'synthesis', '药物化学'], base: 216000, growth: 0.13 },
+            { id: 'bio_research', name: '生物药研发工程师', category: '生物医药', keywords: ['生物药', '抗体', '蛋白', 'bio', '单抗', '疫苗'], base: 228000, growth: 0.14 },
+            { id: 'clinical_research', name: '临床研究员', category: '生物医药', keywords: ['临床', 'cra', '试验', 'clinical', '研究'], base: 180000, growth: 0.12 },
+            { id: 'clinical_pm', name: '临床项目经理', category: '生物医药', keywords: ['临床', '项目经理', 'cpm', '试验管理'], base: 300000, growth: 0.15 },
+            { id: 'regulatory', name: '注册专员', category: '生物医药', keywords: ['注册', '法规', 'ra', '药监局', '申报'], base: 192000, growth: 0.11 },
+            { id: 'qa_specialist', name: '质量保证专员', category: '生物医药', keywords: ['qa', '质量', '保证', 'gmp', '合规'], base: 156000, growth: 0.10 },
+            { id: 'qc_analyst', name: '质量控制分析师', category: '生物医药', keywords: ['qc', '质量', '控制', '检测', '分析'], base: 144000, growth: 0.09 },
+            { id: 'production_specialist', name: '生产专员', category: '生物医药', keywords: ['生产', '制造', 'gmp', '车间', '工艺'], base: 132000, growth: 0.08 },
+            { id: 'process_engineer', name: '工艺工程师', category: '生物医药', keywords: ['工艺', 'process', '技术转移', '放大', '生产'], base: 204000, growth: 0.12 },
+            { id: 'medical_affairs', name: '医学事务专员', category: '生物医药', keywords: ['医学', 'ma', '事务', '医学部', 'msl'], base: 264000, growth: 0.14 },
+            { id: 'pharmacovigilance', name: '药物警戒专员', category: '生物医药', keywords: ['pv', '药物警戒', '安全', '不良反应', '监察'], base: 180000, growth: 0.11 },
+            { id: 'medical_writer', name: '医学撰写', category: '生物医药', keywords: ['医学写作', '撰写', 'mw', '文献', '报告'], base: 168000, growth: 0.10 },
+            { id: 'drug_safety', name: '药品安全专员', category: '生物医药', keywords: ['药品安全', '安全评估', '风险管理', 'safety'], base: 192000, growth: 0.11 },
+            { id: 'bioinformatics', name: '生物信息工程师', category: '生物医药', keywords: ['生物信息', 'bioinformatics', '基因组', '测序', '分析'], base: 240000, growth: 0.15 },
+            { id: 'medical_representative', name: '医药代表', category: '生物医药', keywords: ['医药代表', '销售', 'msr', '医院', '药品'], base: 156000, growth: 0.12 },
+            { id: 'medical_manager', name: '区域销售经理', category: '生物医药', keywords: ['区域', '销售', '经理', 'rsm', '团队'], base: 300000, growth: 0.15 },
+            { id: 'medical_director', name: '医学总监', category: '生物医药', keywords: ['医学总监', 'medical', 'director', '策略', '上市'], base: 600000, growth: 0.18 },
+
+            // ===== 其他 =====
+            { id: 'customer_service', name: '客服专员', category: '客服', keywords: ['客服', '服务', '售后', '咨询', '投诉'], base: 72000, growth: 0.05 },
+            { id: 'trainer', name: '培训师', category: '教育', keywords: ['培训', '讲师', '教育', '课程', '内训'], base: 144000, growth: 0.09 },
+            { id: 'consultant', name: '咨询顾问', category: '咨询', keywords: ['咨询', '顾问', '战略', '管理', '解决方案'], base: 216000, growth: 0.13 },
+            { id: 'analyst', name: '行业分析师', category: '研究', keywords: ['分析', '研究', '行业', '报告', '洞察'], base: 240000, growth: 0.14 },
+        ];
+
+        // ========================================
+        // FACTORS
+        // ========================================
+        const cityFactors = {
+            beijing: { factor: 1.35, name: '北京' },
+            shanghai: { factor: 1.32, name: '上海' },
+            shenzhen: { factor: 1.30, name: '深圳' },
+            guangzhou: { factor: 1.15, name: '广州' },
+            hangzhou: { factor: 1.20, name: '杭州' },
+            chengdu: { factor: 0.95, name: '成都' },
+            nanjing: { factor: 1.00, name: '南京' },
+            wuhan: { factor: 0.90, name: '武汉' },
+            xian: { factor: 0.88, name: '西安' },
+            other: { factor: 0.85, name: '其他城市' }
+        };
+
+        const educationFactors = {
+            college: { factor: 0.85, name: '大专' },
+            bachelor: { factor: 1.0, name: '普通本科' },
+            bachelor_985211: { factor: 1.15, name: '985/211本科' },
+            master: { factor: 1.20, name: '普通硕士' },
+            master_985211: { factor: 1.35, name: '985/211硕士' },
+            phd: { factor: 1.50, name: '博士' }
+        };
+
+        const experienceFactors = {
+            0: { factor: 0.60, name: '应届生/实习' },
+            1: { factor: 0.85, name: '1-3年' },
+            3: { factor: 1.00, name: '3-5年' },
+            5: { factor: 1.25, name: '5-8年' },
+            8: { factor: 1.50, name: '8-10年' },
+            10: { factor: 1.80, name: '10年以上' }
+        };
+
+        const industryFactors = {
+            internet: { factor: 1.15, name: '互联网/科技' },
+            finance: { factor: 1.20, name: '金融/投资' },
+            ai: { factor: 1.25, name: '人工智能' },
+            ecommerce: { factor: 1.10, name: '电子商务' },
+            newenergy: { factor: 1.15, name: '新能源' },
+            biotech: { factor: 1.12, name: '生物医药' },
+            education: { factor: 0.85, name: '教育培训' },
+            gaming: { factor: 1.18, name: '游戏/娱乐' },
+            media: { factor: 0.95, name: '传媒/广告' },
+            manufacturing: { factor: 0.90, name: '制造业' },
+            realestate: { factor: 0.88, name: '房地产/建筑' },
+            consulting: { factor: 1.10, name: '咨询/服务' },
+            other: { factor: 1.00, name: '其他行业' }
+        };
+
+        const platformFactors = {
+            'BOSS直聘': 1.05,
+            '智联招聘': 1.00,
+            '猎聘': 1.10,
+            '前程无忧': 0.95,
+            '拉勾网': 1.08
+        };
+
+        // ========================================
+        // DATA SOURCE DETAILS
+        // ========================================
+        const dataSourceDetails = {
+            zhilian: {
+                title: '智联招聘 2024年Q3薪酬报告',
+                content: `
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">报告概要</div>
+                        <div class="data-detail-content">
+                            <p>智联招聘《2024年第三季度中国企业招聘薪酬报告》基于全国38个核心城市的企业招聘数据，覆盖互联网行业、金融、制造等多个领域。</p>
+                        </div>
+                    </div>
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">核心数据</div>
+                        <div class="data-detail-content">
+                            <table class="data-table">
+                                <tr><th>指标</th><th>数值</th></tr>
+                                <tr><td>38城平均招聘月薪</td><td>10,058元</td></tr>
+                                <tr><td>环比变化</td><td>-2.5%</td></tr>
+                                <tr><td>同比变化</td><td>-0.6%</td></tr>
+                                <tr><td>25%分位数</td><td>6,000元</td></tr>
+                                <tr><td>中位数</td><td>8,000元</td></tr>
+                                <tr><td>75%分位数</td><td>11,665元</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">高薪行业排名</div>
+                        <div class="data-detail-content">
+                            <ul>
+                                <li>基金/证券/期货/投资：13,353元/月</li>
+                                <li>保险：12,541元/月</li>
+                                <li>银行业：11,467元/月</li>
+                                <li>能源行业：薪资环比+2.2%</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            boss: {
+                title: 'BOSS直聘薪酬大数据',
+                content: `
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">数据来源</div>
+                        <div class="data-detail-content">
+                            <p>BOSS直聘薪酬数据基于平台数千万活跃用户的海量职位信息和薪资数据，通过大数据算法模型分析得出，涵盖100+城市、50+行业。</p>
+                        </div>
+                    </div>
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">热门岗位薪资（年薪）</div>
+                        <div class="data-detail-content">
+                            <table class="data-table">
+                                <tr><th>岗位</th><th>一线城市</th><th>新一线</th></tr>
+                                <tr><td>AI工程师</td><td>35-60万</td><td>28-48万</td></tr>
+                                <tr><td>Java开发</td><td>20-40万</td><td>16-32万</td></tr>
+                                <tr><td>产品经理</td><td>22-45万</td><td>18-36万</td></tr>
+                                <tr><td>UI设计师</td><td>15-30万</td><td>12-24万</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            liepin: {
+                title: '猎聘行业薪资报告',
+                content: `
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">报告特色</div>
+                        <div class="data-detail-content">
+                            <p>猎聘专注中高端人才市场，数据覆盖年薪20万以上岗位，包含详细的行业薪酬分位值分析。</p>
+                        </div>
+                    </div>
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">行业涨薪率</div>
+                        <div class="data-detail-content">
+                            <table class="data-table">
+                                <tr><th>行业</th><th>平均涨薪率</th></tr>
+                                <tr><td>人工智能</td><td>+15-25%</td></tr>
+                                <tr><td>生物医药</td><td>+8-12%</td></tr>
+                                <tr><td>新能源</td><td>+10-15%</td></tr>
+                                <tr><td>金融科技</td><td>+6-10%</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            '51job': {
+                title: '前程无忧薪酬调研',
+                content: `
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">调研范围</div>
+                        <div class="data-detail-content">
+                            <p>前程无忧薪酬调研覆盖全国300+城市，涉及1000+岗位类型，数据来源于企业HR直接填报和平台职位分析。</p>
+                        </div>
+                    </div>
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">2024年薪资趋势</div>
+                        <div class="data-detail-content">
+                            <ul>
+                                <li>互联网行业薪资增长放缓，同比+3-5%</li>
+                                <li>传统行业数字化转型岗位需求旺盛</li>
+                                <li>应届生起薪：本科6-8K，硕士8-12K</li>
+                                <li>5年以上经验人才溢价明显</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            xinzhi: {
+                title: '薪智2025行业白皮书',
+                content: `
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">白皮书简介</div>
+                        <div class="data-detail-content">
+                            <p>薪智《2025互联网行业人力核心指标白皮书》基于大数据平台数百万薪酬样本，深度分析互联网行业薪酬变化趋势。</p>
+                        </div>
+                    </div>
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">热门岗位及薪酬</div>
+                        <div class="data-detail-content">
+                            <table class="data-table">
+                                <tr><th>岗位</th><th>一线城市月薪</th></tr>
+                                <tr><td>人工智能工程师</td><td>21,930元</td></tr>
+                                <tr><td>核心技术岗</td><td>15,000+元</td></tr>
+                                <tr><td>数据工程师</td><td>18,000元</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="data-detail-item">
+                        <div class="data-detail-title">城市薪酬差异</div>
+                        <div class="data-detail-content">
+                            <ul>
+                                <li>一线城市平均薪酬最高</li>
+                                <li>长三角、珠三角城市薪酬增长较快</li>
+                                <li>杭州、南京等新一线城市薪酬竞争力提升</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // ========================================
+        // STATE
+        // ========================================
+        let selectedPosition = null;
+        let isSearching = false;
+        let searchTimeout = null;
+        let selectedIndex = -1;
+        let currentMatches = [];
+
+        // ========================================
+        // DOM ELEMENTS
+        // ========================================
+        const positionInput = document.getElementById('positionInput');
+        const autocompleteDropdown = document.getElementById('autocompleteDropdown');
+        const searchLoading = document.getElementById('searchLoading');
+        const navbar = document.getElementById('navbar');
+        const inputCard = document.getElementById('inputCard');
+        const formGroups = document.querySelectorAll('.form-group');
+        const footer = document.getElementById('footer');
+
+        // ========================================
+        // SCROLL ANIMATIONS
+        // ========================================
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            observer.observe(inputCard);
+            formGroups.forEach((group, index) => {
+                group.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(group);
+            });
+            observer.observe(footer);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ========================================
+        // MODAL FUNCTIONS
+        // ========================================
+        function showDataDetail(source) {
+            const modal = document.getElementById('dataModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            const data = dataSourceDetails[source];
+            
+            if (data) {
+                title.textContent = data.title;
+                content.innerHTML = data.content;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'dataModal' || event.target.classList.contains('modal-close')) {
+                const modal = document.getElementById('dataModal');
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ========================================
+        // SEARCH FUNCTIONS
+        // ========================================
+        positionInput.addEventListener('input', handleInput);
+        positionInput.addEventListener('focus', handleFocus);
+        positionInput.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-input-wrapper')) {
+                autocompleteDropdown.classList.remove('active');
+            }
+        });
+
+        function handleInput(e) {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim();
+            
+            if (query.length === 0) {
+                autocompleteDropdown.classList.remove('active');
+                selectedPosition = null;
+                return;
+            }
+
+            const localMatches = findLocalMatches(query);
+            if (localMatches.length > 0) {
+                currentMatches = localMatches;
+                selectedIndex = -1;
+                renderAutocomplete(currentMatches, false);
+            }
+
+            searchTimeout = setTimeout(() => {
+                searchNetworkMatches(query, localMatches);
+            }, 500);
+        }
+
+        function handleFocus(e) {
+            if (e.target.value.trim().length > 0) {
+                const localMatches = findLocalMatches(e.target.value.trim());
+                if (localMatches.length > 0) {
+                    currentMatches = localMatches;
+                    selectedIndex = -1;
+                    renderAutocomplete(currentMatches, false);
+                }
+            }
+        }
+
+        function findLocalMatches(query) {
+            const queryLower = query.toLowerCase();
+            
+            return positionDatabase.map(pos => {
+                let score = 0;
+                const nameLower = pos.name.toLowerCase();
+                
+                if (nameLower === queryLower) {
+                    score += 100;
+                } else if (nameLower.startsWith(queryLower)) {
+                    score += 80;
+                } else if (nameLower.includes(queryLower)) {
+                    score += 60;
+                } else {
+                    for (const keyword of pos.keywords) {
+                        if (keyword.toLowerCase().includes(queryLower)) {
+                            score += 40;
+                            break;
+                        }
+                    }
+                }
+                
+                return { ...pos, score, source: 'local' };
+            }).filter(pos => pos.score > 0).sort((a, b) => b.score - a.score).slice(0, 6);
+        }
+
+        async function searchNetworkMatches(query, existingMatches) {
+            if (isSearching || query.length < 2) return;
+            
+            isSearching = true;
+            searchLoading.classList.add('active');
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                const networkMatches = generateSmartMatches(query, existingMatches);
+                
+                if (networkMatches.length > 0) {
+                    const existingIds = new Set(existingMatches.map(m => m.id));
+                    const newMatches = networkMatches.filter(m => !existingIds.has(m.id));
+                    currentMatches = [...existingMatches, ...newMatches].slice(0, 8);
+                    renderAutocomplete(currentMatches, true);
+                }
+            } catch (error) {
+                console.error('搜索失败:', error);
+            } finally {
+                isSearching = false;
+                searchLoading.classList.remove('active');
+            }
+        }
+
+        function generateSmartMatches(query, existingMatches) {
+            const queryLower = query.toLowerCase();
+            const matches = [];
+            
+            // 关键词映射扩展
+            const keywordMappings = {
+                // 生物医药
+                '临床': { id: 'clinical_research', name: '临床研究员', category: '生物医药', base: 180000, growth: 0.12 },
+                'cra': { id: 'clinical_research', name: '临床研究员', category: '生物医药', base: 180000, growth: 0.12 },
+                '注册': { id: 'regulatory', name: '注册专员', category: '生物医药', base: 192000, growth: 0.11 },
+                'ra': { id: 'regulatory', name: '注册专员', category: '生物医药', base: 192000, growth: 0.11 },
+                'qa': { id: 'qa_specialist', name: '质量保证专员', category: '生物医药', base: 156000, growth: 0.10 },
+                'qc': { id: 'qc_analyst', name: '质量控制分析师', category: '生物医药', base: 144000, growth: 0.09 },
+                '质量': { id: 'qa_specialist', name: '质量保证专员', category: '生物医药', base: 156000, growth: 0.10 },
+                'gmp': { id: 'qa_specialist', name: '质量保证专员', category: '生物医药', base: 156000, growth: 0.10 },
+                '合成': { id: 'synthesis_engineer', name: '药物合成工程师', category: '生物医药', base: 216000, growth: 0.13 },
+                '药物': { id: 'drug_research', name: '药物研发工程师', category: '生物医药', base: 240000, growth: 0.15 },
+                '生物药': { id: 'bio_research', name: '生物药研发工程师', category: '生物医药', base: 228000, growth: 0.14 },
+                '抗体': { id: 'bio_research', name: '生物药研发工程师', category: '生物医药', base: 228000, growth: 0.14 },
+                '医学': { id: 'medical_affairs', name: '医学事务专员', category: '生物医药', base: 264000, growth: 0.14 },
+                'msl': { id: 'medical_affairs', name: '医学事务专员', category: '生物医药', base: 264000, growth: 0.14 },
+                '医药代表': { id: 'medical_representative', name: '医药代表', category: '生物医药', base: 156000, growth: 0.12 },
+                '药代': { id: 'medical_representative', name: '医药代表', category: '生物医药', base: 156000, growth: 0.12 },
+                'pv': { id: 'pharmacovigilance', name: '药物警戒专员', category: '生物医药', base: 180000, growth: 0.11 },
+                '药物警戒': { id: 'pharmacovigilance', name: '药物警戒专员', category: '生物医药', base: 180000, growth: 0.11 },
+                '生物信息': { id: 'bioinformatics', name: '生物信息工程师', category: '生物医药', base: 240000, growth: 0.15 },
+                '工艺': { id: 'process_engineer', name: '工艺工程师', category: '生物医药', base: 204000, growth: 0.12 },
+                '医学写作': { id: 'medical_writer', name: '医学撰写', category: '生物医药', base: 168000, growth: 0.10 },
+                // 技术
+                '直播': { id: 'live_streaming', name: '直播运营', category: '运营', base: 144000, growth: 0.10 },
+                '主播': { id: 'live_streaming', name: '直播运营', category: '运营', base: 144000, growth: 0.10 },
+                '带货': { id: 'live_streaming', name: '直播运营', category: '运营', base: 144000, growth: 0.10 },
+                '私域': { id: 'community', name: '社群运营', category: '运营', base: 120000, growth: 0.08 },
+                '社群': { id: 'community', name: '社群运营', category: '运营', base: 120000, growth: 0.08 },
+                '大模型': { id: 'llm_engineer', name: '大模型工程师', category: '技术研发', base: 420000, growth: 0.25 },
+                'gpt': { id: 'llm_engineer', name: '大模型工程师', category: '技术研发', base: 420000, growth: 0.25 },
+                'aigc': { id: 'llm_engineer', name: '大模型工程师', category: '技术研发', base: 420000, growth: 0.25 },
+                '区块链': { id: 'blockchain', name: '区块链工程师', category: '技术研发', base: 264000, growth: 0.18 },
+                'web3': { id: 'blockchain', name: '区块链工程师', category: '技术研发', base: 264000, growth: 0.18 },
+            };
+
+            for (const [keyword, data] of Object.entries(keywordMappings)) {
+                if (queryLower.includes(keyword)) {
+                    const existingMatch = existingMatches.find(m => m.id === data.id);
+                    if (!existingMatch) {
+                        matches.push({
+                            ...data,
+                            keywords: [keyword],
+                            score: 70,
+                            source: 'network'
+                        });
+                    }
+                }
+            }
+
+            return matches;
+        }
+
+        function handleKeyDown(e) {
+            if (!autocompleteDropdown.classList.contains('active')) return;
+
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    selectedIndex = Math.min(selectedIndex + 1, currentMatches.length - 1);
+                    updateSelection();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    selectedIndex = Math.max(selectedIndex - 1, -1);
+                    updateSelection();
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    if (selectedIndex >= 0 && currentMatches[selectedIndex]) {
+                        selectPosition(currentMatches[selectedIndex]);
+                    }
+                    break;
+                case 'Escape':
+                    autocompleteDropdown.classList.remove('active');
+                    break;
+            }
+        }
+
+        function updateSelection() {
+            const items = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+            items.forEach((item, index) => {
+                if (index === selectedIndex) {
+                    item.classList.add('selected');
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+
+        function renderAutocomplete(matches, includeNetwork) {
+            if (matches.length === 0) {
+                autocompleteDropdown.innerHTML = `
+                    <div class="autocomplete-item">
+                        <div class="position-name">未找到匹配的岗位</div>
+                        <div class="position-category">请尝试其他关键词，如：Java、产品经理、药物研发...</div>
+                    </div>
+                `;
+            } else {
+                autocompleteDropdown.innerHTML = matches.map((pos, index) => `
+                    <div class="autocomplete-item" data-index="${index}" data-id="${pos.id}">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="position-name">${pos.name}</div>
+                                <div class="position-category">${pos.category}</div>
+                            </div>
+                            ${pos.source === 'network' ? '<span class="match-source">智能匹配</span>' : ''}
+                        </div>
+                    </div>
+                `).join('');
+
+                autocompleteDropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const index = parseInt(item.dataset.index);
+                        selectPosition(matches[index]);
+                    });
+                });
+            }
+
+            autocompleteDropdown.classList.add('active');
+        }
+
+        function selectPosition(position) {
+            selectedPosition = position;
+            positionInput.value = position.name;
+            autocompleteDropdown.classList.remove('active');
+        }
+
+        // ========================================
+        // CALCULATE FUNCTIONS
+        // ========================================
+        function formatSalary(num) {
+            if (num >= 10000) {
+                return (num / 10000).toFixed(1) + '万';
+            }
+            return num.toLocaleString() + '元';
+        }
+
+        function formatSalaryRange(min, max) {
+            return formatSalary(min) + ' - ' + formatSalary(max);
+        }
+
+        function calculateSalary() {
+            if (!selectedPosition) {
+                alert('请先输入并选择目标岗位');
+                positionInput.focus();
+                return;
+            }
+
+            const experience = parseInt(document.getElementById('experience').value);
+            const city = document.getElementById('city').value;
+            const education = document.getElementById('education').value;
+            const industry = document.getElementById('industry').value;
+
+            if (!experience && experience !== 0) {
+                alert('请选择工作年限');
+                return;
+            }
+            if (!city) {
+                alert('请选择所在城市');
+                return;
+            }
+            if (!education) {
+                alert('请选择学历背景');
+                return;
+            }
+
+            const cityData = cityFactors[city];
+            const eduData = educationFactors[education];
+            const expData = experienceFactors[experience];
+            const industryData = industry ? industryFactors[industry] : { factor: 1.0, name: '未指定' };
+
+            const baseSalary = selectedPosition.base || 120000;
+            const adjustedSalary = baseSalary * cityData.factor * eduData.factor * expData.factor * industryData.factor;
+            
+            const minSalary = Math.round(adjustedSalary * 0.85 / 1000) * 1000;
+            const maxSalary = Math.round(adjustedSalary * 1.15 / 1000) * 1000;
+
+            document.getElementById('salaryRange').textContent = formatSalaryRange(minSalary, maxSalary) + '/年';
+
+            const platformList = document.getElementById('platformList');
+            platformList.innerHTML = Object.entries(platformFactors).map(([name, factor]) => {
+                const salary = Math.round(adjustedSalary * factor / 1000) * 1000;
+                return `
+                    <div class="platform-item">
+                        <span class="platform-name">${name}</span>
+                        <span class="platform-salary">${formatSalary(salary)}/年</span>
+                    </div>
+                `;
+            }).join('');
+
+            const factorList = document.getElementById('factorList');
+            const factors = [
+                { name: cityData.name, value: (cityData.factor >= 1 ? '+' : '') + ((cityData.factor - 1) * 100).toFixed(0) + '%' },
+                { name: eduData.name, value: (eduData.factor >= 1 ? '+' : '') + ((eduData.factor - 1) * 100).toFixed(0) + '%' },
+                { name: expData.name, value: (expData.factor >= 1 ? '+' : '') + ((expData.factor - 1) * 100).toFixed(0) + '%' },
+                { name: industryData.name, value: (industryData.factor >= 1 ? '+' : '') + ((industryData.factor - 1) * 100).toFixed(0) + '%' }
+            ];
+            factorList.innerHTML = factors.map(f => `
+                <div class="factor-item">
+                    <span class="factor-name">${f.name}</span>
+                    <span class="factor-value">${f.value}</span>
+                </div>
+            `).join('');
+
+            const suggestionContent = document.getElementById('suggestionContent');
+            let suggestionHTML = '';
+            
+            suggestionHTML += `<p><strong>${selectedPosition.name}</strong>的市场参考年薪为 <strong>${formatSalaryRange(minSalary, maxSalary)}</strong>。</p>`;
+            
+            if (education.includes('985211') || education === 'phd') {
+                suggestionHTML += `<p>候选人学历背景优秀，建议定薪可偏向区间中上限。</p>`;
+            }
+            
+            if (experience >= 5) {
+                suggestionHTML += `<p>具备${expData.name}经验，建议关注实际项目能力，可考虑上浮5-10%。</p>`;
+            }
+
+            if (industry && ['ai', 'newenergy', 'biotech', 'gaming'].includes(industry)) {
+                suggestionHTML += `<p>该行业属于热门高薪领域，人才竞争激烈，建议薪资具备市场竞争力。</p>`;
+            }
+
+            suggestionHTML += `<p>建议根据候选人面试表现和技能匹配度在参考范围内确定最终薪资。</p>`;
+            
+            suggestionContent.innerHTML = suggestionHTML;
+
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.classList.add('active');
+            
+            setTimeout(() => {
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        // ========================================
+        // INITIALIZE
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollAnimations();
+        });
+    </script>
+</body>
+</html>
