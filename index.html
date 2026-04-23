@@ -2483,6 +2483,9 @@
                     </svg>
                     AI 深度分析候选人
                 </button>
+                <div id="apiKeyHint" style="text-align:center;font-size:12px;color:var(--apple-text-secondary);margin-top:-16px;margin-bottom:12px;opacity:0.7;">
+                    💡 配置混元 API Key 可获得更智能的 AI 分析 <a href="javascript:openSettingsModal()" style="color:var(--apple-blue);text-decoration:none;font-weight:500;">前往配置 →</a>
+                </div>
 
                 <!-- Enhanced AI Result -->
                 <div class="enhance-result liquid-glass" id="enhanceResult" style="display:none;">
@@ -2586,7 +2589,7 @@
         // ========================================
         // HUNYUAN AI INTEGRATION
         // ========================================
-        const HUNYUAN_API_URL = 'https://api.hunyuan.tencent.com/v1/chat/completions';
+        const HUNYUAN_API_URL = 'https://api.hunyuan.cloud.tencent.com/v1/chat/completions';
 
         function getHunyuanApiKey() {
             return localStorage.getItem('hunyuan_api_key') || '';
@@ -2628,6 +2631,7 @@
                 status.textContent = '⚠️ 未配置 API Key，将使用本地规则分析';
                 status.style.color = 'rgba(255,255,255,0.5)';
             }
+            updateApiKeyHint();
             setTimeout(() => closeSettingsModal(), 1200);
         }
 
@@ -5547,7 +5551,15 @@
         // ========================================
         document.addEventListener('DOMContentLoaded', () => {
             initScrollAnimations();
+            updateApiKeyHint();
         });
+
+        function updateApiKeyHint() {
+            const hint = document.getElementById('apiKeyHint');
+            if (hint) {
+                hint.style.display = getHunyuanApiKey() ? 'none' : 'block';
+            }
+        }
     </script>
 </body>
 </html>
