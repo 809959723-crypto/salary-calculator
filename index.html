@@ -1040,6 +1040,283 @@
             font-size: 15px;
         }
 
+        /* ===== CANDIDATE SECTION ===== */
+        .candidate-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid var(--apple-border);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s var(--ease-out-expo) 0.7s;
+        }
+
+        .results-section.active .candidate-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .candidate-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .candidate-header h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--apple-text);
+            margin-bottom: 8px;
+        }
+
+        .candidate-header p {
+            font-size: 15px;
+            color: var(--apple-text-secondary);
+        }
+
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .candidate-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .candidate-upload-card {
+            background: var(--apple-card);
+            border-radius: 20px;
+            padding: 28px;
+            border: 2px dashed var(--apple-border);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .candidate-upload-card:focus-within {
+            border-color: var(--apple-blue);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        }
+
+        .upload-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: var(--primary-light, rgba(0, 113, 227, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--apple-blue);
+        }
+
+        .interview-icon {
+            background: rgba(16, 185, 129, 0.1) !important;
+            color: var(--success, #10b981) !important;
+        }
+
+        .candidate-upload-card h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .candidate-upload-card > p {
+            font-size: 13px;
+            color: var(--apple-text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .candidate-textarea {
+            width: 100%;
+            min-height: 160px;
+            padding: 16px;
+            border: 1.5px solid var(--apple-border);
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--apple-text);
+            background: var(--apple-gray);
+            resize: vertical;
+            transition: all 0.3s var(--ease-out-expo);
+            font-family: inherit;
+        }
+
+        .candidate-textarea:focus {
+            outline: none;
+            border-color: var(--apple-blue);
+            background: var(--apple-card);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
+        }
+
+        .candidate-textarea::placeholder {
+            color: #b0b0b5;
+            font-size: 13px;
+        }
+
+        .ai-enhance-btn {
+            width: 100%;
+            padding: 18px 32px;
+            font-size: 17px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.4s var(--ease-spring);
+            letter-spacing: -0.01em;
+        }
+
+        .ai-enhance-btn:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
+        }
+
+        .ai-enhance-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .ai-enhance-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ===== ENHANCE RESULT ===== */
+        .enhance-result {
+            margin-top: 28px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            padding: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .enhance-result.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .enhance-result-header {
+            margin-bottom: 24px;
+        }
+
+        .enhance-section {
+            margin-bottom: 24px;
+        }
+
+        .enhance-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .enhance-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .enhance-section-title::before {
+            content: '▸';
+            color: #10b981;
+        }
+
+        .enhance-section p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #374151;
+        }
+
+        .enhance-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(16, 185, 129, 0.12);
+            border-radius: 6px;
+            font-size: 12px;
+            color: #059669;
+            font-weight: 500;
+            margin: 2px 4px;
+        }
+
+        .enhance-highlight {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .enhance-salary-box {
+            background: white;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .enhance-salary-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .enhance-salary-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .enhance-salary-note {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-top: 8px;
+        }
+
+        .enhance-score-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .enhance-score-label {
+            font-size: 13px;
+            color: #374151;
+            min-width: 80px;
+        }
+
+        .enhance-score-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .enhance-score-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 1s var(--ease-out-expo);
+        }
+
+        .enhance-score-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #059669;
+            min-width: 32px;
+            text-align: right;
+        }
+
         /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed;
@@ -1475,6 +1752,66 @@
             <div class="disclaimer">
                 <strong>免责声明</strong>
                 本系统提供的薪资数据仅供参考，实际定薪需结合公司实际情况、候选人面试表现、市场供需关系等因素综合考量。数据来源于公开薪酬报告和市场调研。
+            </div>
+
+            <!-- Candidate Enhancement Section -->
+            <div class="candidate-section" id="candidateSection">
+                <div class="candidate-header">
+                    <h3>上传候选人信息，获取精准定薪建议</h3>
+                    <p>可选上传简历和面试评价，AI 将结合市场数据和个人背景给出更精准的定薪建议</p>
+                </div>
+
+                <div class="candidate-grid">
+                    <div class="candidate-upload-card">
+                        <div class="upload-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10 9 9 9 8 9"/>
+                            </svg>
+                        </div>
+                        <h4>候选人简历</h4>
+                        <p>粘贴简历内容，AI 将自动提取关键信息</p>
+                        <textarea id="resumeInput" class="candidate-textarea" placeholder="请粘贴候选人简历内容...&#10;&#10;例如：&#10;张三，男，2018年毕业于北京大学计算机系硕士&#10;6年Java开发经验，曾就职于字节跳动&#10;主导过千万级用户系统架构设计&#10;熟悉Spring Cloud、微服务架构"></textarea>
+                    </div>
+
+                    <div class="candidate-upload-card">
+                        <div class="upload-icon interview-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h4>面试评价</h4>
+                        <p>填写面试官评价，帮助AI更准确判断</p>
+                        <textarea id="interviewInput" class="candidate-textarea" placeholder="请填写面试评价...&#10;&#10;例如：&#10;技术能力：优秀，系统设计思路清晰&#10;沟通能力：良好，表达有条理&#10;团队匹配：较好，与团队氛围契合&#10;整体评价：建议录用，定薪可偏上限"></textarea>
+                    </div>
+                </div>
+
+                <button class="ai-enhance-btn" id="aiEnhanceBtn" onclick="enhanceAnalysis()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    AI 深度分析候选人
+                </button>
+
+                <!-- Enhanced AI Result -->
+                <div class="enhance-result" id="enhanceResult" style="display:none;">
+                    <div class="enhance-result-header">
+                        <div class="ai-badge" style="margin:0;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
+                                <path d="M16 14a4 4 0 0 1 4 4v2H4v-2a4 4 0 0 1 4-4h8z"/>
+                            </svg>
+                            候选人 AI 画像分析
+                        </div>
+                    </div>
+                    <div id="enhanceResultContent"></div>
+                </div>
             </div>
         </div>
     </main>
@@ -3196,6 +3533,409 @@
 
                 generateAIAnalysis(analysisContext);
             }, 1200);
+        }
+
+        // ========================================
+        // CANDIDATE ENHANCEMENT AI
+        // ========================================
+        function enhanceAnalysis() {
+            const resumeText = document.getElementById('resumeInput').value.trim();
+            const interviewText = document.getElementById('interviewInput').value.trim();
+            const btn = document.getElementById('aiEnhanceBtn');
+
+            if (!resumeText && !interviewText) {
+                alert('请至少填写简历内容或面试评价中的一项');
+                return;
+            }
+
+            if (!selectedPosition) {
+                alert('请先生成薪资报告');
+                return;
+            }
+
+            // Disable button and show loading
+            btn.disabled = true;
+            btn.innerHTML = `
+                <div class="ai-typing" style="margin:0;"><span></span><span></span><span></span></div>
+                AI 正在分析候选人...
+            `;
+
+            const resultDiv = document.getElementById('enhanceResult');
+            const resultContent = document.getElementById('enhanceResultContent');
+            resultDiv.style.display = 'block';
+
+            resultContent.innerHTML = `
+                <div style="text-align:center;padding:30px;color:#6b7280;">
+                    <div class="ai-typing"><span></span><span></span><span></span></div>
+                    <p style="margin-top:12px;font-size:14px;">AI 正在解析候选人信息并生成画像...</p>
+                </div>
+            `;
+
+            setTimeout(() => {
+                resultDiv.classList.add('visible');
+            }, 100);
+
+            // Simulate AI analysis delay
+            setTimeout(() => {
+                const analysis = analyzeCandidate(resumeText, interviewText);
+                resultContent.innerHTML = analysis;
+
+                // Re-enable button
+                btn.disabled = false;
+                btn.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    重新分析候选人
+                `;
+
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 2500);
+        }
+
+        function analyzeCandidate(resumeText, interviewText) {
+            // ===== Resume Parsing =====
+            const resumeInfo = parseResume(resumeText);
+            const interviewInfo = parseInterview(interviewText);
+
+            // ===== Calculate candidate scores =====
+            const scores = calculateCandidateScores(resumeInfo, interviewInfo);
+
+            // ===== Generate AI recommendation =====
+            const recommendation = generateCandidateRecommendation(resumeInfo, interviewInfo, scores);
+
+            // ===== Build result HTML =====
+            let html = '';
+
+            // Resume extraction section
+            if (resumeText) {
+                html += `
+                    <div class="enhance-section">
+                        <div class="enhance-section-title">简历信息提取</div>
+                        <p>
+                            ${resumeInfo.school ? `<span class="enhance-tag">${resumeInfo.school}</span>` : ''}
+                            ${resumeInfo.degree ? `<span class="enhance-tag">${resumeInfo.degree}</span>` : ''}
+                            ${resumeInfo.years ? `<span class="enhance-tag">${resumeInfo.years}年经验</span>` : ''}
+                            ${resumeInfo.companies.length > 0 ? resumeInfo.companies.map(c => `<span class="enhance-tag">${c}</span>`).join('') : ''}
+                            ${resumeInfo.skills.length > 0 ? resumeInfo.skills.map(s => `<span class="enhance-tag">${s}</span>`).join('') : ''}
+                        </p>
+                        <p style="margin-top:12px;">${resumeInfo.summary}</p>
+                    </div>
+                `;
+            }
+
+            // Interview evaluation section
+            if (interviewText) {
+                html += `
+                    <div class="enhance-section">
+                        <div class="enhance-section-title">面试评价分析</div>
+                        <p>${interviewInfo.summary}</p>
+                        ${interviewInfo.strengths.length > 0 ? `<p><strong>优势：</strong>${interviewInfo.strengths.join('、')}</p>` : ''}
+                        ${interviewInfo.concerns.length > 0 ? `<p><strong>关注点：</strong>${interviewInfo.concerns.join('、')}</p>` : ''}
+                    </div>
+                `;
+            }
+
+            // Candidate scoring section
+            html += `
+                <div class="enhance-section">
+                    <div class="enhance-section-title">候选人综合评估</div>
+                    ${scores.map(s => `
+                        <div class="enhance-score-bar">
+                            <span class="enhance-score-label">${s.name}</span>
+                            <div class="enhance-score-track"><div class="enhance-score-fill" style="width:${s.score}%;"></div></div>
+                            <span class="enhance-score-value">${s.score}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // AI recommendation
+            html += `
+                <div class="enhance-section">
+                    <div class="enhance-section-title">AI 精准定薪建议</div>
+                    <p>${recommendation.text}</p>
+                    <div class="enhance-salary-box">
+                        <div class="enhance-salary-label">AI 综合定薪建议</div>
+                        <div class="enhance-salary-value">${recommendation.salaryRange}</div>
+                        <div class="enhance-salary-note">${recommendation.note}</div>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        }
+
+        function parseResume(text) {
+            const info = {
+                school: '',
+                degree: '',
+                major: '',
+                years: null,
+                companies: [],
+                skills: [],
+                summary: ''
+            };
+
+            // Extract school info
+            const schoolPatterns = [
+                /北京大学|清华大学|复旦大学|上海交通大学|浙江大学|南京大学|中国科学技术大学|哈尔滨工业大学|西安交通大学|武汉大学|中山大学|华中科技大学|同济大学|北京航空航天大学|北京理工大学|东南大学|南开大学|天津大学|厦门大学|四川大学|中南大学|山东大学|吉林大学|大连理工大学|电子科技大学|北京师范大学|华东师范大学|中国人民大学/g,
+                /985|211|双一流|C9|QS前\d+/g,
+                /香港大学|香港中文大学|香港科技大学|港大|港中文|港科大/g,
+                /MIT|Stanford|CMU|Berkeley|Harvard|Oxford|Cambridge|Princeton|Yale|Caltech/g,
+                /(\S{2,10}大学|\S{2,10}学院)/g
+            ];
+
+            const foundSchools = [];
+            for (const pattern of schoolPatterns) {
+                const matches = text.match(pattern);
+                if (matches) foundSchools.push(...matches);
+            }
+            if (foundSchools.length > 0) {
+                info.school = [...new Set(foundSchools)].slice(0, 2).join('、');
+            }
+
+            // Extract degree
+            const degreeMatch = text.match(/博士|博士后|PhD|phd|硕士|研究生|Master|本科|学士|Bachelor|大专|专科|本科/g);
+            if (degreeMatch) {
+                const d = degreeMatch[0];
+                if (d.includes('博士') || d.toLowerCase().includes('phd')) info.degree = '博士';
+                else if (d.includes('硕士') || d.includes('研究生') || d.toLowerCase().includes('master')) info.degree = '硕士';
+                else if (d.includes('本科') || d.includes('学士') || d.toLowerCase().includes('bachelor')) info.degree = '本科';
+                else info.degree = '大专';
+            }
+
+            // Extract years of experience
+            const yearsMatch = text.match(/(\d+)\s*年(?:工作经验|经验|工作|开发|从业)/);
+            if (yearsMatch) info.years = parseInt(yearsMatch[1]);
+
+            // Extract companies
+            const companyKeywords = ['字节跳动', '腾讯', '阿里巴巴', '阿里', '华为', '美团', '京东', '百度', '小米', '网易', '滴滴', '快手', '拼多多', '微软', 'Google', 'Apple', 'Amazon', 'Meta', '恒瑞', '药明', '百济', '迈瑞', '华大', '金域', '迪安', '新产业', '安图', '亚辉龙'];
+            info.companies = companyKeywords.filter(c => text.includes(c));
+
+            // Extract skills
+            const skillKeywords = ['Java', 'Python', 'Go', 'C++', 'JavaScript', 'TypeScript', 'React', 'Vue', 'Angular', 'Spring', 'Docker', 'Kubernetes', 'K8s', 'AWS', '微服务', '分布式', '高并发', '大数据', 'AI', '机器学习', '深度学习', 'NLP', '计算机视觉', 'CV', 'LLM', '大模型', 'PCR', 'NGS', '生信', 'GMP', 'QA', 'QC', 'CRA', '注册', '临床'];
+            info.skills = skillKeywords.filter(s => text.includes(s)).slice(0, 6);
+
+            // Generate summary
+            let summaryParts = [];
+            if (info.school && info.degree) summaryParts.push(`毕业于<span class="enhance-highlight">${info.school}</span>（<span class="enhance-highlight">${info.degree}</span>）`);
+            else if (info.degree) summaryParts.push(`学历为<span class="enhance-highlight">${info.degree}</span>`);
+            else if (info.school) summaryParts.push(`毕业于<span class="enhance-highlight">${info.school}</span>`);
+
+            if (info.years) summaryParts.push(`拥有<span class="enhance-highlight">${info.years}年</span>工作经验`);
+            if (info.companies.length > 0) summaryParts.push(`曾就职于<span class="enhance-highlight">${info.companies.join('、')}</span>`);
+            if (info.skills.length > 0) summaryParts.push(`掌握<span class="enhance-highlight">${info.skills.join('、')}</span>等技能`);
+
+            info.summary = summaryParts.length > 0 
+                ? `AI识别到候选人：${summaryParts.join('，')}。` 
+                : 'AI未能从简历中提取到结构化信息，建议手动补充关键内容。';
+
+            return info;
+        }
+
+        function parseInterview(text) {
+            const info = {
+                overallLevel: 'medium',
+                strengths: [],
+                concerns: [],
+                summary: ''
+            };
+
+            // Detect overall level
+            const highKeywords = ['优秀', '突出', '非常', '强烈建议', '极力推荐', '超出预期', '超出要求', '顶级'];
+            const lowKeywords = ['一般', '待提升', '需加强', '不建议', '不符合', '差距', '较弱'];
+            const mediumKeywords = ['良好', '合格', '达标', '符合', '可以', '尚可', '基本'];
+
+            let highCount = highKeywords.filter(k => text.includes(k)).length;
+            let lowCount = lowKeywords.filter(k => text.includes(k)).length;
+            let mediumCount = mediumKeywords.filter(k => text.includes(k)).length;
+
+            if (highCount > lowCount && highCount >= mediumCount) info.overallLevel = 'high';
+            else if (lowCount > highCount) info.overallLevel = 'low';
+            else info.overallLevel = 'medium';
+
+            // Extract strengths
+            const strengthPatterns = [/优势[：:](.*?)(?:。|$)/, /优点[：:](.*?)(?:。|$)/, /亮点[：:](.*?)(?:。|$)/, /突出[：:]?(.*?)(?:。|$)/, /技术能力[：:](.*?)(?:。|$)/, /沟通能力[：:](.*?)(?:。|$)/];
+            for (const p of strengthPatterns) {
+                const m = text.match(p);
+                if (m && m[1]) info.strengths.push(m[1].trim().substring(0, 20));
+            }
+
+            // Extract concerns
+            const concernPatterns = [/不足[：:](.*?)(?:。|$)/, /需提升[：:](.*?)(?:。|$)/, /待加强[：:](.*?)(?:。|$)/, /关注[：:](.*?)(?:。|$)/, /问题[：:](.*?)(?:。|$)/, /风险[：:](.*?)(?:。|$)/];
+            for (const p of concernPatterns) {
+                const m = text.match(p);
+                if (m && m[1]) info.concerns.push(m[1].trim().substring(0, 20));
+            }
+
+            // Generate summary
+            const levelLabels = { high: '偏正面', medium: '中性', low: '偏谨慎' };
+            info.summary = `面试评价整体倾向<span class="enhance-highlight">${levelLabels[info.overallLevel]}</span>。`;
+            if (info.strengths.length > 0) info.summary += `识别到${info.strengths.length}个优势维度。`;
+            if (info.concerns.length > 0) info.summary += `识别到${info.concerns.length}个需关注方面。`;
+            if (info.strengths.length === 0 && info.concerns.length === 0) {
+                info.summary += '建议在评价中更明确标注候选人优劣势，以便AI给出更精准的建议。';
+            }
+
+            return info;
+        }
+
+        function calculateCandidateScores(resumeInfo, interviewInfo) {
+            const scores = [];
+            const posBase = selectedPosition ? selectedPosition.base : 150000;
+
+            // Education score
+            let eduScore = 50;
+            if (resumeInfo.school) {
+                const topSchools = ['北京大学', '清华大学', '复旦大学', '上海交通大学', '浙江大学', '南京大学', '中国科学技术大学', 'MIT', 'Stanford', 'CMU', 'Berkeley', 'Harvard', 'Oxford', 'Cambridge'];
+                const isTop = topSchools.some(s => resumeInfo.school.includes(s));
+                if (isTop && resumeInfo.degree === '博士') eduScore = 95;
+                else if (isTop && resumeInfo.degree === '硕士') eduScore = 88;
+                else if (isTop) eduScore = 78;
+                else if (resumeInfo.degree === '博士') eduScore = 82;
+                else if (resumeInfo.degree === '硕士') eduScore = 72;
+                else if (resumeInfo.degree === '本科') eduScore = 60;
+                else eduScore = 50;
+            } else if (resumeInfo.degree) {
+                if (resumeInfo.degree === '博士') eduScore = 75;
+                else if (resumeInfo.degree === '硕士') eduScore = 65;
+                else if (resumeInfo.degree === '本科') eduScore = 55;
+                else eduScore = 45;
+            }
+            scores.push({ name: '学历背景', score: eduScore });
+
+            // Experience score
+            let expScore = 50;
+            if (resumeInfo.years !== null) {
+                if (resumeInfo.years >= 10) expScore = 90;
+                else if (resumeInfo.years >= 5) expScore = 78;
+                else if (resumeInfo.years >= 3) expScore = 65;
+                else if (resumeInfo.years >= 1) expScore = 52;
+                else expScore = 40;
+            }
+            scores.push({ name: '工作经验', score: expScore });
+
+            // Company background score
+            let compScore = 50;
+            const tier1Companies = ['字节跳动', '腾讯', '阿里巴巴', '华为', '百度', 'Google', 'Apple', 'Microsoft', 'Amazon', 'Meta', '百济'];
+            const tier2Companies = ['美团', '京东', '小米', '网易', '滴滴', '快手', '拼多多', '微软', '恒瑞', '药明', '迈瑞', '华大'];
+            if (resumeInfo.companies.length > 0) {
+                const hasTier1 = resumeInfo.companies.some(c => tier1Companies.includes(c));
+                const hasTier2 = resumeInfo.companies.some(c => tier2Companies.includes(c));
+                if (hasTier1) compScore = 88;
+                else if (hasTier2) compScore = 72;
+                else compScore = 60;
+            }
+            scores.push({ name: '公司背景', score: compScore });
+
+            // Skill match score
+            let skillScore = 50;
+            if (resumeInfo.skills.length > 0 && selectedPosition) {
+                const posKeywords = selectedPosition.keywords.map(k => k.toLowerCase());
+                const matchedSkills = resumeInfo.skills.filter(s => 
+                    posKeywords.some(pk => s.toLowerCase().includes(pk) || pk.includes(s.toLowerCase()))
+                );
+                skillScore = Math.min(95, 40 + matchedSkills.length * 15 + resumeInfo.skills.length * 3);
+            }
+            scores.push({ name: '技能匹配', score: skillScore });
+
+            // Interview performance score
+            let interviewScore = 50;
+            if (interviewInfo.overallLevel === 'high') interviewScore = 82;
+            else if (interviewInfo.overallLevel === 'medium') interviewScore = 62;
+            else if (interviewInfo.overallLevel === 'low') interviewScore = 38;
+            scores.push({ name: '面试表现', score: interviewScore });
+
+            return scores;
+        }
+
+        function generateCandidateRecommendation(resumeInfo, interviewInfo, scores) {
+            const avgScore = scores.reduce((sum, s) => sum + s.score, 0) / scores.length;
+            
+            // Get base salary from previous calculation
+            const experience = parseInt(document.getElementById('experience').value);
+            const city = document.getElementById('city').value;
+            const education = document.getElementById('education').value;
+            const industry = document.getElementById('industry').value;
+
+            const cityData = cityFactors[city];
+            const eduData = educationFactors[education];
+            const expData = experienceFactors[experience];
+            const industryData = industry ? industryFactors[industry] : { factor: 1.0, name: '未指定' };
+
+            const baseSalary = selectedPosition.base;
+            const marketSalary = baseSalary * cityData.factor * eduData.factor * expData.factor * industryData.factor;
+
+            // Adjust based on candidate scores
+            let adjustment = 0;
+            if (avgScore >= 80) adjustment = 0.08;
+            else if (avgScore >= 70) adjustment = 0.04;
+            else if (avgScore >= 55) adjustment = 0;
+            else if (avgScore >= 40) adjustment = -0.05;
+            else adjustment = -0.10;
+
+            // Fine-tune based on individual dimensions
+            const eduScoreObj = scores.find(s => s.name === '学历背景');
+            const interviewScoreObj = scores.find(s => s.name === '面试表现');
+            const skillScoreObj = scores.find(s => s.name === '技能匹配');
+
+            if (interviewScoreObj && interviewScoreObj.score >= 80) adjustment += 0.03;
+            if (skillScoreObj && skillScoreObj.score >= 80) adjustment += 0.02;
+            if (interviewScoreObj && interviewScoreObj.score <= 40) adjustment -= 0.05;
+
+            const finalSalary = Math.round(marketSalary * (1 + adjustment) / 1000) * 1000;
+            const finalMin = Math.round(finalSalary * 0.92 / 1000) * 1000;
+            const finalMax = Math.round(finalSalary * 1.08 / 1000) * 1000;
+
+            // Generate recommendation text
+            let text = '';
+
+            if (avgScore >= 75) {
+                text += `候选人综合评分 <span class="enhance-highlight">${avgScore.toFixed(0)}</span> 分，整体素质优秀。`;
+            } else if (avgScore >= 55) {
+                text += `候选人综合评分 <span class="enhance-highlight">${avgScore.toFixed(0)}</span> 分，整体素质良好。`;
+            } else {
+                text += `候选人综合评分 <span class="enhance-highlight">${avgScore.toFixed(0)}</span> 分，建议谨慎定薪。`;
+            }
+
+            text += `基于市场数据与候选人画像的综合分析，`;
+
+            if (adjustment > 0) {
+                text += `建议在市场参考基础上 <span class="enhance-highlight">上浮${(adjustment * 100).toFixed(0)}%</span>，`;
+            } else if (adjustment < 0) {
+                text += `建议在市场参考基础上 <span class="enhance-highlight">下调${(Math.abs(adjustment) * 100).toFixed(0)}%</span>，`;
+            } else {
+                text += `建议按市场参考均值定薪，`;
+            }
+
+            // Specific advice based on profile
+            const topDimensions = scores.filter(s => s.score >= 80).map(s => s.name);
+            const weakDimensions = scores.filter(s => s.score < 50).map(s => s.name);
+
+            if (topDimensions.length > 0) {
+                text += `候选人在<span class="enhance-highlight">${topDimensions.join('、')}</span>方面表现突出`;
+            }
+            if (weakDimensions.length > 0) {
+                text += `${topDimensions.length > 0 ? '，但' : ''}<span class="enhance-highlight">${weakDimensions.join('、')}</span>方面存在不足，建议关注`;
+            }
+
+            // Retention and negotiation advice
+            if (resumeInfo.companies.length > 0 && avgScore >= 70) {
+                text += `。鉴于候选人有名企背景，需注意<span class="enhance-highlight">薪资竞争力</span>以降低流失风险`;
+            }
+
+            if (interviewInfo.overallLevel === 'high' && adjustment > 0) {
+                text += `。面试表现优秀，建议尽快发出offer锁定人才`;
+            }
+
+            text += '。';
+
+            return {
+                text,
+                salaryRange: `${formatSalary(finalMin)} - ${formatSalary(finalMax)}/年`,
+                note: adjustment > 0 ? '高于市场均值 · 建议优先录用' : adjustment < 0 ? '低于市场均值 · 建议评估后再定' : '与市场均值持平 · 建议正常定薪'
+            };
         }
 
         // ========================================
