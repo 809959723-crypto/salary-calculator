@@ -2214,9 +2214,12 @@
                         <option value="college">大专</option>
                         <option value="bachelor">普通本科</option>
                         <option value="bachelor_985211">985/211本科</option>
+                        <option value="bachelor_qs100">QS前100高校本科(海外)</option>
                         <option value="master">普通硕士</option>
                         <option value="master_985211">985/211硕士</option>
+                        <option value="master_qs100">QS前100高校硕士(海外)</option>
                         <option value="phd">博士</option>
+                        <option value="phd_qs100">QS前100高校博士(海外)</option>
                     </select>
                 </div>
 
@@ -2832,9 +2835,12 @@
             college: { factor: 0.85, name: '大专' },
             bachelor: { factor: 1.0, name: '普通本科' },
             bachelor_985211: { factor: 1.15, name: '985/211本科' },
+            bachelor_qs100: { factor: 1.20, name: 'QS前100本科(海外)' },
             master: { factor: 1.20, name: '普通硕士' },
             master_985211: { factor: 1.35, name: '985/211硕士' },
-            phd: { factor: 1.50, name: '博士' }
+            master_qs100: { factor: 1.40, name: 'QS前100硕士(海外)' },
+            phd: { factor: 1.50, name: '博士' },
+            phd_qs100: { factor: 1.60, name: 'QS前100博士(海外)' }
         };
 
         const experienceFactors = {
@@ -3575,7 +3581,7 @@
             
             suggestionHTML += `<p><strong>${selectedPosition.name}</strong>的市场参考年薪为 <strong>${formatSalaryRange(minSalary, maxSalary)}</strong>。</p>`;
             
-            if (education.includes('985211') || education === 'phd') {
+            if (education.includes('985211') || education.includes('qs100') || education === 'phd') {
                 suggestionHTML += `<p>候选人学历背景优秀，建议定薪可偏向区间中上限。</p>`;
             }
             
@@ -4368,9 +4374,11 @@
             const eduFactor = ctx.education.factor;
 
             // Over-qualification risk
-            if (eduFactor >= 1.35 && expFactor <= 0.85) {
-                risk += `<span class="ai-tag">⚠️ 学历溢价风险</span>`;
-                risk += `候选人为 <span class="highlight-value">${ctx.education.name}</span> 但工作经验仅 <span class="highlight-value">${ctx.experience.name}</span>，存在学历溢价过高的风险。建议重点评估其实际项目能力，避免"高学历低能力"的定薪偏差。</p><p>`;
+            if (eduFactor >= 1.35 || (eduFactor >= 1.20 && ctx.education.name && ctx.education.name.includes('QS前100'))) {
+                if (expFactor <= 0.85) {
+                    risk += `<span class="ai-tag">⚠️ 学历溢价风险</span>`;
+                    risk += `候选人为 <span class="highlight-value">${ctx.education.name}</span> 但工作经验仅 <span class="highlight-value">${ctx.experience.name}</span>，存在学历溢价过高的风险。建议重点评估其实际项目能力，避免"高学历低能力"的定薪偏差。</p><p>`;
+                }
             }
 
             // Retention risk
@@ -4617,8 +4625,11 @@
             const schoolPatterns = [
                 /北京大学|清华大学|复旦大学|上海交通大学|浙江大学|南京大学|中国科学技术大学|哈尔滨工业大学|西安交通大学|武汉大学|中山大学|华中科技大学|同济大学|北京航空航天大学|北京理工大学|东南大学|南开大学|天津大学|厦门大学|四川大学|中南大学|山东大学|吉林大学|大连理工大学|电子科技大学|北京师范大学|华东师范大学|中国人民大学/g,
                 /985|211|双一流|C9|QS前\d+/g,
-                /香港大学|香港中文大学|香港科技大学|港大|港中文|港科大/g,
-                /MIT|Stanford|CMU|Berkeley|Harvard|Oxford|Cambridge|Princeton|Yale|Caltech/g,
+                /香港大学|香港中文大学|香港科技大学|香港理工大学|香港城市大学|港大|港中文|港科大|港理工|港城大/g,
+                /MIT|Stanford|CMU|Berkeley|Harvard|Oxford|Cambridge|Princeton|Yale|Caltech|Imperial|UCL|ETH|NUS|NTU|Tsinghua|Peking|Univ\.|University/g,
+                /新加坡国立|南洋理工|东京大学|京都大学|首尔大学|KAIST|墨尔本大学|悉尼大学|多伦多大学|麦吉尔大学|UBC/g,
+                /康奈尔|哥伦比亚大学|宾夕法尼亚|芝加哥大学|约翰霍普金斯|杜克|西北大学|布朗|达特茅斯|莱斯|范德堡|圣路易斯华盛顿/g,
+                /慕尼黑工业|苏黎世联邦|洛桑联邦|巴黎文理|巴黎综合理工|代尔夫特理工|隆德|哥本哈根|赫尔辛基|奥斯陆/g,
                 /(\S{2,10}大学|\S{2,10}学院)/g
             ];
 
@@ -4726,12 +4737,31 @@
             // Education score — only show if resume has education data
             if (resumeInfo.school || resumeInfo.degree) {
                 let eduScore = 50;
+                const topSchools = ['北京大学', '清华大学', '复旦大学', '上海交通大学', '浙江大学', '南京大学', '中国科学技术大学', 'MIT', 'Stanford', 'CMU', 'Berkeley', 'Harvard', 'Oxford', 'Cambridge'];
+                // QS前100海外高校名单
+                const qs100Schools = [
+                    'MIT', 'Stanford', 'Harvard', 'Cambridge', 'Oxford', 'Caltech', 'Imperial', 'ETH', 'UCL',
+                    'Chicago', 'Princeton', 'Cornell', 'Penn', 'Berkeley', 'Yale', 'Columbia', 'NUS', 'NTU',
+                    'Tsinghua', 'Peking', 'Johns Hopkins', 'Duke', 'Northwestern', 'Michigan', 'Toronto',
+                    'McGill', 'UBC', 'Melbourne', 'Sydney', 'KAIST', 'Seoul', 'Tokyo', 'Kyoto',
+                    'HKU', 'HKUST', 'HK PolyU', 'CityU', 'Munich', 'Delft', 'Paris', 'Lund',
+                    '康奈尔', '哥伦比亚', '宾夕法尼亚', '芝加哥大学', '约翰霍普金斯', '杜克', '西北大学',
+                    '新加坡国立', '南洋理工', '东京大学', '京都大学', '首尔大学',
+                    '墨尔本大学', '悉尼大学', '多伦多大学', '麦吉尔',
+                    '慕尼黑工业', '苏黎世联邦', '洛桑联邦', '代尔夫特', '隆德', '哥本哈根',
+                    '香港大学', '香港中文大学', '香港科技大学', '香港理工大学', '香港城市大学'
+                ];
                 if (resumeInfo.school) {
-                    const topSchools = ['北京大学', '清华大学', '复旦大学', '上海交通大学', '浙江大学', '南京大学', '中国科学技术大学', 'MIT', 'Stanford', 'CMU', 'Berkeley', 'Harvard', 'Oxford', 'Cambridge'];
                     const isTop = topSchools.some(s => resumeInfo.school.includes(s));
+                    const isQS100 = qs100Schools.some(s => resumeInfo.school.includes(s));
                     if (isTop && resumeInfo.degree === '博士') eduScore = 95;
+                    else if (isQS100 && resumeInfo.degree === '博士') eduScore = 90;
                     else if (isTop && resumeInfo.degree === '硕士') eduScore = 88;
+                    else if (isQS100 && resumeInfo.degree === '硕士') eduScore = 83;
+                    else if (isTop && resumeInfo.degree === '本科') eduScore = 78;
+                    else if (isQS100 && resumeInfo.degree === '本科') eduScore = 74;
                     else if (isTop) eduScore = 78;
+                    else if (isQS100) eduScore = 72;
                     else if (resumeInfo.degree === '博士') eduScore = 82;
                     else if (resumeInfo.degree === '硕士') eduScore = 72;
                     else if (resumeInfo.degree === '本科') eduScore = 60;
