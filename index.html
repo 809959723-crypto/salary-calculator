@@ -569,6 +569,64 @@
             color: #86868b;
         }
 
+        .salary-company-ref {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: left;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .salary-company-ref-title {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .salary-company-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: all 0.2s;
+        }
+
+        .salary-company-item:last-child {
+            border-bottom: none;
+        }
+
+        .salary-company-item:hover {
+            color: rgba(255,255,255,0.8);
+            padding-left: 4px;
+        }
+
+        .salary-company-item .company-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .salary-company-item .company-tag {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(0,113,227,0.2);
+            color: rgba(255,255,255,0.5);
+        }
+
+        .salary-company-item .company-salary {
+            color: #4da3ff;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
         /* ===== DETAIL GRID ===== */
         .detail-grid {
             display: grid;
@@ -1353,6 +1411,7 @@
                 <div class="label">市场参考薪资</div>
                 <div class="salary-range" id="salaryRange">-</div>
                 <div class="salary-note">基于多平台数据综合分析 · 年薪制</div>
+                <div class="salary-company-ref" id="salaryCompanyRef"></div>
             </div>
 
             <div class="detail-grid">
@@ -2204,6 +2263,40 @@
             const maxSalary = Math.round(adjustedSalary * 1.15 / 1000) * 1000;
 
             document.getElementById('salaryRange').textContent = formatSalaryRange(minSalary, maxSalary) + '/年';
+
+            // ===== Show company salary references in salary hero =====
+            const salaryCompanyRef = document.getElementById('salaryCompanyRef');
+            const posId = selectedPosition.id;
+            const refCompanies = [];
+            for (const [companyName, companyData] of Object.entries(companySalaryDB)) {
+                if (companyData.positions[posId]) {
+                    refCompanies.push({
+                        name: companyName,
+                        industry: companyData.industry,
+                        city: companyData.city,
+                        level: companyData.positions[posId].level,
+                        range: companyData.positions[posId].range,
+                    });
+                }
+            }
+            if (refCompanies.length > 0) {
+                refCompanies.sort((a, b) => {
+                    const aCityMatch = a.city.includes(cityData.name) ? 1 : 0;
+                    const bCityMatch = b.city.includes(cityData.name) ? 1 : 0;
+                    return bCityMatch - aCityMatch;
+                });
+                salaryCompanyRef.innerHTML = `
+                    <div class="salary-company-ref-title">相关企业同岗位薪资参照</div>
+                    ${refCompanies.map(c => `
+                        <div class="salary-company-item">
+                            <span class="company-name">${c.name}<span class="company-tag">${c.level}</span></span>
+                            <span class="company-salary">${c.range}</span>
+                        </div>
+                    `).join('')}
+                `;
+            } else {
+                salaryCompanyRef.innerHTML = '';
+            }
 
             const platformList = document.getElementById('platformList');
             platformList.innerHTML = Object.entries(platformFactors).map(([name, factor]) => {
