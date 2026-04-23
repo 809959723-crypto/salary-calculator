@@ -1565,6 +1565,69 @@
             transform: rotate(90deg);
         }
 
+        /* ===== NAV SETTINGS BUTTON ===== */
+        .nav-settings-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--apple-text);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            padding: 6px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-settings-btn:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* ===== STREAMING CURSOR ===== */
+        .streaming-cursor::after {
+            content: '▊';
+            animation: cursorBlink 0.8s ease-in-out infinite;
+            color: var(--apple-blue);
+            font-weight: 300;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ===== AI STREAM TEXT ===== */
+        .ai-stream-text {
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+        .ai-stream-text p { margin-bottom: 12px; }
+        .ai-stream-text strong { color: #fff; }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: rgba(20, 20, 22, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 14px;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
         .modal-content {
             padding: 32px;
             overflow-y: auto;
@@ -2135,6 +2198,12 @@
     <nav id="navbar">
         <div class="nav-content">
             <a href="#" class="logo">薪资参考</a>
+            <button class="nav-settings-btn" onclick="openSettingsModal()" title="模型配置">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -2457,6 +2526,40 @@
     <!-- Autocomplete Dropdown (at body root to escape stacking context) -->
     <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
 
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal" onclick="closeSettingsModal(event)">
+        <div class="modal liquid-glass-dark" style="max-width:460px;" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title" style="color:#fff;">⚙️ 模型配置</h2>
+                <button class="modal-close" onclick="closeSettingsModal()" style="color:rgba(255,255,255,0.6);">×</button>
+            </div>
+            <div class="modal-content" style="color:rgba(255,255,255,0.8);">
+                <div style="margin-bottom:20px;">
+                    <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">API Key</label>
+                    <input type="password" id="hunyuanApiKeyInput" placeholder="输入混元大模型 API Key"
+                        style="width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-size:15px;outline:none;transition:border-color 0.3s;"
+                        onfocus="this.style.borderColor='rgba(0,113,227,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+                    <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:8px;">前往 <a href="https://console.cloud.tencent.com/hunyuan" target="_blank" style="color:#4da3ff;text-decoration:none;">腾讯云混元控制台</a> 获取 API Key</p>
+                </div>
+                <div style="margin-bottom:24px;">
+                    <label style="display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">模型</label>
+                    <select id="hunyuanModelSelect"
+                        style="width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-size:15px;outline:none;cursor:pointer;">
+                        <option value="hunyuan-turbos" style="background:#1a1a1e;">Hunyuan-Turbos（快速）</option>
+                        <option value="hunyuan-turbos-latest" style="background:#1a1a1e;">Hunyuan-Turbos-Latest</option>
+                        <option value="hunyuan-pro" style="background:#1a1a1e;">Hunyuan-Pro（高质量）</option>
+                        <option value="hunyuan-lite" style="background:#1a1a1e;">Hunyuan-Lite（经济）</option>
+                    </select>
+                </div>
+                <button onclick="saveSettings()" style="width:100%;padding:14px;border-radius:14px;border:none;background:var(--apple-blue);color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;"
+                    onmouseover="this.style.background='var(--apple-blue-hover)'" onmouseout="this.style.background='var(--apple-blue)'">
+                    保存配置
+                </button>
+                <div id="settingsStatus" style="text-align:center;margin-top:12px;font-size:13px;min-height:20px;"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Data Detail Modal -->
     <div class="modal-overlay" id="dataModal" onclick="closeModal(event)">
         <div class="modal" onclick="event.stopPropagation()">
@@ -2470,12 +2573,242 @@
         </div>
     </div>
 
+    <div class="toast" id="toast"></div>
+
     <script>
         // ========================================
         // PDF.js Worker Setup
         // ========================================
         if (typeof pdfjsLib !== 'undefined') {
             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        // ========================================
+        // HUNYUAN AI INTEGRATION
+        // ========================================
+        const HUNYUAN_API_URL = 'https://api.hunyuan.tencent.com/v1/chat/completions';
+
+        function getHunyuanApiKey() {
+            return localStorage.getItem('hunyuan_api_key') || '';
+        }
+        function getHunyuanModel() {
+            return localStorage.getItem('hunyuan_model') || 'hunyuan-turbos';
+        }
+
+        // Toast notification
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), duration);
+        }
+
+        // Settings modal
+        function openSettingsModal() {
+            const modal = document.getElementById('settingsModal');
+            document.getElementById('hunyuanApiKeyInput').value = getHunyuanApiKey();
+            document.getElementById('hunyuanModelSelect').value = getHunyuanModel();
+            document.getElementById('settingsStatus').textContent = '';
+            modal.classList.add('active');
+        }
+        function closeSettingsModal(e) {
+            if (e && e.target !== e.currentTarget) return;
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+        function saveSettings() {
+            const key = document.getElementById('hunyuanApiKeyInput').value.trim();
+            const model = document.getElementById('hunyuanModelSelect').value;
+            localStorage.setItem('hunyuan_api_key', key);
+            localStorage.setItem('hunyuan_model', model);
+            const status = document.getElementById('settingsStatus');
+            if (key) {
+                status.textContent = '✅ 配置已保存，AI 分析已启用';
+                status.style.color = '#4da3ff';
+            } else {
+                status.textContent = '⚠️ 未配置 API Key，将使用本地规则分析';
+                status.style.color = 'rgba(255,255,255,0.5)';
+            }
+            setTimeout(() => closeSettingsModal(), 1200);
+        }
+
+        // Call Hunyuan API with streaming support
+        async function callHunyuanAPI(messages, onChunk, onComplete, onError) {
+            const apiKey = getHunyuanApiKey();
+            if (!apiKey) return null;
+
+            try {
+                const response = await fetch(HUNYUAN_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: getHunyuanModel(),
+                        messages,
+                        stream: true,
+                        temperature: 0.7,
+                        max_tokens: 4096
+                    })
+                });
+
+                if (!response.ok) {
+                    const errText = await response.text();
+                    throw new Error(`API错误 (${response.status}): ${errText}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let fullText = '';
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+
+                    for (const line of lines) {
+                        const trimmed = line.trim();
+                        if (!trimmed || !trimmed.startsWith('data:')) continue;
+                        const data = trimmed.slice(5).trim();
+                        if (data === '[DONE]') continue;
+
+                        try {
+                            const json = JSON.parse(data);
+                            const content = json.choices?.[0]?.delta?.content;
+                            if (content) {
+                                fullText += content;
+                                if (onChunk) onChunk(content, fullText);
+                            }
+                        } catch (e) {
+                            // Skip malformed JSON chunks
+                        }
+                    }
+                }
+
+                if (onComplete) onComplete(fullText);
+                return fullText;
+            } catch (err) {
+                console.error('混元 API 调用失败:', err);
+                if (onError) onError(err);
+                return null;
+            }
+        }
+
+        // Non-streaming call (for structured JSON responses)
+        async function callHunyuanAPIJson(messages) {
+            const apiKey = getHunyuanApiKey();
+            if (!apiKey) return null;
+
+            try {
+                const response = await fetch(HUNYUAN_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: getHunyuanModel(),
+                        messages,
+                        stream: false,
+                        temperature: 0.5,
+                        max_tokens: 4096
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API错误 (${response.status})`);
+                }
+
+                const json = await response.json();
+                return json.choices?.[0]?.message?.content || null;
+            } catch (err) {
+                console.error('混元 API (JSON) 调用失败:', err);
+                return null;
+            }
+        }
+
+        // Build candidate analysis prompt
+        function buildCandidatePrompt(resumeText, interviewText, positionInfo) {
+            const resumeInfo = parseResume(resumeText);
+            const interviewInfo = parseInterview(interviewText);
+
+            let context = `## 岗位信息\n目标岗位：${positionInfo.name}\n岗位基准薪资：${formatSalary(positionInfo.base)}/年\n`;
+            if (resumeInfo.school || resumeInfo.degree) context += `\n## 候选人学历\n${[resumeInfo.school, resumeInfo.degree, resumeInfo.major].filter(Boolean).join(' | ')}\n`;
+            if (resumeInfo.years !== null) context += `工作年限：${resumeInfo.years}年\n`;
+            if (resumeInfo.companies.length > 0) context += `过往公司：${resumeInfo.companies.join('、')}\n`;
+            if (resumeInfo.skills.length > 0) context += `核心技能：${resumeInfo.skills.join('、')}\n`;
+            if (resumeText) context += `\n## 简历原文\n${resumeText.slice(0, 3000)}\n`;
+            if (interviewText) context += `\n## 面试评价原文\n${interviewText.slice(0, 2000)}\n`;
+
+            return [
+                {
+                    role: 'system',
+                    content: `你是一位资深HR薪资顾问，擅长候选人评估与定薪分析。请根据提供的候选人信息进行深度分析。
+
+要求：
+1. 仅评估有数据支撑的维度（如缺少某维度数据，则不评估该维度）
+2. 可评估的维度包括：学历背景、工作经验、公司背景、技能匹配、面试表现
+3. 每个维度评分0-100分，需给出具体评分理由
+4. 给出定薪建议（上浮/持平/下调及比例）和风险分析
+5. 语言专业、简洁，有洞察力
+
+请严格按以下JSON格式返回（不要添加markdown代码块标记）：
+{
+  "scores": [{"name": "维度名", "score": 数字, "reason": "评分理由"}],
+  "recommendation": "定薪建议文字",
+  "risks": "风险分析文字",
+  "summary": "一句话候选人画像总结"
+}`
+                },
+                {
+                    role: 'user',
+                    content: context
+                }
+            ];
+        }
+
+        // Build salary suggestion prompt
+        function buildSalarySuggestionPrompt(ctx) {
+            const context = `## 定薪分析请求
+岗位：${ctx.position.name}
+基准薪资：${formatSalary(ctx.position.base)}/年
+城市：${ctx.city.name}（系数${ctx.city.factor}）
+学历：${ctx.education.name}（系数${ctx.education.factor}）
+经验：${ctx.experience.name}（系数${ctx.experience.factor}）
+行业：${ctx.industry.name}（系数${ctx.industry.factor}）
+计算薪资区间：${formatSalary(ctx.salaryRange.min)} - ${formatSalary(ctx.salaryRange.max)}/年
+平台参考：${ctx.platformData.map(p => `${p.name} ${formatSalary(p.salary)}`).join('、')}`;
+
+            return [
+                {
+                    role: 'system',
+                    content: `你是一位资深HR薪资顾问。请根据岗位和候选人条件，生成以下四个方面的专业分析：
+
+1. 综合评估：从岗位竞争力、人才稀缺度、行业趋势、城市薪资水平四大维度评分(0-100)
+2. AI定薪建议：给出具体的定薪区间和建议中间值
+3. 市场洞察：分析该岗位的市场现状和趋势
+4. 风险评估：识别定薪中可能存在的风险
+5. 谈判策略建议：给出薪资谈判的具体建议
+
+请严格按以下JSON格式返回（不要添加markdown代码块标记）：
+{
+  "scores": [{"name": "维度名", "score": 数字}],
+  "aiSalary": {"min": 数字, "max": 数字, "mid": 数字},
+  "recommendation": "定薪建议",
+  "marketInsight": "市场洞察",
+  "riskAnalysis": "风险评估",
+  "negotiationStrategy": "谈判策略建议"
+}`
+                },
+                {
+                    role: 'user',
+                    content: context
+                }
+            ];
         }
 
         // ========================================
@@ -3629,7 +3962,7 @@
             // Run AI analysis with delay for UX
             setTimeout(() => {
                 generateAIAnalysis(analysisContext);
-            }, 1500);
+            }, getHunyuanApiKey() ? 300 : 1500);
 
             const resultsSection = document.getElementById('resultsSection');
             resultsSection.classList.add('active');
@@ -3661,18 +3994,74 @@
         // ========================================
         // AI ANALYSIS ENGINE
         // ========================================
-        function generateAIAnalysis(ctx) {
+        async function generateAIAnalysis(ctx) {
             const aiContent = document.getElementById('aiContent');
-            
-            // AI Model: Multi-factor scoring and reasoning
+            const apiKey = getHunyuanApiKey();
+
+            if (apiKey) {
+                // Show streaming placeholder
+                aiContent.innerHTML = `
+                    <div class="ai-section">
+                        <div class="ai-section-title">AI 分析中</div>
+                        <div id="salaryStreamOutput" class="streaming-cursor" style="min-height:200px;color:rgba(255,255,255,0.7);line-height:1.7;white-space:pre-wrap;"></div>
+                    </div>
+                `;
+
+                try {
+                    const messages = buildSalarySuggestionPrompt(ctx);
+                    let parsedData = null;
+
+                    await callHunyuanAPI(
+                        messages,
+                        (chunk, fullText) => {
+                            const el = document.getElementById('salaryStreamOutput');
+                            if (el) {
+                                try {
+                                    const cleaned = fullText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                                    parsedData = JSON.parse(cleaned);
+                                    renderSalaryAIResult(parsedData, ctx, aiContent);
+                                } catch {
+                                    el.textContent = fullText;
+                                }
+                            }
+                        },
+                        (fullText) => {
+                            try {
+                                const cleaned = fullText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                                parsedData = JSON.parse(cleaned);
+                                renderSalaryAIResult(parsedData, ctx, aiContent);
+                            } catch {
+                                const el = document.getElementById('salaryStreamOutput');
+                                if (el) {
+                                    el.classList.remove('streaming-cursor');
+                                    el.innerHTML = fullText.replace(/\n/g, '<br>');
+                                }
+                            }
+                        },
+                        (err) => {
+                            console.error('混元API薪资分析失败，降级本地:', err);
+                            showToast('AI 服务暂不可用，已切换本地分析');
+                            fallbackSalaryAnalysis(ctx, aiContent);
+                        }
+                    );
+                } catch (err) {
+                    console.error('薪资AI分析异常:', err);
+                    showToast('AI 分析异常，已切换本地分析');
+                    fallbackSalaryAnalysis(ctx, aiContent);
+                }
+            } else {
+                // No API key — use local analysis
+                fallbackSalaryAnalysis(ctx, aiContent);
+            }
+        }
+
+        function fallbackSalaryAnalysis(ctx, aiContent) {
             const scores = calculateAIScores(ctx);
             const recommendation = generateRecommendation(ctx, scores);
             const marketInsight = generateMarketInsight(ctx);
             const riskAnalysis = generateRiskAnalysis(ctx);
             const negotiationStrategy = generateNegotiationStrategy(ctx, scores);
             const companyRef = generateCompanyRef(ctx);
-
-            // Calculate AI-recommended salary
             const aiSalary = calculateAISalary(ctx, scores);
 
             let html = `
@@ -3716,10 +4105,86 @@
                 </div>
             `;
 
-            // Add company reference section if data available
-            if (companyRef) {
-                html += companyRef;
+            if (companyRef) html += companyRef;
+            aiContent.innerHTML = html;
+        }
+
+        // Render AI-structured salary analysis result
+        function renderSalaryAIResult(data, ctx, aiContent) {
+            const scores = data.scores || [];
+            const aiSalary = data.aiSalary || { min: ctx.salaryRange.min, max: ctx.salaryRange.max, mid: Math.round((ctx.salaryRange.min + ctx.salaryRange.max) / 2) };
+            const companyRef = generateCompanyRef(ctx);
+
+            let html = '';
+
+            // Scores section
+            if (scores.length > 0) {
+                html += `
+                    <div class="ai-section">
+                        <div class="ai-section-title">综合评估</div>
+                        <p>基于岗位竞争力、人才稀缺度、行业趋势、城市薪资水平四大维度AI建模分析：</p>
+                        <div style="margin-top:12px;">
+                            ${scores.map(s => `
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                                    <span style="color:rgba(255,255,255,0.7);font-size:14px;">${s.name}</span>
+                                    <span style="color:#4da3ff;font-weight:600;font-size:14px;">${s.score}分</span>
+                                </div>
+                                <div class="ai-bar"><div class="ai-bar-fill" style="width:${s.score}%;"></div></div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
             }
+
+            // Recommendation
+            if (data.recommendation) {
+                html += `
+                    <div class="ai-section">
+                        <div class="ai-section-title">AI 定薪建议</div>
+                        <p>${data.recommendation}</p>
+                        <div class="ai-summary-box">
+                            <div style="font-size:13px;color:rgba(255,255,255,0.5);">AI 推荐定薪区间</div>
+                            <div class="ai-final-salary">${formatSalary(aiSalary.min)} - ${formatSalary(aiSalary.max)}/年</div>
+                            <div style="font-size:13px;color:rgba(255,255,255,0.5);">建议中间值：${formatSalary(aiSalary.mid)}/年</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Market insight
+            if (data.marketInsight) {
+                html += `
+                    <div class="ai-section">
+                        <div class="ai-section-title">市场洞察</div>
+                        <p>${data.marketInsight}</p>
+                    </div>
+                `;
+            }
+
+            // Risk analysis
+            if (data.riskAnalysis) {
+                html += `
+                    <div class="ai-section">
+                        <div class="ai-section-title">风险评估</div>
+                        <p>${data.riskAnalysis}</p>
+                    </div>
+                `;
+            }
+
+            // Negotiation strategy
+            if (data.negotiationStrategy) {
+                html += `
+                    <div class="ai-section">
+                        <div class="ai-section-title">谈判策略建议</div>
+                        <p>${data.negotiationStrategy}</p>
+                    </div>
+                `;
+            }
+
+            if (companyRef) html += companyRef;
+
+            // Powered by tag
+            html += `<p style="text-align:right;font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px;">Powered by 腾讯混元大模型</p>`;
 
             aiContent.innerHTML = html;
         }
@@ -4470,13 +4935,13 @@
                 };
 
                 generateAIAnalysis(analysisContext);
-            }, 1200);
+            }, getHunyuanApiKey() ? 200 : 1200);
         }
 
         // ========================================
         // CANDIDATE ENHANCEMENT AI
         // ========================================
-        function enhanceAnalysis() {
+        async function enhanceAnalysis() {
             // Combine file-extracted text with manually pasted text
             const manualResume = document.getElementById('resumeInput').value.trim();
             const manualInterview = document.getElementById('interviewInput').value.trim();
@@ -4518,23 +4983,187 @@
                 resultDiv.classList.add('visible');
             }, 100);
 
-            // Simulate AI analysis delay
+            // Try Hunyuan API first, fallback to local
+            const apiKey = getHunyuanApiKey();
+            if (apiKey) {
+                try {
+                    const messages = buildCandidatePrompt(resumeText, interviewText, selectedPosition);
+
+                    // First, try streaming for real-time display
+                    resultContent.innerHTML = `
+                        <div class="enhance-section">
+                            <div class="enhance-section-title">AI 深度分析</div>
+                            <div id="streamOutput" class="ai-stream-text streaming-cursor" style="min-height:100px;"></div>
+                        </div>
+                    `;
+
+                    const streamEl = document.getElementById('streamOutput');
+                    const apiResult = await callHunyuanAPI(
+                        messages,
+                        (chunk, fullText) => {
+                            // Real-time streaming display
+                            if (streamEl) {
+                                // Try to parse partial JSON for structured display
+                                try {
+                                    const cleaned = fullText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                                    const parsed = JSON.parse(cleaned);
+                                    renderCandidateAIResult(parsed, resumeText, interviewText);
+                                    if (streamEl) streamEl.classList.remove('streaming-cursor');
+                                } catch {
+                                    // Not complete JSON yet, show raw text
+                                    streamEl.textContent = fullText;
+                                    streamEl.scrollTop = streamEl.scrollHeight;
+                                }
+                            }
+                        },
+                        (fullText) => {
+                            // On complete, try to parse and render
+                            try {
+                                const cleaned = fullText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+                                const parsed = JSON.parse(cleaned);
+                                renderCandidateAIResult(parsed, resumeText, interviewText);
+                            } catch {
+                                // If JSON parsing fails, keep the streamed text as-is
+                                const streamEl2 = document.getElementById('streamOutput');
+                                if (streamEl2) {
+                                    streamEl2.classList.remove('streaming-cursor');
+                                    // Try to render as formatted text
+                                    streamEl2.innerHTML = fullText.replace(/\n/g, '<br>');
+                                }
+                            }
+                            resetEnhanceBtn(btn);
+                            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        },
+                        (err) => {
+                            console.error('混元API失败，降级本地分析:', err);
+                            showToast('AI 服务暂不可用，已切换本地分析');
+                            fallbackLocalAnalysis(resumeText, interviewText, resultContent, btn, resultDiv);
+                        }
+                    );
+
+                    if (apiResult === null) {
+                        // No API key or immediate failure
+                        fallbackLocalAnalysis(resumeText, interviewText, resultContent, btn, resultDiv);
+                    }
+                } catch (err) {
+                    console.error('候选人分析异常:', err);
+                    showToast('AI 分析异常，已切换本地分析');
+                    fallbackLocalAnalysis(resumeText, interviewText, resultContent, btn, resultDiv);
+                }
+            } else {
+                // No API key — use local analysis
+                fallbackLocalAnalysis(resumeText, interviewText, resultContent, btn, resultDiv);
+            }
+        }
+
+        function resetEnhanceBtn(btn) {
+            btn.disabled = false;
+            btn.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+                重新分析候选人
+            `;
+        }
+
+        function fallbackLocalAnalysis(resumeText, interviewText, resultContent, btn, resultDiv) {
             setTimeout(() => {
                 const analysis = analyzeCandidate(resumeText, interviewText);
                 resultContent.innerHTML = analysis;
-
-                // Re-enable button
-                btn.disabled = false;
-                btn.innerHTML = `
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                    </svg>
-                    重新分析候选人
-                `;
-
+                resetEnhanceBtn(btn);
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 2500);
+            }, 800);
         }
+
+        // Render AI-structured candidate analysis result
+        function renderCandidateAIResult(data, resumeText, interviewText) {
+            const resultContent = document.getElementById('enhanceResultContent');
+            const resumeInfo = parseResume(resumeText);
+            const interviewInfo = parseInterview(interviewText);
+
+            let html = '';
+
+            // Resume extraction section (keep local parsing for tags)
+            if (resumeText) {
+                html += `
+                    <div class="enhance-section">
+                        <div class="enhance-section-title">简历信息提取</div>
+                        <p>
+                            ${resumeInfo.school ? `<span class="enhance-tag">${resumeInfo.school}</span>` : ''}
+                            ${resumeInfo.degree ? `<span class="enhance-tag">${resumeInfo.degree}</span>` : ''}
+                            ${resumeInfo.years ? `<span class="enhance-tag">${resumeInfo.years}年经验</span>` : ''}
+                            ${resumeInfo.companies.length > 0 ? resumeInfo.companies.map(c => `<span class="enhance-tag">${c}</span>`).join('') : ''}
+                            ${resumeInfo.skills.length > 0 ? resumeInfo.skills.map(s => `<span class="enhance-tag">${s}</span>`).join('') : ''}
+                        </p>
+                        <p style="margin-top:12px;">${resumeInfo.summary}</p>
+                    </div>
+                `;
+            }
+
+            // Interview evaluation section
+            if (interviewText) {
+                html += `
+                    <div class="enhance-section">
+                        <div class="enhance-section-title">面试评价分析</div>
+                        <p>${interviewInfo.summary}</p>
+                        ${interviewInfo.strengths.length > 0 ? `<p><strong>优势：</strong>${interviewInfo.strengths.join('、')}</p>` : ''}
+                        ${interviewInfo.concerns.length > 0 ? `<p><strong>关注点：</strong>${interviewInfo.concerns.join('、')}</p>` : ''}
+                    </div>
+                `;
+            }
+
+            // AI scores section
+            if (data.scores && data.scores.length > 0) {
+                html += `
+                    <div class="enhance-section">
+                        <div class="enhance-section-title">AI 综合评估</div>
+                        ${data.scores.map(s => `
+                            <div class="enhance-score-bar">
+                                <span class="enhance-score-label">${s.name}</span>
+                                <div class="enhance-score-track"><div class="enhance-score-fill" style="width:${s.score}%;"></div></div>
+                                <span class="enhance-score-value">${s.score}</span>
+                            </div>
+                            ${s.reason ? `<p style="font-size:13px;color:var(--apple-text-secondary);margin:-4px 0 8px 0;padding-left:4px;">💡 ${s.reason}</p>` : ''}
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // AI recommendation
+            if (data.recommendation) {
+                html += `
+                    <div class="enhance-section">
+                        <div class="enhance-section-title">AI 定薪建议</div>
+                        <p>${data.recommendation}</p>
+                    </div>
+                `;
+            }
+
+            // AI risk analysis
+            if (data.risks) {
+                html += `
+                    <div class="enhance-section">
+                        <div class="enhance-section-title">风险分析</div>
+                        <p>${data.risks}</p>
+                    </div>
+                `;
+            }
+
+            // AI summary
+            if (data.summary) {
+                html += `
+                    <div class="enhance-section" style="background:rgba(0,113,227,0.08);border-radius:12px;padding:16px;">
+                        <p style="font-weight:600;">🎯 ${data.summary}</p>
+                    </div>
+                `;
+            }
+
+            // Powered by tag
+            html += `<p style="text-align:right;font-size:11px;color:var(--apple-text-secondary);margin-top:8px;opacity:0.6;">Powered by 腾讯混元大模型</p>`;
+
+            resultContent.innerHTML = html;
+        }
+
 
         function analyzeCandidate(resumeText, interviewText) {
             // ===== Resume Parsing =====
