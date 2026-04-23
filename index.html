@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -1042,12 +1043,12 @@
 
         /* ===== CANDIDATE SECTION ===== */
         .candidate-section {
-            margin-top: 40px;
-            padding-top: 40px;
-            border-top: 2px solid var(--apple-border);
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: none;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s var(--ease-out-expo) 0.7s;
+            transform: translateY(30px);
+            transition: all 0.8s var(--ease-out-expo) 0.6s;
         }
 
         .results-section.active .candidate-section {
@@ -1057,26 +1058,28 @@
 
         .candidate-header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 48px;
         }
 
         .candidate-header h3 {
-            font-size: 22px;
-            font-weight: 600;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
             color: var(--apple-text);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            letter-spacing: -0.025em;
         }
 
         .candidate-header p {
-            font-size: 15px;
+            font-size: 17px;
             color: var(--apple-text-secondary);
+            line-height: 1.5;
         }
 
         .candidate-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 24px;
-            margin-bottom: 28px;
+            margin-bottom: 36px;
         }
 
         @media (max-width: 768px) {
@@ -1087,52 +1090,214 @@
 
         .candidate-upload-card {
             background: var(--apple-card);
-            border-radius: 20px;
-            padding: 28px;
-            border: 2px dashed var(--apple-border);
-            transition: all 0.3s var(--ease-out-expo);
+            border-radius: 28px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            transition: all 0.4s var(--ease-out-expo);
         }
 
-        .candidate-upload-card:focus-within {
-            border-color: var(--apple-blue);
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        .candidate-upload-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
         }
 
-        .upload-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            background: var(--primary-light, rgba(0, 113, 227, 0.1));
+        .upload-card-top {
+            padding: 32px 32px 0;
+        }
+
+        .upload-icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .upload-icon-wrap.resume-icon {
+            background: rgba(0, 113, 227, 0.08);
             color: var(--apple-blue);
         }
 
-        .interview-icon {
-            background: rgba(16, 185, 129, 0.1) !important;
-            color: var(--success, #10b981) !important;
+        .upload-icon-wrap.interview-icon {
+            background: rgba(16, 185, 129, 0.08);
+            color: #10b981;
         }
 
         .candidate-upload-card h4 {
-            font-size: 17px;
+            font-size: 22px;
             font-weight: 600;
             margin-bottom: 6px;
+            letter-spacing: -0.021em;
         }
 
-        .candidate-upload-card > p {
-            font-size: 13px;
+        .candidate-upload-card > .upload-card-top > p {
+            font-size: 14px;
             color: var(--apple-text-secondary);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed #d2d2d7;
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            margin: 0 32px 20px;
+            position: relative;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--apple-blue);
+            background: rgba(0, 113, 227, 0.02);
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--apple-blue);
+            background: rgba(0, 113, 227, 0.06);
+            transform: scale(1.01);
+        }
+
+        .drop-zone.has-file {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.04);
+        }
+
+        .drop-zone-icon {
+            margin-bottom: 12px;
+            color: var(--apple-text-secondary);
+        }
+
+        .drop-zone-text {
+            font-size: 15px;
+            color: var(--apple-text);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .drop-zone-hint {
+            font-size: 12px;
+            color: var(--apple-text-secondary);
+        }
+
+        .drop-zone-link {
+            color: var(--apple-blue);
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .drop-zone-link:hover {
+            text-decoration: underline;
+        }
+
+        .drop-zone input[type="file"] {
+            display: none;
+        }
+
+        /* File preview */
+        .file-preview {
+            display: none;
+            margin: 0 32px 20px;
+            padding: 16px 20px;
+            background: var(--apple-gray);
+            border-radius: 16px;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .file-preview.visible {
+            display: flex;
+        }
+
+        .file-preview-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .file-preview-icon.pdf { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .file-preview-icon.img { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .file-preview-icon.doc { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+
+        .file-preview-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-preview-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--apple-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-preview-size {
+            font-size: 12px;
+            color: var(--apple-text-secondary);
+        }
+
+        .file-preview-remove {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, 0.06);
+            color: var(--apple-text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .file-preview-remove:hover {
+            background: rgba(239, 68, 68, 0.12);
+            color: #ef4444;
+        }
+
+        /* Or divider */
+        .or-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 0 32px 16px;
+            color: var(--apple-text-secondary);
+            font-size: 12px;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--apple-border);
+        }
+
+        /* Textarea in upload card */
         .candidate-textarea {
-            width: 100%;
-            min-height: 160px;
-            padding: 16px;
+            width: calc(100% - 64px);
+            min-height: 120px;
+            padding: 16px 20px;
             border: 1.5px solid var(--apple-border);
-            border-radius: 14px;
+            border-radius: 16px;
             font-size: 14px;
             line-height: 1.6;
             color: var(--apple-text);
@@ -1140,13 +1305,15 @@
             resize: vertical;
             transition: all 0.3s var(--ease-out-expo);
             font-family: inherit;
+            margin: 0 32px 28px;
+            display: block;
         }
 
         .candidate-textarea:focus {
             outline: none;
             border-color: var(--apple-blue);
             background: var(--apple-card);
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
         }
 
         .candidate-textarea::placeholder {
@@ -1154,15 +1321,16 @@
             font-size: 13px;
         }
 
+        /* AI Enhance Button — Apple Blue style */
         .ai-enhance-btn {
             width: 100%;
-            padding: 18px 32px;
+            padding: 20px 32px;
             font-size: 17px;
             font-weight: 600;
             color: white;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: var(--apple-blue);
             border: none;
-            border-radius: 14px;
+            border-radius: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1173,44 +1341,50 @@
         }
 
         .ai-enhance-btn:hover {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
+            background: var(--apple-blue-hover);
+            transform: translateY(-2px) scale(1.005);
+            box-shadow: 0 12px 40px rgba(0, 113, 227, 0.3);
         }
 
         .ai-enhance-btn:active {
             transform: translateY(0) scale(0.98);
+            box-shadow: none;
         }
 
         .ai-enhance-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
         }
 
-        /* ===== ENHANCE RESULT ===== */
+        /* ===== ENHANCE RESULT — Apple Style ===== */
         .enhance-result {
-            margin-top: 28px;
-            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 20px;
-            padding: 32px;
+            margin-top: 36px;
+            background: var(--apple-card);
+            border: none;
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s var(--ease-out-expo);
+            transform: translateY(24px);
+            transition: all 0.8s var(--ease-out-expo);
         }
 
         .enhance-result.visible {
             opacity: 1;
             transform: translateY(0);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
         }
 
         .enhance-result-header {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
         .enhance-section {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .enhance-section:last-child {
@@ -1218,101 +1392,133 @@
         }
 
         .enhance-section-title {
-            font-size: 15px;
+            font-size: 20px;
             font-weight: 600;
-            color: #065f46;
-            margin-bottom: 12px;
+            color: var(--apple-text);
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            letter-spacing: -0.021em;
         }
 
         .enhance-section-title::before {
-            content: '▸';
-            color: #10b981;
+            content: '';
+            width: 4px;
+            height: 20px;
+            border-radius: 2px;
+            background: var(--apple-blue);
+            flex-shrink: 0;
         }
 
         .enhance-section p {
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.8;
-            color: #374151;
+            color: #424245;
         }
 
         .enhance-tag {
             display: inline-block;
-            padding: 3px 10px;
-            background: rgba(16, 185, 129, 0.12);
-            border-radius: 6px;
-            font-size: 12px;
-            color: #059669;
+            padding: 6px 14px;
+            background: rgba(0, 113, 227, 0.06);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--apple-blue);
             font-weight: 500;
-            margin: 2px 4px;
+            margin: 3px 4px;
+            transition: all 0.2s;
+        }
+
+        .enhance-tag:hover {
+            background: rgba(0, 113, 227, 0.12);
+            transform: translateY(-1px);
         }
 
         .enhance-highlight {
-            color: #059669;
+            color: var(--apple-blue);
             font-weight: 600;
         }
 
         .enhance-salary-box {
-            background: white;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 14px;
-            padding: 24px;
-            margin-top: 16px;
+            background: linear-gradient(135deg, #000000 0%, #1d1d1f 100%);
+            border-radius: 24px;
+            padding: 36px;
+            margin-top: 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enhance-salary-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 50%, rgba(0, 113, 227, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(0, 113, 227, 0.15) 0%, transparent 50%);
+        }
+
+        .enhance-salary-box > * {
+            position: relative;
+            z-index: 1;
         }
 
         .enhance-salary-label {
-            font-size: 13px;
-            color: #6b7280;
-            margin-bottom: 8px;
+            font-size: 14px;
+            color: #86868b;
+            margin-bottom: 10px;
         }
 
         .enhance-salary-value {
-            font-size: 32px;
+            font-size: 40px;
             font-weight: 700;
-            color: #059669;
+            color: white;
+            letter-spacing: -0.021em;
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .enhance-salary-note {
             font-size: 13px;
-            color: #9ca3af;
-            margin-top: 8px;
+            color: #86868b;
+            margin-top: 10px;
         }
 
         .enhance-score-bar {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
         .enhance-score-label {
-            font-size: 13px;
-            color: #374151;
+            font-size: 14px;
+            color: var(--apple-text);
             min-width: 80px;
+            font-weight: 500;
         }
 
         .enhance-score-track {
             flex: 1;
-            height: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            border-radius: 4px;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 3px;
             overflow: hidden;
         }
 
         .enhance-score-fill {
             height: 100%;
-            border-radius: 4px;
-            background: linear-gradient(90deg, #10b981, #059669);
-            transition: width 1s var(--ease-out-expo);
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--apple-blue), #2997ff);
+            transition: width 1.2s var(--ease-out-expo);
         }
 
         .enhance-score-value {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
-            color: #059669;
+            color: var(--apple-blue);
             min-width: 32px;
             text-align: right;
         }
@@ -1741,37 +1947,100 @@
             <!-- Candidate Enhancement Section -->
             <div class="candidate-section" id="candidateSection">
                 <div class="candidate-header">
-                    <h3>上传候选人信息，获取精准定薪建议</h3>
-                    <p>可选上传简历和面试评价，AI 将结合市场数据和个人背景给出更精准的定薪建议</p>
+                    <h3>候选人深度分析</h3>
+                    <p>上传简历或填写面试评价，AI 将结合市场数据给出精准定薪建议</p>
                 </div>
 
                 <div class="candidate-grid">
+                    <!-- Resume Card -->
                     <div class="candidate-upload-card">
-                        <div class="upload-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <polyline points="14 2 14 8 20 8"/>
-                                <line x1="16" y1="13" x2="8" y2="13"/>
-                                <line x1="16" y1="17" x2="8" y2="17"/>
-                                <polyline points="10 9 9 9 8 9"/>
-                            </svg>
+                        <div class="upload-card-top">
+                            <div class="upload-icon-wrap resume-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                </svg>
+                            </div>
+                            <h4>候选人简历</h4>
+                            <p>支持 PDF、JPG、PNG、DOC 等格式，或直接粘贴文本</p>
                         </div>
-                        <h4>候选人简历</h4>
-                        <p>粘贴简历内容，AI 将自动提取关键信息</p>
+
+                        <!-- Drop Zone -->
+                        <div class="drop-zone" id="resumeDropZone" onclick="document.getElementById('resumeFileInput').click()">
+                            <input type="file" id="resumeFileInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" onchange="handleResumeFile(this)">
+                            <div class="drop-zone-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                            </div>
+                            <div class="drop-zone-text">拖拽文件到此处，或 <span class="drop-zone-link">选择文件</span></div>
+                            <div class="drop-zone-hint">支持 PDF、JPG、PNG、DOC、TXT，最大 10MB</div>
+                        </div>
+
+                        <!-- File Preview -->
+                        <div class="file-preview" id="resumeFilePreview">
+                            <div class="file-preview-icon" id="resumeFileIcon">PDF</div>
+                            <div class="file-preview-info">
+                                <div class="file-preview-name" id="resumeFileName">文件名</div>
+                                <div class="file-preview-size" id="resumeFileSize">0 KB</div>
+                            </div>
+                            <button class="file-preview-remove" onclick="removeResumeFile()">×</button>
+                        </div>
+
+                        <!-- Or Divider -->
+                        <div class="or-divider">或直接粘贴简历文本</div>
+
+                        <!-- Textarea -->
                         <textarea id="resumeInput" class="candidate-textarea" placeholder="请粘贴候选人简历内容...&#10;&#10;例如：&#10;张三，男，2018年毕业于北京大学计算机系硕士&#10;6年Java开发经验，曾就职于字节跳动&#10;主导过千万级用户系统架构设计&#10;熟悉Spring Cloud、微服务架构"></textarea>
                     </div>
 
+                    <!-- Interview Card -->
                     <div class="candidate-upload-card">
-                        <div class="upload-icon interview-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
+                        <div class="upload-card-top">
+                            <div class="upload-icon-wrap interview-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <h4>面试评价</h4>
+                            <p>填写面试官评价，帮助 AI 更准确判断候选人水平</p>
                         </div>
-                        <h4>面试评价</h4>
-                        <p>填写面试官评价，帮助AI更准确判断</p>
+
+                        <!-- Drop Zone for Interview -->
+                        <div class="drop-zone" id="interviewDropZone" onclick="document.getElementById('interviewFileInput').click()">
+                            <input type="file" id="interviewFileInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" onchange="handleInterviewFile(this)">
+                            <div class="drop-zone-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                            </div>
+                            <div class="drop-zone-text">拖拽文件到此处，或 <span class="drop-zone-link">选择文件</span></div>
+                            <div class="drop-zone-hint">支持 PDF、JPG、PNG、DOC、TXT，最大 10MB</div>
+                        </div>
+
+                        <!-- File Preview -->
+                        <div class="file-preview" id="interviewFilePreview">
+                            <div class="file-preview-icon" id="interviewFileIcon">PDF</div>
+                            <div class="file-preview-info">
+                                <div class="file-preview-name" id="interviewFileName">文件名</div>
+                                <div class="file-preview-size" id="interviewFileSize">0 KB</div>
+                            </div>
+                            <button class="file-preview-remove" onclick="removeInterviewFile()">×</button>
+                        </div>
+
+                        <!-- Or Divider -->
+                        <div class="or-divider">或直接填写面试评价</div>
+
+                        <!-- Textarea -->
                         <textarea id="interviewInput" class="candidate-textarea" placeholder="请填写面试评价...&#10;&#10;例如：&#10;技术能力：优秀，系统设计思路清晰&#10;沟通能力：良好，表达有条理&#10;团队匹配：较好，与团队氛围契合&#10;整体评价：建议录用，定薪可偏上限"></textarea>
                     </div>
                 </div>
@@ -1836,6 +2105,202 @@
     </div>
 
     <script>
+        // ========================================
+        // PDF.js Worker Setup
+        // ========================================
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        // ========================================
+        // FILE UPLOAD HANDLING
+        // ========================================
+        let resumeFileObj = null;
+        let interviewFileObj = null;
+        let resumeFileText = '';
+        let interviewFileText = '';
+
+        // Setup drag & drop for resume
+        (function() {
+            const rz = document.getElementById('resumeDropZone');
+            if (rz) {
+                rz.addEventListener('dragover', e => { e.preventDefault(); rz.classList.add('drag-over'); });
+                rz.addEventListener('dragleave', () => rz.classList.remove('drag-over'));
+                rz.addEventListener('drop', e => {
+                    e.preventDefault();
+                    rz.classList.remove('drag-over');
+                    if (e.dataTransfer.files.length > 0) {
+                        processResumeFile(e.dataTransfer.files[0]);
+                    }
+                });
+            }
+            const iz = document.getElementById('interviewDropZone');
+            if (iz) {
+                iz.addEventListener('dragover', e => { e.preventDefault(); iz.classList.add('drag-over'); });
+                iz.addEventListener('dragleave', () => iz.classList.remove('drag-over'));
+                iz.addEventListener('drop', e => {
+                    e.preventDefault();
+                    iz.classList.remove('drag-over');
+                    if (e.dataTransfer.files.length > 0) {
+                        processInterviewFile(e.dataTransfer.files[0]);
+                    }
+                });
+            }
+        })();
+
+        function handleResumeFile(input) {
+            if (input.files.length > 0) processResumeFile(input.files[0]);
+        }
+
+        function handleInterviewFile(input) {
+            if (input.files.length > 0) processInterviewFile(input.files[0]);
+        }
+
+        function processResumeFile(file) {
+            if (file.size > 10 * 1024 * 1024) {
+                alert('文件大小不能超过 10MB');
+                return;
+            }
+            resumeFileObj = file;
+            resumeFileText = '';
+            showFilePreview('resume', file);
+            extractTextFromFile(file, text => { resumeFileText = text; });
+        }
+
+        function processInterviewFile(file) {
+            if (file.size > 10 * 1024 * 1024) {
+                alert('文件大小不能超过 10MB');
+                return;
+            }
+            interviewFileObj = file;
+            interviewFileText = '';
+            showFilePreview('interview', file);
+            extractTextFromFile(file, text => { interviewFileText = text; });
+        }
+
+        function showFilePreview(type, file) {
+            const preview = document.getElementById(type + 'FilePreview');
+            const icon = document.getElementById(type + 'FileIcon');
+            const nameEl = document.getElementById(type + 'FileName');
+            const sizeEl = document.getElementById(type + 'FileSize');
+            const dropZone = document.getElementById(type + 'DropZone');
+
+            const ext = file.name.split('.').pop().toLowerCase();
+            let iconClass = 'doc', iconText = 'DOC';
+            if (ext === 'pdf') { iconClass = 'pdf'; iconText = 'PDF'; }
+            else if (['jpg','jpeg','png','gif','bmp','webp'].includes(ext)) { iconClass = 'img'; iconText = ext.toUpperCase().substring(0,3); }
+            else if (['doc','docx'].includes(ext)) { iconClass = 'doc'; iconText = 'DOC'; }
+
+            icon.className = 'file-preview-icon ' + iconClass;
+            icon.textContent = iconText;
+            nameEl.textContent = file.name;
+            sizeEl.textContent = formatFileSize(file.size);
+            preview.classList.add('visible');
+            dropZone.classList.add('has-file');
+        }
+
+        function removeResumeFile() {
+            resumeFileObj = null;
+            resumeFileText = '';
+            document.getElementById('resumeFilePreview').classList.remove('visible');
+            document.getElementById('resumeDropZone').classList.remove('has-file');
+            document.getElementById('resumeFileInput').value = '';
+        }
+
+        function removeInterviewFile() {
+            interviewFileObj = null;
+            interviewFileText = '';
+            document.getElementById('interviewFilePreview').classList.remove('visible');
+            document.getElementById('interviewDropZone').classList.remove('has-file');
+            document.getElementById('interviewFileInput').value = '';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function extractTextFromFile(file, callback) {
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            if (ext === 'pdf') {
+                // Use pdf.js to extract text
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const typedArray = new Uint8Array(e.target.result);
+                    if (typeof pdfjsLib !== 'undefined') {
+                        pdfjsLib.getDocument(typedArray).promise.then(pdf => {
+                            let allText = '';
+                            const numPages = pdf.numPages;
+                            let pagesProcessed = 0;
+                            for (let i = 1; i <= numPages; i++) {
+                                pdf.getPage(i).then(page => {
+                                    page.getTextContent().then(textContent => {
+                                        allText += textContent.items.map(item => item.str).join(' ') + '\n';
+                                        pagesProcessed++;
+                                        if (pagesProcessed === numPages) {
+                                            callback(allText.trim());
+                                        }
+                                    });
+                                }).catch(() => {
+                                    pagesProcessed++;
+                                    if (pagesProcessed === numPages) callback(allText.trim());
+                                });
+                            }
+                        }).catch(() => {
+                            callback('[PDF解析失败，请直接粘贴简历文本]');
+                        });
+                    } else {
+                        callback('[PDF解析库加载失败，请直接粘贴简历文本]');
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            } else if (['jpg','jpeg','png','gif','bmp','webp'].includes(ext)) {
+                // For images, show a note that OCR is not available and suggest pasting text
+                callback('[图片文件已上传，由于浏览器不支持直接识别图片文字，建议您将简历内容复制粘贴到下方文本框中，以获得更精准的分析结果]');
+            } else if (ext === 'txt') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    callback(e.target.result);
+                };
+                reader.readAsText(file);
+            } else if (['doc','docx'].includes(ext)) {
+                // Basic DOCX extraction using JSZip-like approach
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Try to extract text from DOCX (it's a ZIP file with XML inside)
+                    const arrayBuffer = e.target.result;
+                    try {
+                        const text = extractDocxText(arrayBuffer);
+                        callback(text || '[Word文档解析结果不完整，建议直接粘贴简历文本]');
+                    } catch(err) {
+                        callback('[Word文档解析失败，请直接粘贴简历文本]');
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            } else {
+                callback('[不支持的文件格式，请直接粘贴简历文本]');
+            }
+        }
+
+        // Simple DOCX text extractor (DOCX is a ZIP containing word/document.xml)
+        function extractDocxText(arrayBuffer) {
+            // Minimal ZIP/DOCX parser: find document.xml and extract text
+            try {
+                const bytes = new Uint8Array(arrayBuffer);
+                const text = new TextDecoder('utf-8').decode(bytes);
+                // Find XML content between <w:t> tags (Word document text)
+                const matches = text.match(/<w:t[^>]*>([^<]+)<\/w:t>/g);
+                if (matches) {
+                    return matches.map(m => m.replace(/<[^>]+>/g, '')).join('');
+                }
+                return '';
+            } catch(e) {
+                return '';
+            }
+        }
+
         // ========================================
         // POSITION DATABASE
         // ========================================
@@ -3539,12 +4004,17 @@
         // CANDIDATE ENHANCEMENT AI
         // ========================================
         function enhanceAnalysis() {
-            const resumeText = document.getElementById('resumeInput').value.trim();
-            const interviewText = document.getElementById('interviewInput').value.trim();
+            // Combine file-extracted text with manually pasted text
+            const manualResume = document.getElementById('resumeInput').value.trim();
+            const manualInterview = document.getElementById('interviewInput').value.trim();
+
+            const resumeText = [resumeFileText, manualResume].filter(t => t && !t.startsWith('[')).join('\n') || resumeFileText || manualResume;
+            const interviewText = [interviewFileText, manualInterview].filter(t => t && !t.startsWith('[')).join('\n') || interviewFileText || manualInterview;
+
             const btn = document.getElementById('aiEnhanceBtn');
 
             if (!resumeText && !interviewText) {
-                alert('请至少填写简历内容或面试评价中的一项');
+                alert('请至少上传简历文件/粘贴简历内容，或填写面试评价中的一项');
                 return;
             }
 
@@ -3565,9 +4035,9 @@
             resultDiv.style.display = 'block';
 
             resultContent.innerHTML = `
-                <div style="text-align:center;padding:30px;color:#6b7280;">
+                <div style="text-align:center;padding:40px;color:var(--apple-text-secondary);">
                     <div class="ai-typing"><span></span><span></span><span></span></div>
-                    <p style="margin-top:12px;font-size:14px;">AI 正在解析候选人信息并生成画像...</p>
+                    <p style="margin-top:16px;font-size:15px;">AI 正在解析候选人信息并生成画像...</p>
                 </div>
             `;
 
