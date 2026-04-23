@@ -2455,19 +2455,26 @@
         // COMPANY REFERENCE DATABASE
         // ========================================
         const companySalaryDB = {
-            // IVD/体外诊断
+            // ===== IVD/体外诊断 =====
             '迈瑞医疗': {
                 industry: 'IVD/医疗器械',
                 city: '深圳',
                 positions: {
-                    'ivd_reagent_rd': { range: '21.6-32.4万', level: '行业头部', note: '研发人均年薪约53万(含年终)' },
-                    'ivd_instrument_rd': { range: '24-40万', level: '行业头部', note: '机械开发工程师月薪2.3w+' },
-                    'ivd_registration': { range: '19.2-28.8万', level: '行业头部', note: '产品注册专员月薪1.8w' },
-                    'ivd_product_manager': { range: '28.8-45.6万', level: '行业头部', note: '产品线核心岗位' },
-                    'ivd_marketing': { range: '26.4-42万', level: '行业头部', note: '学术推广体系成熟' },
-                    'ivd_sales': { range: '24-48万', level: '行业头部', note: '销售人均年薪约78万(含提成)' },
-                    'ivd_fas': { range: '26.4-40万', level: '行业头部', note: '应用科学家需求大' },
-                    'devops': { range: '19.2-30万', level: '行业头部', note: 'ARM软件工程师月薪1.3w' },
+                    'ivd_reagent_rd': { range: '21.6-32.4万', level: '行业龙头', note: '研发人均年薪约53万(含年终)' },
+                    'ivd_instrument_rd': { range: '24-40万', level: '行业龙头', note: '机械开发工程师月薪2.3w+' },
+                    'ivd_registration': { range: '19.2-28.8万', level: '行业龙头', note: '产品注册专员月薪1.8w' },
+                    'ivd_product_manager': { range: '28.8-45.6万', level: '行业龙头', note: '产品线核心岗位' },
+                    'ivd_marketing': { range: '26.4-42万', level: '行业龙头', note: '学术推广体系成熟' },
+                    'ivd_sales': { range: '24-48万', level: '行业龙头', note: '销售人均年薪约78万(含提成)' },
+                    'ivd_fas': { range: '26.4-40万', level: '行业龙头', note: '应用科学家需求大' },
+                    'ivd_quality': { range: '16.8-27.6万', level: '行业龙头', note: 'ISO13485体系完善' },
+                    'ivd_production': { range: '18-30万', level: '行业龙头', note: '生产管理岗待遇好' },
+                    'ivd_tech_support': { range: '13.2-22.8万', level: '行业龙头', note: '售后技术支持岗' },
+                    'devops': { range: '19.2-30万', level: '行业龙头', note: 'ARM软件工程师月薪1.3w' },
+                    'qa_specialist': { range: '15.6-26.4万', level: '行业龙头', note: 'GMP质量体系完善' },
+                    'qc_analyst': { range: '13.2-22.8万', level: '行业龙头', note: '质量控制量大' },
+                    'process_engineer': { range: '18-30万', level: '行业龙头', note: '工艺开发核心岗' },
+                    'production_specialist': { range: '12-21.6万', level: '行业龙头', note: '生产岗基础薪资' },
                 }
             },
             '新产业生物': {
@@ -2478,6 +2485,12 @@
                     'ivd_reagent_rd': { range: '19.2-30万', level: '赛道龙头', note: '试剂研发为核心' },
                     'ivd_product_manager': { range: '26.4-42万', level: '赛道龙头', note: '海外市场扩张中' },
                     'ivd_registration': { range: '18-27.6万', level: '赛道龙头', note: '国内外注册并行' },
+                    'ivd_marketing': { range: '24-38.4万', level: '赛道龙头', note: '学术团队规模大' },
+                    'ivd_sales': { range: '22-40万', level: '赛道龙头', note: '国内+海外双线' },
+                    'ivd_fas': { range: '24-38.4万', level: '赛道龙头', note: 'FAS岗位需求稳定' },
+                    'ivd_quality': { range: '15.6-25.2万', level: '赛道龙头', note: '质量体系成熟' },
+                    'ivd_production': { range: '15.6-26.4万', level: '赛道龙头', note: '产能持续扩张' },
+                    'process_engineer': { range: '18-28.8万', level: '赛道龙头', note: '工艺优化核心岗' },
                 }
             },
             '安图生物': {
@@ -2487,6 +2500,11 @@
                     'ivd_reagent_rd': { range: '16.8-27.6万', level: '行业头部', note: '微生物检测国内第一' },
                     'ivd_immuno_rd': { range: '18-28.8万', level: '行业头部', note: '免疫赛道加速布局' },
                     'ivd_product_manager': { range: '24-38.4万', level: '行业头部', note: '自动化流水线产品' },
+                    'ivd_registration': { range: '15.6-25.2万', level: '行业头部', note: '注册体系完善' },
+                    'ivd_marketing': { range: '21.6-35万', level: '行业头部', note: '市场覆盖面广' },
+                    'ivd_quality': { range: '13.2-22.8万', level: '行业头部', note: '质量团队规模大' },
+                    'qa_specialist': { range: '12-20.4万', level: '行业头部', note: 'GMP合规岗位' },
+                    'qc_analyst': { range: '10.8-18万', level: '行业头部', note: '质控分析岗' },
                 }
             },
             '亚辉龙': {
@@ -2496,19 +2514,61 @@
                     'ivd_immuno_rd': { range: '19.2-30万', level: '行业新锐', note: '自研发光仪器+试剂' },
                     'ivd_reagent_rd': { range: '18-28.8万', level: '行业新锐', note: '试剂平台完善' },
                     'ivd_product_manager': { range: '24-38.4万', level: '行业新锐', note: '市场快速扩张' },
+                    'ivd_registration': { range: '15.6-25.2万', level: '行业新锐', note: '注册团队扩张中' },
+                    'ivd_fas': { range: '21.6-33.6万', level: '行业新锐', note: '应用支持岗' },
+                    'ivd_sales': { range: '18-35万', level: '行业新锐', note: '国内市场增长快' },
                 }
             },
-            // 基因检测
+            '迈克生物': {
+                industry: 'IVD/生化免疫',
+                city: '成都',
+                positions: {
+                    'ivd_reagent_rd': { range: '15.6-25.2万', level: '行业头部', note: '生化免疫双线布局' },
+                    'ivd_immuno_rd': { range: '16.8-27.6万', level: '行业头部', note: '发光试剂研发' },
+                    'ivd_product_manager': { range: '21.6-36万', level: '行业头部', note: '产品线丰富' },
+                    'ivd_registration': { range: '13.2-22.8万', level: '行业头部', note: '注册经验丰富' },
+                    'ivd_quality': { range: '12-20.4万', level: '行业头部', note: '质量体系完善' },
+                }
+            },
+            '圣湘生物': {
+                industry: 'IVD/分子诊断',
+                city: '长沙',
+                positions: {
+                    'ivd_molecular_rd': { range: '18-30万', level: '分子诊断龙头', note: 'PCR产品线丰富' },
+                    'ivd_poct_rd': { range: '16.8-27.6万', level: '分子诊断龙头', note: 'POCT快速检测' },
+                    'ivd_reagent_rd': { range: '15.6-26.4万', level: '分子诊断龙头', note: '核酸试剂研发' },
+                    'ivd_registration': { range: '13.2-22.8万', level: '分子诊断龙头', note: '国内外注册齐全' },
+                    'ivd_product_manager': { range: '21.6-36万', level: '分子诊断龙头', note: '产品覆盖传染病+妇幼' },
+                }
+            },
+            '万泰生物': {
+                industry: 'IVD/疫苗+诊断',
+                city: '北京',
+                positions: {
+                    'ivd_reagent_rd': { range: '18-30万', level: '行业头部', note: 'HPV疫苗+IVD双轮驱动' },
+                    'ivd_poct_rd': { range: '16.8-27.6万', level: '行业头部', note: 'POCT产品线' },
+                    'ivd_molecular_rd': { range: '18-30万', level: '行业头部', note: '分子诊断产品线' },
+                    'ivd_registration': { range: '15.6-25.2万', level: '行业头部', note: '注册资源丰富' },
+                    'ivd_product_manager': { range: '22.8-38.4万', level: '行业头部', note: '产品管线上行' },
+                }
+            },
+
+            // ===== 基因检测 =====
             '华大基因': {
                 industry: '基因检测/测序',
                 city: '深圳',
                 positions: {
                     'ngs_engineer': { range: '18-30万', level: '行业龙头', note: '全球最大基因组学研发机构' },
                     'bioinfo_analyst': { range: '22.8-38.4万', level: '行业龙头', note: '生信团队规模行业最大' },
+                    'bioinformatics': { range: '22.8-38.4万', level: '行业龙头', note: '生信核心团队' },
                     'gene_rd': { range: '20.4-33.6万', level: '行业龙头', note: '自研测序平台DNBSEQ' },
                     'genetic_counselor': { range: '18-30万', level: '行业龙头', note: '遗传咨询体系完善' },
                     'single_cell_engineer': { range: '24-40万', level: '行业龙头', note: '单细胞平台齐全' },
                     'gene_product': { range: '24-40万', level: '行业龙头', note: '产品线覆盖NIPT+肿瘤+感染' },
+                    'gene_bdm': { range: '22-38万', level: '行业龙头', note: '商务拓展渠道广' },
+                    'gene_lab_manager': { range: '26.4-42万', level: '行业龙头', note: '实验室管理经验丰富' },
+                    'gene_report': { range: '15.6-25.2万', level: '行业龙头', note: '报告解读量大' },
+                    'sanger_engineer': { range: '12-20.4万', level: '行业龙头', note: '一代测序岗' },
                 }
             },
             '燃石医学': {
@@ -2519,6 +2579,7 @@
                     'bioinfo_analyst': { range: '24-40万', level: '肿瘤NGS头部', note: '生信算法团队实力强' },
                     'gene_rd': { range: '21.6-36万', level: '肿瘤NGS头部', note: '专注肿瘤基因检测' },
                     'gene_product': { range: '26.4-42万', level: '肿瘤NGS头部', note: 'LDT+IVD双模式' },
+                    'genetic_counselor': { range: '18-30万', level: '肿瘤NGS头部', note: '肿瘤遗传咨询' },
                 }
             },
             '诺禾致源': {
@@ -2527,19 +2588,52 @@
                 positions: {
                     'ngs_engineer': { range: '16.8-27.6万', level: '科研测序龙头', note: '国内最大科研测序平台' },
                     'bioinfo_analyst': { range: '21.6-36万', level: '科研测序龙头', note: '生信分析量大质优' },
+                    'bioinformatics': { range: '21.6-36万', level: '科研测序龙头', note: '生信团队实力强' },
                     'gene_rd': { range: '19.2-32.4万', level: '科研测序龙头', note: '多组学技术平台' },
+                    'gene_product': { range: '21.6-36万', level: '科研测序龙头', note: '科研服务产品线' },
+                    'single_cell_engineer': { range: '22.8-36万', level: '科研测序龙头', note: '单细胞业务增长快' },
                 }
             },
-            // 生物医药
+            '艾德生物': {
+                industry: '基因检测/伴随诊断',
+                city: '厦门',
+                positions: {
+                    'gene_rd': { range: '18-30万', level: '伴随诊断龙头', note: '肿瘤伴随诊断国内第一' },
+                    'ivd_molecular_rd': { range: '18-30万', level: '伴随诊断龙头', note: 'PCR+NGS双平台' },
+                    'ivd_registration': { range: '15.6-25.2万', level: '伴随诊断龙头', note: '多产品获NMPA批准' },
+                    'bioinfo_analyst': { range: '20.4-33.6万', level: '伴随诊断龙头', note: '生信分析专注肿瘤' },
+                    'gene_product': { range: '22.8-38.4万', level: '伴随诊断龙头', note: '产品管线丰富' },
+                }
+            },
+            '贝瑞基因': {
+                industry: '基因检测/NIPT',
+                city: '北京',
+                positions: {
+                    'ngs_engineer': { range: '16.8-27.6万', level: 'NIPT先行者', note: 'NIPT检测量领先' },
+                    'bioinfo_analyst': { range: '20.4-33.6万', level: 'NIPT先行者', note: '生信分析团队' },
+                    'gene_rd': { range: '18-30万', level: 'NIPT先行者', note: 'NIPT+CNV-seq' },
+                    'genetic_counselor': { range: '16.8-27.6万', level: 'NIPT先行者', note: '产前遗传咨询' },
+                    'gene_product': { range: '21.6-36万', level: 'NIPT先行者', note: 'NIPT+科孕产品' },
+                }
+            },
+
+            // ===== 生物医药 =====
             '恒瑞医药': {
                 industry: '生物医药/创新药',
                 city: '连云港/上海',
                 positions: {
                     'drug_research': { range: '24-42万', level: '创新药龙头', note: '研发投入行业第一' },
+                    'bio_research': { range: '24-42万', level: '创新药龙头', note: '生物药管线丰富' },
                     'clinical_research': { range: '18-30万', level: '创新药龙头', note: '临床管线丰富' },
+                    'clinical_pm': { range: '26.4-45万', level: '创新药龙头', note: '临床管理核心岗' },
                     'medical_affairs': { range: '26.4-45万', level: '创新药龙头', note: '创新药上市加速' },
                     'medical_representative': { range: '15.6-30万', level: '创新药龙头', note: '销售体系强大' },
                     'regulatory': { range: '19.2-32.4万', level: '创新药龙头', note: '注册经验丰富' },
+                    'pharmacovigilance': { range: '18-30万', level: '创新药龙头', note: 'PV体系成熟' },
+                    'medical_writer': { range: '15.6-25.2万', level: '创新药龙头', note: '医学写作岗' },
+                    'qa_specialist': { range: '13.2-22.8万', level: '创新药龙头', note: 'GMP质量体系完善' },
+                    'process_engineer': { range: '18-30万', level: '创新药龙头', note: '工艺开发核心' },
+                    'production_specialist': { range: '10.8-18万', level: '创新药龙头', note: '生产基础岗' },
                 }
             },
             '药明康德': {
@@ -2550,7 +2644,27 @@
                     'synthesis_engineer': { range: '16.8-28.8万', level: 'CRO全球龙头', note: '合成研究员月薪7-12K' },
                     'bio_research': { range: '18-30万', level: 'CRO全球龙头', note: '生物药板块增长快' },
                     'clinical_pm': { range: '25-42万', level: 'CRO全球龙头', note: '项目管理培训生约25万' },
+                    'clinical_research': { range: '16.8-28.8万', level: 'CRO全球龙头', note: 'CRA岗需求大' },
                     'process_engineer': { range: '18-30万', level: 'CRO全球龙头', note: 'CDMO工艺开发核心' },
+                    'qa_specialist': { range: '13.2-22.8万', level: 'CRO全球龙头', note: '质量体系全球标准' },
+                    'regulatory': { range: '16.8-27.6万', level: 'CRO全球龙头', note: '中美双报经验' },
+                    'data_analyst': { range: '18-30万', level: 'CRO全球龙头', note: '数据管理岗' },
+                    'bi_engineer': { range: '18-30万', level: 'CRO全球龙头', note: 'BI分析岗' },
+                }
+            },
+            '百济神州': {
+                industry: '生物医药/创新药',
+                city: '北京',
+                positions: {
+                    'drug_research': { range: '36-65万', level: '全球Biotech龙头', note: '研发人均年薪约95.6万(含股权)' },
+                    'bio_research': { range: '36-65万', level: '全球Biotech龙头', note: '大分子研发投入大' },
+                    'clinical_research': { range: '24-42万', level: '全球Biotech龙头', note: '全球临床开发' },
+                    'clinical_pm': { range: '30-55万', level: '全球Biotech龙头', note: '全球临床项目管理' },
+                    'medical_affairs': { range: '30-55万', level: '全球Biotech龙头', note: '医学部全球布局' },
+                    'regulatory': { range: '24-42万', level: '全球Biotech龙头', note: '中美欧三地注册' },
+                    'pharmacovigilance': { range: '22-38万', level: '全球Biotech龙头', note: '全球PV体系' },
+                    'data_scientist': { range: '30-55万', level: '全球Biotech龙头', note: '数据科学团队' },
+                    'bioinformatics': { range: '30-55万', level: '全球Biotech龙头', note: '生信+计算生物学' },
                 }
             },
             '信达生物': {
@@ -2558,75 +2672,238 @@
                 city: '苏州',
                 positions: {
                     'bio_research': { range: '22.8-38.4万', level: 'Biotech头部', note: 'PD-1明星企业' },
+                    'drug_research': { range: '24-40万', level: 'Biotech头部', note: '小分子+大分子双线' },
                     'clinical_research': { range: '18-32.4万', level: 'Biotech头部', note: '临床开发能力强' },
+                    'clinical_pm': { range: '26.4-45万', level: 'Biotech头部', note: '多适应症临床' },
                     'medical_affairs': { range: '26.4-45万', level: 'Biotech头部', note: '上市后医学支持' },
                     'regulatory': { range: '19.2-32.4万', level: 'Biotech头部', note: '多产品注册经验' },
+                    'medical_representative': { range: '15.6-28万', level: 'Biotech头部', note: '商业化团队扩张' },
                 }
             },
-            // 互联网
+            '君实生物': {
+                industry: '生物医药/创新药',
+                city: '上海',
+                positions: {
+                    'drug_research': { range: '22.8-38.4万', level: 'Biotech头部', note: 'PD-1+创新管线' },
+                    'bio_research': { range: '21.6-36万', level: 'Biotech头部', note: '大分子研发平台' },
+                    'clinical_research': { range: '18-30万', level: 'Biotech头部', note: '全球临床推进' },
+                    'clinical_pm': { range: '24-42万', level: 'Biotech头部', note: '项目管理岗' },
+                    'medical_affairs': { range: '24-42万', level: 'Biotech头部', note: '医学事务岗' },
+                    'regulatory': { range: '18-30万', level: 'Biotech头部', note: '国内外注册' },
+                }
+            },
+            '荣昌生物': {
+                industry: '生物医药/ADC',
+                city: '烟台/上海',
+                positions: {
+                    'drug_research': { range: '22.8-40万', level: 'ADC龙头', note: 'ADC+双抗管线' },
+                    'bio_research': { range: '21.6-36万', level: 'ADC龙头', note: '抗体药物研发' },
+                    'clinical_research': { range: '18-30万', level: 'ADC龙头', note: '全球临床布局' },
+                    'clinical_pm': { range: '24-42万', level: 'ADC龙头', note: '临床项目管理' },
+                    'regulatory': { range: '18-30万', level: 'ADC龙头', note: '中美双报' },
+                    'process_engineer': { range: '18-30万', level: 'ADC龙头', note: 'ADC工艺开发' },
+                }
+            },
+            '复星医药': {
+                industry: '生物医药/综合药企',
+                city: '上海',
+                positions: {
+                    'drug_research': { range: '22.8-38.4万', level: '综合药企龙头', note: '研发体系完善' },
+                    'bio_research': { range: '22.8-38.4万', level: '综合药企龙头', note: '生物药板块投入大' },
+                    'clinical_research': { range: '16.8-28.8万', level: '综合药企龙头', note: '多适应症临床' },
+                    'clinical_pm': { range: '24-42万', level: '综合药企龙头', note: '临床管理岗' },
+                    'medical_affairs': { range: '24-42万', level: '综合药企龙头', note: '医学部体系大' },
+                    'regulatory': { range: '18-30万', level: '综合药企龙头', note: '全球注册经验' },
+                    'medical_representative': { range: '14.4-26.4万', level: '综合药企龙头', note: '销售体系庞大' },
+                    'qa_specialist': { range: '13.2-22.8万', level: '综合药企龙头', note: 'GMP体系完善' },
+                }
+            },
+
+            // ===== 互联网/科技 =====
             '字节跳动': {
                 industry: '互联网/科技',
                 city: '北京',
                 positions: {
-                    'java': { range: '30-55万', level: 'T1', note: '1-2级 月薪22-35K×15薪' },
-                    'frontend': { range: '28-50万', level: 'T1', note: '1-2级 月薪20-32K×15薪' },
-                    'ai': { range: '40-65万', level: 'T1', note: '算法岗 月薪30-50K×15薪' },
-                    'pm': { range: '30-55万', level: 'T1', note: '2-1起 月薪22-35K×15薪' },
-                    'data_analyst': { range: '28-48万', level: 'T1', note: '1-2级 月薪20-30K×15薪' },
+                    'java': { range: '30-55万', level: 'T1大厂', note: '1-2级 月薪22-35K×15薪' },
+                    'python': { range: '30-55万', level: 'T1大厂', note: '1-2级 月薪22-35K×15薪' },
+                    'golang': { range: '30-55万', level: 'T1大厂', note: '1-2级 月薪22-35K×15薪' },
+                    'frontend': { range: '28-50万', level: 'T1大厂', note: '1-2级 月薪20-32K×15薪' },
+                    'ai': { range: '40-65万', level: 'T1大厂', note: '算法岗 月薪30-50K×15薪' },
+                    'llm_engineer': { range: '50-80万', level: 'T1大厂', note: '大模型岗 月薪35-55K×15薪' },
+                    'nlp_engineer': { range: '45-72万', level: 'T1大厂', note: 'NLP岗 月薪32-50K×15薪' },
+                    'cv_engineer': { range: '42-68万', level: 'T1大厂', note: 'CV岗 月薪30-48K×15薪' },
+                    'pm': { range: '30-55万', level: 'T1大厂', note: '2-1起 月薪22-35K×15薪' },
+                    'data_analyst': { range: '28-48万', level: 'T1大厂', note: '1-2级 月薪20-30K×15薪' },
+                    'data_engineer': { range: '32-55万', level: 'T1大厂', note: '1-2级 月薪24-38K×15薪' },
+                    'data_scientist': { range: '40-65万', level: 'T1大厂', note: '2-2起 月薪30-45K×15薪' },
+                    'qa': { range: '22-40万', level: 'T1大厂', note: '1-2级 月薪16-28K×15薪' },
+                    'devops': { range: '28-48万', level: 'T1大厂', note: '1-2级 月薪20-32K×15薪' },
+                    'operation': { range: '18-32万', level: 'T1大厂', note: '运营岗 月薪12-22K×15薪' },
+                    'content': { range: '18-30万', level: 'T1大厂', note: '内容运营 月薪12-20K×15薪' },
+                    'marketing': { range: '20-36万', level: 'T1大厂', note: '市场岗 月薪14-24K×15薪' },
+                    'bd': { range: '22-40万', level: 'T1大厂', note: '商务岗 月薪16-28K×15薪' },
+                    'growth_pm': { range: '32-55万', level: 'T1大厂', note: '增长PM 月薪24-38K×15薪' },
+                    'data_pm': { range: '32-55万', level: 'T1大厂', note: '数据PM 月薪24-38K×15薪' },
+                    'blockchain': { range: '36-60万', level: 'T1大厂', note: 'Web3岗 月薪26-42K×15薪' },
+                    'bioinformatics': { range: '30-50万', level: 'T1大厂', note: 'AI+生命科学 月薪22-35K×15薪' },
                 }
             },
             '腾讯': {
                 industry: '互联网/科技',
                 city: '深圳',
                 positions: {
-                    'java': { range: '30-55万', level: 'T9起', note: 'T9-T11 月薪22-40K×16薪' },
-                    'frontend': { range: '28-50万', level: 'T9起', note: 'T9-T11 月薪20-35K×16薪' },
-                    'ai': { range: '42-70万', level: 'T10起', note: 'AI Lab 月薪30-50K×16薪' },
-                    'pm': { range: '28-52万', level: 'P9起', note: 'P9-P11 月薪20-35K×16薪' },
+                    'java': { range: '30-55万', level: 'T1大厂', note: 'T9-T11 月薪22-40K×16薪' },
+                    'python': { range: '30-55万', level: 'T1大厂', note: 'T9-T11 月薪22-40K×16薪' },
+                    'golang': { range: '30-55万', level: 'T1大厂', note: 'T9-T11 月薪22-40K×16薪' },
+                    'frontend': { range: '28-50万', level: 'T1大厂', note: 'T9-T11 月薪20-35K×16薪' },
+                    'ai': { range: '42-70万', level: 'T1大厂', note: 'AI Lab 月薪30-50K×16薪' },
+                    'llm_engineer': { range: '50-85万', level: 'T1大厂', note: '混元大模型 月薪38-58K×16薪' },
+                    'pm': { range: '28-52万', level: 'T1大厂', note: 'P9-P11 月薪20-35K×16薪' },
+                    'data_analyst': { range: '26-45万', level: 'T1大厂', note: 'T9-T10 月薪18-30K×16薪' },
+                    'data_engineer': { range: '30-52万', level: 'T1大厂', note: 'T9-T11 月薪22-36K×16薪' },
+                    'qa': { range: '22-38万', level: 'T1大厂', note: 'T8-T10 月薪15-26K×16薪' },
+                    'game_design': { range: '28-55万', level: 'T1大厂', note: '游戏策划 月薪20-38K×16薪' },
+                    'ui': { range: '22-40万', level: 'T1大厂', note: 'T8-T10 月薪15-28K×16薪' },
+                    'ux': { range: '24-45万', level: 'T1大厂', note: 'T9-T10 月薪17-30K×16薪' },
+                    'security': { range: '32-55万', level: 'T1大厂', note: '安全岗 月薪22-38K×16薪' },
+                    'operation': { range: '16-30万', level: 'T1大厂', note: '运营岗 月薪10-20K×16薪' },
+                    'marketing': { range: '18-35万', level: 'T1大厂', note: '市场岗 月薪12-24K×16薪' },
                 }
             },
             '华为': {
                 industry: '科技/通信',
                 city: '深圳',
                 positions: {
-                    'java': { range: '30-55万', level: '15A起', note: '13-15级 月薪20-38K×14-16薪' },
-                    'embedded': { range: '28-50万', level: '15A起', note: '核心岗位 月薪20-35K×14-16薪' },
-                    'ai': { range: '40-65万', level: '16A起', note: '2012实验室 月薪30-48K×14-16薪' },
-                    'hardware': { range: '26-45万', level: '15A起', note: '硬件工程师 月薪18-30K×14-16薪' },
-                    'security': { range: '30-50万', level: '15A起', note: '安全岗 月薪20-35K×14-16薪' },
+                    'java': { range: '30-55万', level: '科技巨头', note: '13-15级 月薪20-38K×14-16薪' },
+                    'python': { range: '30-55万', level: '科技巨头', note: '13-15级 月薪20-38K×14-16薪' },
+                    'golang': { range: '30-55万', level: '科技巨头', note: '13-15级 月薪20-38K×14-16薪' },
+                    'frontend': { range: '26-48万', level: '科技巨头', note: '13-15级 月薪18-33K×14-16薪' },
+                    'embedded': { range: '28-50万', level: '科技巨头', note: '核心岗位 月薪20-35K×14-16薪' },
+                    'ai': { range: '40-65万', level: '科技巨头', note: '2012实验室 月薪30-48K×14-16薪' },
+                    'hardware': { range: '26-45万', level: '科技巨头', note: '硬件工程师 月薪18-30K×14-16薪' },
+                    'security': { range: '30-50万', level: '科技巨头', note: '安全岗 月薪20-35K×14-16薪' },
+                    'devops': { range: '26-48万', level: '科技巨头', note: '运维岗 月薪18-33K×14-16薪' },
+                    'cloud_engineer': { range: '32-55万', level: '科技巨头', note: '华为云 月薪22-38K×14-16薪' },
+                    'data_engineer': { range: '28-50万', level: '科技巨头', note: '数据岗 月薪20-35K×14-16薪' },
+                    'pm': { range: '26-48万', level: '科技巨头', note: '产品岗 月薪18-33K×14-16薪' },
+                    'dba': { range: '26-48万', level: '科技巨头', note: '数据库岗 月薪18-33K×14-16薪' },
+                    'sre': { range: '30-52万', level: '科技巨头', note: 'SRE岗 月薪22-36K×14-16薪' },
+                    'consultant': { range: '30-55万', level: '科技巨头', note: '咨询岗 月薪20-38K×14-16薪' },
                 }
             },
             '阿里巴巴': {
                 industry: '互联网/电商',
                 city: '杭州',
                 positions: {
-                    'java': { range: '30-55万', level: 'P6起', note: 'P6-P7 月薪22-38K×16薪' },
-                    'frontend': { range: '28-50万', level: 'P6起', note: 'P6-P7 月薪20-35K×16薪' },
-                    'ai': { range: '40-70万', level: 'P7起', note: '达摩院 月薪30-50K×16薪' },
-                    'pm': { range: '28-52万', level: 'P6起', note: 'P6-P7 月薪20-35K×16薪' },
-                    'data_analyst': { range: '28-48万', level: 'P6起', note: 'P6-P7 月薪20-30K×16薪' },
+                    'java': { range: '30-55万', level: 'T1大厂', note: 'P6-P7 月薪22-38K×16薪' },
+                    'python': { range: '30-55万', level: 'T1大厂', note: 'P6-P7 月薪22-38K×16薪' },
+                    'frontend': { range: '28-50万', level: 'T1大厂', note: 'P6-P7 月薪20-35K×16薪' },
+                    'ai': { range: '40-70万', level: 'T1大厂', note: '达摩院 月薪30-50K×16薪' },
+                    'llm_engineer': { range: '50-85万', level: 'T1大厂', note: '通义大模型 月薪38-58K×16薪' },
+                    'pm': { range: '28-52万', level: 'T1大厂', note: 'P6-P7 月薪20-35K×16薪' },
+                    'data_analyst': { range: '28-48万', level: 'T1大厂', note: 'P6-P7 月薪20-30K×16薪' },
+                    'data_engineer': { range: '30-52万', level: 'T1大厂', note: 'P6-P7 月薪22-36K×16薪' },
+                    'data_scientist': { range: '40-65万', level: 'T1大厂', note: 'P7起 月薪30-45K×16薪' },
+                    'ecommerce_operation': { range: '18-35万', level: 'T1大厂', note: '电商运营 月薪12-24K×16薪' },
+                    'marketing': { range: '20-38万', level: 'T1大厂', note: '市场岗 月薪14-26K×16薪' },
+                    'growth_pm': { range: '30-55万', level: 'T1大厂', note: '增长PM 月薪22-38K×16薪' },
+                    'ux': { range: '24-45万', level: 'T1大厂', note: 'P6-P7 月薪17-30K×16薪' },
+                    'blockchain': { range: '35-58万', level: 'T1大厂', note: '蚂蚁链 月薪25-40K×16薪' },
                 }
             },
-            // 医学检验
+            '美团': {
+                industry: '互联网/本地生活',
+                city: '北京',
+                positions: {
+                    'java': { range: '28-50万', level: 'T2大厂', note: 'L8-L9 月薪20-35K×15.5薪' },
+                    'frontend': { range: '26-48万', level: 'T2大厂', note: 'L8-L9 月薪18-32K×15.5薪' },
+                    'ai': { range: '38-62万', level: 'T2大厂', note: '算法岗 月薪28-44K×15.5薪' },
+                    'pm': { range: '28-50万', level: 'T2大厂', note: '产品岗 月薪20-35K×15.5薪' },
+                    'data_analyst': { range: '26-45万', level: 'T2大厂', note: '分析岗 月薪18-30K×15.5薪' },
+                    'operation': { range: '16-30万', level: 'T2大厂', note: '运营岗 月薪10-20K×15.5薪' },
+                    'marketing': { range: '18-34万', level: 'T2大厂', note: '市场岗 月薪12-24K×15.5薪' },
+                    'qa': { range: '20-36万', level: 'T2大厂', note: '测试岗 月薪14-25K×15.5薪' },
+                    'bd': { range: '18-35万', level: 'T2大厂', note: '商务岗 月薪12-24K×15.5薪' },
+                    'live_streaming': { range: '18-34万', level: 'T2大厂', note: '直播运营 月薪12-24K×15.5薪' },
+                }
+            },
+            '京东': {
+                industry: '互联网/电商',
+                city: '北京',
+                positions: {
+                    'java': { range: '26-48万', level: 'T2大厂', note: 'T5-T7 月薪18-33K×14薪' },
+                    'frontend': { range: '24-45万', level: 'T2大厂', note: 'T5-T7 月薪17-30K×14薪' },
+                    'ai': { range: '35-58万', level: 'T2大厂', note: '算法岗 月薪25-40K×14薪' },
+                    'pm': { range: '26-48万', level: 'T2大厂', note: '产品岗 月薪18-33K×14薪' },
+                    'data_analyst': { range: '24-42万', level: 'T2大厂', note: '分析岗 月薪17-28K×14薪' },
+                    'ecommerce_operation': { range: '16-30万', level: 'T2大厂', note: '电商运营 月薪10-20K×14薪' },
+                    'logistics_operation': { range: '14-26万', level: 'T2大厂', note: '物流运营 月薪9-18K×14薪' },
+                    'marketing': { range: '16-32万', level: 'T2大厂', note: '市场岗 月薪11-22K×14薪' },
+                }
+            },
+            '小米': {
+                industry: '科技/手机',
+                city: '北京',
+                positions: {
+                    'java': { range: '26-45万', level: 'T2科技', note: '13-15级 月薪18-32K×14薪' },
+                    'frontend': { range: '24-42万', level: 'T2科技', note: '13-15级 月薪17-28K×14薪' },
+                    'ai': { range: '35-58万', level: 'T2科技', note: 'AIoT算法 月薪25-40K×14薪' },
+                    'embedded': { range: '24-45万', level: 'T2科技', note: '核心岗位 月薪17-30K×14薪' },
+                    'hardware': { range: '24-42万', level: 'T2科技', note: '硬件工程师 月薪17-28K×14薪' },
+                    'pm': { range: '24-45万', level: 'T2科技', note: '产品岗 月薪17-32K×14薪' },
+                    'ui': { range: '20-36万', level: 'T2科技', note: 'MIUI设计 月薪14-25K×14薪' },
+                    'marketing': { range: '16-30万', level: 'T2科技', note: '市场岗 月薪11-20K×14薪' },
+                }
+            },
+
+            // ===== 医学检验 =====
             '金域医学': {
                 industry: '医学检验/第三方检验',
                 city: '广州',
                 positions: {
+                    'lab_technician': { range: '9.6-16.8万', level: '第三方检验龙头', note: '检验技师岗月薪6-12K' },
                     'lab_doctor': { range: '18-32.4万', level: '第三方检验龙头', note: '检验医师核心岗位' },
                     'pathologist': { range: '30-55万', level: '第三方检验龙头', note: '病理诊断中心' },
+                    'pathology_tech': { range: '10.8-19.2万', level: '第三方检验龙头', note: '病理技师岗' },
                     'molecular_lab_tech': { range: '13.2-22.8万', level: '第三方检验龙头', note: '分子诊断量大' },
                     'third_party_lab': { range: '24-42万', level: '第三方检验龙头', note: '技术管理岗' },
                     'lab_quality_manager': { range: '22-38万', level: '第三方检验龙头', note: 'ISO15189/CAP认证' },
+                    'lab_director': { range: '36-60万', level: '第三方检验龙头', note: '学科带头人' },
+                    'cytology_tech': { range: '10.8-18万', level: '第三方检验龙头', note: '细胞学岗' },
+                    'microbiology_tech': { range: '10.8-18万', level: '第三方检验龙头', note: '微生物检验岗' },
+                    'clinical_biochem': { range: '9.6-16.8万', level: '第三方检验龙头', note: '生化检验岗' },
                 }
             },
             '迪安诊断': {
                 industry: '医学检验/第三方检验',
                 city: '杭州',
                 positions: {
+                    'lab_technician': { range: '8.4-15.6万', level: '第三方检验头部', note: '检验技师岗月薪6-11K' },
                     'lab_doctor': { range: '16.8-28.8万', level: '第三方检验头部', note: '综合检验服务商' },
                     'pathologist': { range: '28-48万', level: '第三方检验头部', note: '病理业务增长快' },
+                    'molecular_lab_tech': { range: '12-21.6万', level: '第三方检验头部', note: '分子诊断岗' },
                     'third_party_lab': { range: '22-38万', level: '第三方检验头部', note: '技术管理岗' },
                     'lab_quality_manager': { range: '20-35万', level: '第三方检验头部', note: '质量体系完善' },
+                }
+            },
+            '艾迪康': {
+                industry: '医学检验/第三方检验',
+                city: '杭州',
+                positions: {
+                    'lab_technician': { range: '8.4-14.4万', level: '第三方检验头部', note: '检验技师岗月薪6-10K' },
+                    'lab_doctor': { range: '15.6-27.6万', level: '第三方检验头部', note: '综合检验服务' },
+                    'pathologist': { range: '26-45万', level: '第三方检验头部', note: '病理诊断岗' },
+                    'third_party_lab': { range: '20-36万', level: '第三方检验头部', note: '技术管理岗' },
+                }
+            },
+            '达安基因': {
+                industry: '基因检测/分子诊断',
+                city: '广州',
+                positions: {
+                    'ngs_engineer': { range: '15.6-26.4万', level: '分子诊断龙头', note: 'PCR+NGS双平台' },
+                    'ivd_molecular_rd': { range: '16.8-27.6万', level: '分子诊断龙头', note: '分子诊断产品线' },
+                    'gene_rd': { range: '16.8-27.6万', level: '分子诊断龙头', note: '基因检测研发' },
+                    'molecular_lab_tech': { range: '10.8-18万', level: '分子诊断龙头', note: '分子检验岗' },
                 }
             },
         };
