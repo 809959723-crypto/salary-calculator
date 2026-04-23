@@ -293,10 +293,7 @@
 
         /* ===== AUTOCOMPLETE DROPDOWN ===== */
         .autocomplete-dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            right: 0;
+            position: fixed;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(40px) saturate(200%);
             -webkit-backdrop-filter: blur(40px) saturate(200%);
@@ -313,7 +310,6 @@
             z-index: 9999;
             max-height: 400px;
             overflow-y: auto;
-            isolation: isolate;
         }
 
         .autocomplete-dropdown.active {
@@ -2032,7 +2028,6 @@
                         autocomplete="off"
                     >
                     <div class="search-loading" id="searchLoading"></div>
-                    <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
                 </div>
             </div>
 
@@ -2315,6 +2310,9 @@
         <p>© 2025 薪资参考系统 · 智能定薪 · 数据驱动决策</p>
         <p style="margin-top: 8px; font-size: 12px; color: #a1a1a6;">创作者：倪诺</p>
     </footer>
+
+    <!-- Autocomplete Dropdown (at body root to escape stacking context) -->
+    <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
 
     <!-- Data Detail Modal -->
     <div class="modal-overlay" id="dataModal" onclick="closeModal(event)">
@@ -3032,10 +3030,22 @@
         positionInput.addEventListener('focus', handleFocus);
         positionInput.addEventListener('keydown', handleKeyDown);
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-input-wrapper')) {
+            if (!e.target.closest('.search-input-wrapper') && !e.target.closest('.autocomplete-dropdown')) {
                 autocompleteDropdown.classList.remove('active');
             }
         });
+
+        // Reposition dropdown on scroll/resize
+        window.addEventListener('scroll', () => {
+            if (autocompleteDropdown.classList.contains('active')) {
+                positionDropdown();
+            }
+        }, { passive: true });
+        window.addEventListener('resize', () => {
+            if (autocompleteDropdown.classList.contains('active')) {
+                positionDropdown();
+            }
+        }, { passive: true });
 
         function handleInput(e) {
             clearTimeout(searchTimeout);
@@ -3296,7 +3306,15 @@
                 });
             }
 
+            positionDropdown();
             autocompleteDropdown.classList.add('active');
+        }
+
+        function positionDropdown() {
+            const inputRect = positionInput.getBoundingClientRect();
+            autocompleteDropdown.style.top = (inputRect.bottom + 8) + 'px';
+            autocompleteDropdown.style.left = inputRect.left + 'px';
+            autocompleteDropdown.style.width = inputRect.width + 'px';
         }
 
         function selectPosition(position) {
