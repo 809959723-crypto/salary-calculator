@@ -293,7 +293,7 @@
 
         /* ===== AUTOCOMPLETE DROPDOWN ===== */
         .autocomplete-dropdown {
-            position: fixed;
+            position: absolute;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(40px) saturate(200%);
             -webkit-backdrop-filter: blur(40px) saturate(200%);
@@ -3035,12 +3035,7 @@
             }
         });
 
-        // Reposition dropdown on scroll/resize
-        window.addEventListener('scroll', () => {
-            if (autocompleteDropdown.classList.contains('active')) {
-                positionDropdown();
-            }
-        }, { passive: true });
+        // Reposition dropdown on resize
         window.addEventListener('resize', () => {
             if (autocompleteDropdown.classList.contains('active')) {
                 positionDropdown();
@@ -3312,8 +3307,10 @@
 
         function positionDropdown() {
             const inputRect = positionInput.getBoundingClientRect();
-            autocompleteDropdown.style.top = (inputRect.bottom + 8) + 'px';
-            autocompleteDropdown.style.left = inputRect.left + 'px';
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+            autocompleteDropdown.style.top = (inputRect.bottom + 8 + scrollTop) + 'px';
+            autocompleteDropdown.style.left = (inputRect.left + scrollLeft) + 'px';
             autocompleteDropdown.style.width = inputRect.width + 'px';
         }
 
