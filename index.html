@@ -1832,9 +1832,148 @@
                 padding: 24px;
             }
         }
+
+        /* ===== SCROLL PROGRESS BAR ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--apple-blue), #42a5f5, #a78bfa);
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.1s linear;
+            border-radius: 0 1px 1px 0;
+        }
+
+        /* ===== SCROLL REVEAL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.from-left {
+            transform: translateX(-60px) translateY(0);
+        }
+
+        .reveal.from-right {
+            transform: translateX(60px) translateY(0);
+        }
+
+        .reveal.scale-in {
+            transform: scale(0.92) translateY(20px);
+        }
+
+        .reveal.blur-in {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(10px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.stagger-1 { transition-delay: 0.1s; }
+        .reveal.stagger-2 { transition-delay: 0.2s; }
+        .reveal.stagger-3 { transition-delay: 0.3s; }
+        .reveal.stagger-4 { transition-delay: 0.4s; }
+        .reveal.stagger-5 { transition-delay: 0.5s; }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+            filter: blur(0);
+        }
+
+        /* ===== CARD SHINE EFFECT ===== */
+        .card-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                105deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.15) 45%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0.15) 55%,
+                transparent 70%
+            );
+            transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .card-shine:hover::after {
+            left: 120%;
+        }
+
+        /* ===== GLOW FOLLOW MOUSE ===== */
+        .glow-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-card .glow-point {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 113, 227, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .glow-card:hover .glow-point {
+            opacity: 1;
+        }
+
+        .glow-card > *:not(.glow-point) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== PARALLAX SHAPES ===== */
+        .shape {
+            will-change: transform;
+        }
+
+        /* ===== SMOOTH NUMBER COUNTER ===== */
+        .counter-animate {
+            display: inline-block;
+        }
+
+        /* ===== HERO PARALLAX ===== */
+        .hero-content {
+            will-change: transform, opacity;
+        }
+
+        /* ===== SECTION DIVIDER ===== */
+        .section-divider {
+            width: 48px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--apple-blue), #42a5f5);
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
     </style>
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Floating Background Shapes -->
     <div class="floating-shapes">
         <div class="shape"></div>
@@ -1873,7 +2012,8 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="input-card" id="inputCard">
+        <div class="input-card card-shine glow-card" id="inputCard">
+            <div class="glow-point"></div>
             <!-- Position Search -->
             <div class="position-search">
                 <label for="positionInput">目标岗位</label>
@@ -1963,25 +2103,28 @@
 
         <!-- Results Section -->
         <div class="results-section" id="resultsSection">
-            <div class="salary-hero">
+            <div class="salary-hero" id="salaryHero">
                 <div class="label">市场参考薪资</div>
                 <div class="salary-range" id="salaryRange">-</div>
                 <div class="salary-note">基于多平台数据综合分析 · 年薪制</div>
                 <div class="salary-company-ref" id="salaryCompanyRef"></div>
             </div>
 
-            <div class="detail-grid">
-                <div class="detail-card">
+            <div class="detail-grid" id="detailGrid">
+                <div class="detail-card card-shine glow-card stagger-1">
+                    <div class="glow-point"></div>
                     <h3>平台对比</h3>
                     <div id="platformList"></div>
                 </div>
 
-                <div class="detail-card">
+                <div class="detail-card card-shine glow-card stagger-2">
+                    <div class="glow-point"></div>
                     <h3>影响因素</h3>
                     <div id="factorList"></div>
                 </div>
 
-                <div class="detail-card">
+                <div class="detail-card card-shine glow-card stagger-3">
+                    <div class="glow-point"></div>
                     <h3>定薪建议</h3>
                     <div class="suggestion-text" id="suggestionContent">
                         <p style="color: var(--apple-text-secondary);">请先填写信息并生成报告</p>
@@ -2019,14 +2162,16 @@
 
             <!-- Candidate Enhancement Section -->
             <div class="candidate-section" id="candidateSection">
-                <div class="candidate-header">
+                <div class="candidate-header" id="candidateHeader">
+                    <div class="section-divider"></div>
                     <h3>候选人深度分析</h3>
                     <p>上传简历或填写面试评价，AI 将结合市场数据给出精准定薪建议</p>
                 </div>
 
-                <div class="candidate-grid">
+                <div class="candidate-grid" id="candidateGrid">
                     <!-- Resume Card -->
-                    <div class="candidate-upload-card">
+                    <div class="candidate-upload-card card-shine glow-card" id="resumeCard">
+                        <div class="glow-point"></div>
                         <div class="upload-card-top">
                             <div class="upload-icon-wrap resume-icon">
                                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -2072,7 +2217,8 @@
                     </div>
 
                     <!-- Interview Card -->
-                    <div class="candidate-upload-card">
+                    <div class="candidate-upload-card card-shine glow-card" id="interviewCard">
+                        <div class="glow-point"></div>
                         <div class="upload-card-top">
                             <div class="upload-icon-wrap interview-icon">
                                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -2140,7 +2286,7 @@
                 </div>
             </div>
 
-            <div class="data-source">
+            <div class="data-source card-shine" id="dataSource">
                 <h3>数据来源</h3>
                 <div class="source-list">
                     <button class="source-tag" onclick="showDataDetail('zhilian')">智联招聘2024Q3</button>
@@ -2151,7 +2297,7 @@
                 </div>
             </div>
 
-            <div class="disclaimer">
+            <div class="disclaimer" id="disclaimer">
                 <strong>免责声明</strong>
                 本系统提供的薪资数据仅供参考，实际定薪需结合公司实际情况、候选人面试表现、市场供需关系等因素综合考量。数据来源于公开薪酬报告和市场调研。
             </div>
@@ -2747,6 +2893,41 @@
         // SCROLL ANIMATIONS
         // ========================================
         function initScrollAnimations() {
+            // --- Scroll Progress Bar ---
+            const scrollProgress = document.getElementById('scrollProgress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                scrollProgress.style.width = progress + '%';
+            }, { passive: true });
+
+            // --- Navbar scroll effect ---
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }, { passive: true });
+
+            // --- Scroll Reveal with IntersectionObserver ---
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // --- Original observer for input card, form groups, footer ---
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -2764,16 +2945,47 @@
                 observer.observe(group);
             });
             observer.observe(footer);
-        }
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+            // --- Parallax on floating shapes ---
+            const shapes = document.querySelectorAll('.shape');
+            const parallaxSpeeds = [0.03, -0.02, 0.04, -0.015, 0.025];
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                shapes.forEach((shape, i) => {
+                    const speed = parallaxSpeeds[i] || 0.02;
+                    shape.style.transform = `translateY(${scrollY * speed}px)`;
+                });
+            }, { passive: true });
+
+            // --- Hero parallax fade on scroll ---
+            const heroContent = document.querySelector('.hero-content');
+            const heroBg = document.querySelector('.hero-bg');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const heroHeight = window.innerHeight;
+                if (scrollY < heroHeight) {
+                    const progress = scrollY / heroHeight;
+                    heroContent.style.transform = `translateY(${scrollY * 0.3}px)`;
+                    heroContent.style.opacity = 1 - progress * 1.2;
+                    heroBg.style.transform = `translateY(${scrollY * 0.15}px)`;
+                }
+            }, { passive: true });
+
+            // --- Glow card mouse follow ---
+            document.querySelectorAll('.glow-card').forEach(card => {
+                const glowPoint = card.querySelector('.glow-point');
+                if (!glowPoint) return;
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    glowPoint.style.left = x + 'px';
+                    glowPoint.style.top = y + 'px';
+                });
+            });
+        }
 
         // ========================================
         // MODAL FUNCTIONS
@@ -3254,6 +3466,25 @@
 
             const resultsSection = document.getElementById('resultsSection');
             resultsSection.classList.add('active');
+            
+            // Trigger scroll-reveal animations for candidate section elements
+            setTimeout(() => {
+                const candidateHeader = document.getElementById('candidateHeader');
+                const resumeCard = document.getElementById('resumeCard');
+                const interviewCard = document.getElementById('interviewCard');
+                if (candidateHeader) {
+                    candidateHeader.classList.add('reveal');
+                    requestAnimationFrame(() => candidateHeader.classList.add('revealed'));
+                }
+                if (resumeCard) {
+                    resumeCard.classList.add('reveal', 'stagger-1');
+                    requestAnimationFrame(() => requestAnimationFrame(() => resumeCard.classList.add('revealed')));
+                }
+                if (interviewCard) {
+                    interviewCard.classList.add('reveal', 'stagger-2');
+                    requestAnimationFrame(() => requestAnimationFrame(() => requestAnimationFrame(() => interviewCard.classList.add('revealed'))));
+                }
+            }, 600);
             
             setTimeout(() => {
                 resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
