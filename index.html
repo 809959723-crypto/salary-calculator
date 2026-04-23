@@ -3153,6 +3153,52 @@
             { id: 'gene_bdm', name: '基因检测商务经理', category: '基因检测', keywords: ['基因商务', '渠道合作', '医院合作', '第三方检验', '科研服务'], base: 240000, growth: 0.12 },
             { id: 'single_cell_engineer', name: '单细胞测序工程师', category: '基因检测', keywords: ['单细胞', 'scRNA', '10x', '空间转录组', '单细胞测序'], base: 264000, growth: 0.17 },
 
+            // ===== 基因组学/华大方向 =====
+            { id: 'sequencer_rd', name: '测序仪研发工程师', category: '基因组学', keywords: ['测序仪', 'dnbseq', '基因测序仪', '测序平台', '仪器研发', '测序系统'], base: 276000, growth: 0.15 },
+            { id: 'microfluidic_engineer', name: '微流控芯片工程师', category: '基因组学', keywords: ['微流控', 'mems', '芯片', 'lab on chip', '流控', '微流控芯片'], base: 264000, growth: 0.16 },
+            { id: 'enzyme_engineer', name: '酶工程研发工程师', category: '基因组学', keywords: ['酶工程', '酶', '聚合酶', '逆转录', 'dna聚合酶', '酶突变', '酶优化'], base: 252000, growth: 0.14 },
+            { id: 'library_prep_engineer', name: '文库构建工程师', category: '基因组学', keywords: ['文库构建', '建库', '建库工程师', '文库', '捕获', '靶向测序', '全基因组建库'], base: 204000, growth: 0.12 },
+            { id: 'spatial_transcriptome', name: '空间转录组工程师', category: '基因组学', keywords: ['空间转录组', 'spatial', 'stereo seq', '空间组学', '时空组学'], base: 276000, growth: 0.18 },
+            { id: 'epigenomics_engineer', name: '表观遗传工程师', category: '基因组学', keywords: ['表观遗传', '甲基化', 'chip seq', 'atac seq', '组蛋白', '表观组学'], base: 240000, growth: 0.14 },
+            { id: 'genome_assembly', name: '基因组组装工程师', category: '基因组学', keywords: ['基因组组装', 'denovo', '组装', '拼接', '注释', '基因组学'], base: 252000, growth: 0.15 },
+            { id: 'population_genetics', name: '群体遗传学工程师', category: '基因组学', keywords: ['群体遗传', 'gwas', '进化', '多态性', '遗传多样性', '群体基因组'], base: 252000, growth: 0.14 },
+            { id: 'molecular_marker', name: '分子标记工程师', category: '基因组学', keywords: ['分子标记', 'snp', 'ssr', '分子育种', '标记辅助选择', '基因型鉴定'], base: 204000, growth: 0.12 },
+            { id: 'agri_genomics', name: '农业基因组学工程师', category: '基因组学', keywords: ['农业基因组', '作物基因组', '育种', '全基因组选择', '分子育种', '智慧农业'], base: 228000, growth: 0.14 },
+            { id: 'metagenomics_engineer', name: '宏基因组工程师', category: '基因组学', keywords: ['宏基因组', '微生物组', '肠道菌群', '16s', '宏基因组学', '微生物组学'], base: 240000, growth: 0.15 },
+            { id: 'proteomics_engineer', name: '蛋白质组学工程师', category: '基因组学', keywords: ['蛋白质组', '质谱', '蛋白质组学', 'lc ms', '蛋白质', '多组学'], base: 252000, growth: 0.14 },
+            { id: 'multiomics_engineer', name: '多组学工程师', category: '基因组学', keywords: ['多组学', '转录组', '蛋白组', '代谢组', '整合分析', '多组学整合'], base: 264000, growth: 0.16 },
+
+            // ===== 测序仪智造/华大智造方向 =====
+            { id: 'optical_engineer', name: '光学工程师(测序仪)', category: '测序仪智造', keywords: ['光学', '荧光', '光学系统', '镜头', '光路', '测序光学'], base: 264000, growth: 0.14 },
+            { id: 'fluidic_engineer', name: '流体工程师(测序仪)', category: '测序仪智造', keywords: ['流体', '流体控制', '泵阀', '微流控系统', '液路', '加样系统'], base: 252000, growth: 0.13 },
+            { id: 'mechanical_engineer_mfg', name: '机械工程师(测序仪)', category: '测序仪智造', keywords: ['机械', '机械设计', '结构', '传动', '精密机械', '测序仪机械'], base: 228000, growth: 0.12 },
+            { id: 'electrical_engineer_mfg', name: '电气工程师(测序仪)', category: '测序仪智造', keywords: ['电气', '电气设计', 'plc', '电气控制', '电路', '测序仪电气'], base: 228000, growth: 0.12 },
+            { id: 'reliability_engineer', name: '可靠性工程师', category: '测序仪智造', keywords: ['可靠性', '可靠性测试', '寿命', 'mtbf', '环境试验', '失效分析'], base: 216000, growth: 0.12 },
+            { id: 'image_algorithm', name: '图像算法工程师(测序)', category: '测序仪智造', keywords: ['图像算法', 'basecalling', '碱基识别', '图像处理', '深度学习', '测序图像'], base: 312000, growth: 0.18 },
+            { id: 'biochem_dev_engineer', name: '生化开发工程师(测序)', category: '测序仪智造', keywords: ['生化开发', '测序化学', 'dna测序化学', '试剂开发', '生化体系'], base: 252000, growth: 0.14 },
+            { id: 'reagent_rd_mfg', name: '测序试剂研发工程师', category: '测序仪智造', keywords: ['测序试剂', '试剂研发', '文库试剂', '捕获试剂', '上机试剂', '测序试剂盒'], base: 240000, growth: 0.13 },
+            { id: 'csharp_developer', name: '上位机开发工程师', category: '测序仪智造', keywords: ['上位机', 'c#', 'csharp', '仪器控制', '数据采集', '控制软件'], base: 216000, growth: 0.12 },
+            { id: 'sequencer_test', name: '测序仪测试工程师', category: '测序仪智造', keywords: ['测序仪测试', '系统测试', '集成测试', '仪器测试', '性能验证', '算法测试'], base: 192000, growth: 0.11 },
+            { id: 'design_transfer', name: '设计转换工程师', category: '测序仪智造', keywords: ['设计转换', '技术转移', 'npi', '量产导入', '产品化', '中试'], base: 216000, growth: 0.12 },
+            { id: 'tech_doc_engineer', name: '技术文档工程师', category: '测序仪智造', keywords: ['技术文档', '文档', '说明书', '用户手册', 'sop', '技术写作'], base: 168000, growth: 0.10 },
+            { id: 'mfg_process_engineer', name: '制造工艺工程师', category: '测序仪智造', keywords: ['制造工艺', '工艺工程师', '仪器工艺', '试剂工艺', '精益生产', '产线优化'], base: 204000, growth: 0.11 },
+            { id: 'supply_chain_engineer', name: '供应链工程师', category: '测序仪智造', keywords: ['供应链', '供应商管理', '采购', '物料', '供应商开发', '供应链管理'], base: 180000, growth: 0.10 },
+            { id: 'logistics_specialist', name: '物流专员', category: '测序仪智造', keywords: ['物流', '仓储', '运输', '国际物流', '冷链', '进出口'], base: 132000, growth: 0.08 },
+            { id: 'sequencer_fas', name: '测序仪应用科学家', category: '测序仪智造', keywords: ['测序仪应用', 'fas', '应用支持', '客户培训', '上机服务', '平台应用'], base: 264000, growth: 0.13 },
+            { id: 'sequencer_sales', name: '测序仪销售经理', category: '测序仪智造', keywords: ['测序仪销售', '仪器销售', '科研设备', '渠道销售', '测序平台销售'], base: 276000, growth: 0.14 },
+            { id: 'sequencer_after_sales', name: '测序仪售后工程师', category: '测序仪智造', keywords: ['测序仪售后', '售后服务', '安装', '维修', '保养', '售后工程师'], base: 180000, growth: 0.10 },
+
+            // ===== 生信/计算生物学 =====
+            { id: 'bioinfo_algorithm', name: '生信算法工程师', category: '计算生物学', keywords: ['生信算法', '比对算法', '变异检测', '碱基识别', '算法开发', '序列比对'], base: 276000, growth: 0.16 },
+            { id: 'variant_annotation', name: '变异注释工程师', category: '计算生物学', keywords: ['变异注释', 'snp', 'indel', 'cnv', 'sv', '变异解读', '数据库'], base: 228000, growth: 0.13 },
+            { id: 'cancer_bioinfo', name: '肿瘤生信工程师', category: '计算生物学', keywords: ['肿瘤生信', '肿瘤基因组', '体细胞突变', '肿瘤突变', '液体活检', 'ctdna'], base: 264000, growth: 0.16 },
+            { id: 'reproductive_bioinfo', name: '生殖遗传生信工程师', category: '计算生物学', keywords: ['生殖生信', '产前诊断', 'nipt', 'pgd', '胚胎植入前', '无创产前'], base: 252000, growth: 0.14 },
+            { id: 'pangenome_engineer', name: '泛基因组工程师', category: '计算生物学', keywords: ['泛基因组', 'pangenome', '参考基因组', '基因组变异', 'graph genome'], base: 264000, growth: 0.15 },
+            { id: 'ai_bioinfo', name: 'AI+基因组工程师', category: '计算生物学', keywords: ['ai基因组', '深度学习', '基因组预测', '蛋白质结构', 'alphafold', '大模型生物'], base: 312000, growth: 0.20 },
+            { id: 'database_curator', name: '基因组数据库工程师', category: '计算生物学', keywords: ['基因组数据库', '数据库', 'cncb', 'gwh', 'gsa', '数据管理', '数据归档'], base: 216000, growth: 0.12 },
+            { id: 'pipeline_engineer', name: '生信流程工程师', category: '计算生物学', keywords: ['生信流程', 'pipeline', 'wdl', 'nextflow', 'snakemake', '工作流', '自动化分析'], base: 240000, growth: 0.14 },
+            { id: 'hpc_engineer', name: '高性能计算工程师', category: '计算生物学', keywords: ['高性能计算', 'hpc', '集群', 'slurm', 'gpu', '并行计算', '超算'], base: 252000, growth: 0.14 },
+
             // ===== 医学检验 =====
             { id: 'lab_technician', name: '医学检验技师', category: '医学检验', keywords: ['检验技师', '检验', '化验', '技师', '检验科技师', '检验科'], base: 120000, growth: 0.07 },
             { id: 'lab_doctor', name: '检验科医师', category: '医学检验', keywords: ['检验医师', '检验科', '诊断', '病理', '报告审核', '临床检验'], base: 180000, growth: 0.10 },
@@ -4333,6 +4379,45 @@
                     'gene_lab_manager': { range: '26.4-42万', level: '行业龙头', note: '实验室管理经验丰富' },
                     'gene_report': { range: '15.6-25.2万', level: '行业龙头', note: '报告解读量大' },
                     'sanger_engineer': { range: '12-20.4万', level: '行业龙头', note: '一代测序岗' },
+                    'bioinfo_algorithm': { range: '24-42万', level: '行业龙头', note: '自研比对+变异检测算法' },
+                    'cancer_bioinfo': { range: '24-40万', level: '行业龙头', note: '肿瘤基因组学领先' },
+                    'reproductive_bioinfo': { range: '22.8-36万', level: '行业龙头', note: 'NIPT全球首发机构' },
+                    'spatial_transcriptome': { range: '26.4-44.4万', level: '行业龙头', note: 'Stereo-seq全球领先' },
+                    'metagenomics_engineer': { range: '22.8-36万', level: '行业龙头', note: '微生物组研究规模大' },
+                    'agri_genomics': { range: '20.4-33.6万', level: '行业龙头', note: '农业基因组学布局早' },
+                    'ai_bioinfo': { range: '28.8-48万', level: '行业龙头', note: 'AI+基因组前沿' },
+                    'genome_assembly': { range: '24-40万', level: '行业龙头', note: 'denovo组装经验丰富' },
+                    'multiomics_engineer': { range: '24-40万', level: '行业龙头', note: '多组学整合分析平台' },
+                    'library_prep_engineer': { range: '18-30万', level: '行业龙头', note: '建库体系成熟' },
+                    'database_curator': { range: '18-30万', level: '行业龙头', note: 'CNCB国家数据库' },
+                    'pipeline_engineer': { range: '21.6-36万', level: '行业龙头', note: '自动化分析体系完善' },
+                    'hpc_engineer': { range: '22.8-38.4万', level: '行业龙头', note: '自建超算平台' },
+                }
+            },
+            '华大智造': {
+                industry: '测序仪智造',
+                city: '深圳',
+                positions: {
+                    'sequencer_rd': { range: '24-42万', level: '测序仪龙头', note: 'DNBSEQ-T7/G99等自研平台' },
+                    'optical_engineer': { range: '24-40万', level: '测序仪龙头', note: '荧光成像系统核心' },
+                    'fluidic_engineer': { range: '22.8-38.4万', level: '测序仪龙头', note: '流体控制系统' },
+                    'microfluidic_engineer': { range: '24-40万', level: '测序仪龙头', note: '微流控芯片设计' },
+                    'image_algorithm': { range: '28.8-48万', level: '测序仪龙头', note: 'BaseCalling算法核心' },
+                    'biochem_dev_engineer': { range: '24-40万', level: '测序仪龙头', note: '测序化学体系' },
+                    'reagent_rd_mfg': { range: '21.6-36万', level: '测序仪龙头', note: '测序试剂盒研发' },
+                    'enzyme_engineer': { range: '24-40万', level: '测序仪龙头', note: '聚合酶自研' },
+                    'csharp_developer': { range: '19.2-32.4万', level: '测序仪龙头', note: '上位机控制软件' },
+                    'mechanical_engineer_mfg': { range: '20.4-33.6万', level: '测序仪龙头', note: '精密机械结构' },
+                    'electrical_engineer_mfg': { range: '20.4-33.6万', level: '测序仪龙头', note: '电气控制系统' },
+                    'reliability_engineer': { range: '19.2-32.4万', level: '测序仪龙头', note: '可靠性验证体系' },
+                    'sequencer_test': { range: '16.8-27.6万', level: '测序仪龙头', note: '系统级测试验证' },
+                    'design_transfer': { range: '19.2-32.4万', level: '测序仪龙头', note: 'NPI量产导入' },
+                    'mfg_process_engineer': { range: '18-30万', level: '测序仪龙头', note: '产线工艺优化' },
+                    'sequencer_fas': { range: '24-40万', level: '测序仪龙头', note: '全球应用支持团队' },
+                    'sequencer_sales': { range: '24-48万', level: '测序仪龙头', note: '全球测序仪销售' },
+                    'sequencer_after_sales': { range: '16.8-28.8万', level: '测序仪龙头', note: '售后安装维修' },
+                    'supply_chain_engineer': { range: '16.8-27.6万', level: '测序仪龙头', note: '供应链管理体系' },
+                    'tech_doc_engineer': { range: '15.6-25.2万', level: '测序仪龙头', note: '技术文档体系' },
                 }
             },
             '燃石医学': {
@@ -4728,8 +4813,8 @@
         function calculateAIScores(ctx) {
             // Position competitiveness score
             let posScore = 50;
-            const highBasePositions = ['ai', 'llm_engineer', 'nlp_engineer', 'cv_engineer', 'data_scientist', 'bioinformatics', 'ivd_product_manager', 'pathologist', 'medical_director', 'bioinfo_analyst', 'single_cell_engineer', 'ivd_fas'];
-            const medBasePositions = ['java', 'golang', 'frontend', 'python', 'ai', 'pm', 'ivd_reagent_rd', 'ivd_molecular_rd', 'gene_rd', 'ngs_engineer', 'genetic_counselor', 'lab_director', 'clinical_pm'];
+            const highBasePositions = ['ai', 'llm_engineer', 'nlp_engineer', 'cv_engineer', 'data_scientist', 'bioinformatics', 'ivd_product_manager', 'pathologist', 'medical_director', 'bioinfo_analyst', 'single_cell_engineer', 'ivd_fas', 'image_algorithm', 'ai_bioinfo', 'bioinfo_algorithm', 'spatial_transcriptome', 'sequencer_rd', 'sequencer_fas', 'cancer_bioinfo', 'microfluidic_engineer'];
+            const medBasePositions = ['java', 'golang', 'frontend', 'python', 'ai', 'pm', 'ivd_reagent_rd', 'ivd_molecular_rd', 'gene_rd', 'ngs_engineer', 'genetic_counselor', 'lab_director', 'clinical_pm', 'sequencer_sales', 'enzyme_engineer', 'genome_assembly', 'population_genetics', 'metagenomics_engineer', 'proteomics_engineer', 'multiomics_engineer', 'reagent_rd_mfg', 'biochem_dev_engineer', 'optical_engineer', 'fluidic_engineer', 'reproductive_bioinfo', 'pangenome_engineer', 'pipeline_engineer', 'hpc_engineer', 'variant_annotation', 'agri_genomics', 'epigenomics_engineer'];
             if (highBasePositions.includes(ctx.position.id)) posScore = 90;
             else if (medBasePositions.includes(ctx.position.id)) posScore = 72;
             else if (ctx.position.base >= 240000) posScore = 80;
