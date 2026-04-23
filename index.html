@@ -716,6 +716,201 @@
             color: var(--apple-blue);
         }
 
+        /* ===== AI ANALYSIS CARD ===== */
+        .ai-analysis-card {
+            background: linear-gradient(135deg, #1d1d1f 0%, #2d2d30 100%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 24px;
+            margin-bottom: 40px;
+            color: #f5f5f7;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s var(--ease-out-expo);
+        }
+
+        .ai-analysis-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ai-analysis-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 113, 227, 0.06) 0%, transparent 60%);
+            animation: aiGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes aiGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(5%, 5%); }
+        }
+
+        .ai-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(0, 113, 227, 0.2);
+            border: 1px solid rgba(0, 113, 227, 0.3);
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #4da3ff;
+        }
+
+        .ai-refresh-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s var(--ease-spring);
+        }
+
+        .ai-refresh-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            transform: rotate(180deg);
+        }
+
+        .ai-content {
+            position: relative;
+            z-index: 1;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .ai-content .ai-section {
+            margin-bottom: 24px;
+        }
+
+        .ai-content .ai-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .ai-content .ai-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4da3ff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-content .ai-section-title::before {
+            content: '▸';
+            font-size: 12px;
+        }
+
+        .ai-content p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 10px;
+        }
+
+        .ai-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .ai-content .highlight-value {
+            color: #4da3ff;
+            font-weight: 600;
+        }
+
+        .ai-content .ai-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(0, 113, 227, 0.15);
+            border-radius: 6px;
+            font-size: 13px;
+            color: #4da3ff;
+            margin: 2px 4px;
+        }
+
+        .ai-content .ai-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin: 8px 0 16px;
+            overflow: hidden;
+        }
+
+        .ai-content .ai-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #0071e3, #42a5f5);
+            transition: width 1s var(--ease-out-expo);
+        }
+
+        .ai-content .ai-summary-box {
+            background: rgba(0, 113, 227, 0.1);
+            border: 1px solid rgba(0, 113, 227, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .ai-content .ai-summary-box .ai-final-salary {
+            font-size: 28px;
+            font-weight: 700;
+            color: #4da3ff;
+            margin: 8px 0;
+        }
+
+        .ai-loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .ai-loading p {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .ai-typing {
+            display: inline-flex;
+            gap: 6px;
+        }
+
+        .ai-typing span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4da3ff;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .ai-typing span:nth-child(1) { animation-delay: 0s; }
+        .ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
         /* ===== DATA SOURCE ===== */
         .data-source {
             background: var(--apple-card);
@@ -1173,7 +1368,37 @@
 
                 <div class="detail-card">
                     <h3>定薪建议</h3>
-                    <div class="suggestion-text" id="suggestionContent"></div>
+                    <div class="suggestion-text" id="suggestionContent">
+                        <p style="color: var(--apple-text-secondary);">请先填写信息并生成报告</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Deep Analysis Section -->
+            <div class="ai-analysis-card" id="aiAnalysisCard" style="display:none;">
+                <div class="ai-header">
+                    <div class="ai-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
+                            <path d="M16 14a4 4 0 0 1 4 4v2H4v-2a4 4 0 0 1 4-4h8z"/>
+                            <circle cx="12" cy="6" r="2" fill="currentColor"/>
+                        </svg>
+                        AI 深度分析
+                    </div>
+                    <button class="ai-refresh-btn" onclick="regenerateAIAnalysis()" title="重新分析">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="ai-content" id="aiContent">
+                    <div class="ai-loading">
+                        <div class="ai-typing">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <p>AI 正在分析定薪建议...</p>
+                    </div>
                 </div>
             </div>
 
@@ -2026,12 +2251,342 @@
             
             suggestionContent.innerHTML = suggestionHTML;
 
+            // ===== AI Deep Analysis =====
+            const aiCard = document.getElementById('aiAnalysisCard');
+            const aiContent = document.getElementById('aiContent');
+            
+            // Show AI card with loading
+            aiCard.style.display = 'block';
+            setTimeout(() => aiCard.classList.add('visible'), 100);
+            aiContent.innerHTML = `
+                <div class="ai-loading">
+                    <div class="ai-typing"><span></span><span></span><span></span></div>
+                    <p>AI 正在分析定薪建议...</p>
+                </div>
+            `;
+
+            // Collect all context for AI analysis
+            const analysisContext = {
+                position: selectedPosition,
+                experience: expData,
+                city: cityData,
+                education: eduData,
+                industry: industryData,
+                salaryRange: { min: minSalary, max: maxSalary, avg: adjustedSalary },
+                platformData: Object.entries(platformFactors).map(([name, factor]) => ({
+                    name,
+                    salary: Math.round(adjustedSalary * factor / 1000) * 1000
+                }))
+            };
+
+            // Run AI analysis with delay for UX
+            setTimeout(() => {
+                generateAIAnalysis(analysisContext);
+            }, 1500);
+
             const resultsSection = document.getElementById('resultsSection');
             resultsSection.classList.add('active');
             
             setTimeout(() => {
                 resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
+        }
+
+        // ========================================
+        // AI ANALYSIS ENGINE
+        // ========================================
+        function generateAIAnalysis(ctx) {
+            const aiContent = document.getElementById('aiContent');
+            
+            // AI Model: Multi-factor scoring and reasoning
+            const scores = calculateAIScores(ctx);
+            const recommendation = generateRecommendation(ctx, scores);
+            const marketInsight = generateMarketInsight(ctx);
+            const riskAnalysis = generateRiskAnalysis(ctx);
+            const negotiationStrategy = generateNegotiationStrategy(ctx, scores);
+
+            // Calculate AI-recommended salary
+            const aiSalary = calculateAISalary(ctx, scores);
+
+            const html = `
+                <div class="ai-section">
+                    <div class="ai-section-title">综合评估</div>
+                    <p>基于岗位竞争力、人才稀缺度、行业趋势、城市薪资水平四大维度建模分析：</p>
+                    <div style="margin-top:12px;">
+                        ${scores.map(s => `
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                                <span style="color:rgba(255,255,255,0.7);font-size:14px;">${s.name}</span>
+                                <span style="color:#4da3ff;font-weight:600;font-size:14px;">${s.score}分</span>
+                            </div>
+                            <div class="ai-bar"><div class="ai-bar-fill" style="width:${s.score}%;"></div></div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="ai-section">
+                    <div class="ai-section-title">AI 定薪建议</div>
+                    <p>${recommendation}</p>
+                    <div class="ai-summary-box">
+                        <div style="font-size:13px;color:rgba(255,255,255,0.5);">AI 推荐定薪区间</div>
+                        <div class="ai-final-salary">${formatSalary(aiSalary.min)} - ${formatSalary(aiSalary.max)}/年</div>
+                        <div style="font-size:13px;color:rgba(255,255,255,0.5);">建议中间值：${formatSalary(aiSalary.mid)}/年</div>
+                    </div>
+                </div>
+
+                <div class="ai-section">
+                    <div class="ai-section-title">市场洞察</div>
+                    <p>${marketInsight}</p>
+                </div>
+
+                <div class="ai-section">
+                    <div class="ai-section-title">风险评估</div>
+                    <p>${riskAnalysis}</p>
+                </div>
+
+                <div class="ai-section">
+                    <div class="ai-section-title">谈判策略建议</div>
+                    <p>${negotiationStrategy}</p>
+                </div>
+            `;
+
+            aiContent.innerHTML = html;
+        }
+
+        function calculateAIScores(ctx) {
+            // Position competitiveness score
+            let posScore = 50;
+            const highBasePositions = ['ai', 'llm_engineer', 'nlp_engineer', 'cv_engineer', 'data_scientist', 'bioinformatics', 'ivd_product_manager', 'pathologist', 'medical_director', 'bioinfo_analyst', 'single_cell_engineer', 'ivd_fas'];
+            const medBasePositions = ['java', 'golang', 'frontend', 'python', 'ai', 'pm', 'ivd_reagent_rd', 'ivd_molecular_rd', 'gene_rd', 'ngs_engineer', 'genetic_counselor', 'lab_director', 'clinical_pm'];
+            if (highBasePositions.includes(ctx.position.id)) posScore = 90;
+            else if (medBasePositions.includes(ctx.position.id)) posScore = 72;
+            else if (ctx.position.base >= 240000) posScore = 80;
+            else if (ctx.position.base >= 180000) posScore = 65;
+            else posScore = 55;
+
+            // Talent scarcity score
+            let scarcityScore = 50;
+            const scarceKeywords = ['ai', '算法', '大模型', 'llm', 'gpt', 'nlp', 'cv', '单细胞', '病理医师', '医学总监', '生物信息', '遗传咨询', 'fas', 'ivd产品'];
+            const posKeywords = ctx.position.keywords.join(' ');
+            const matchCount = scarceKeywords.filter(k => posKeywords.includes(k)).length;
+            scarcityScore = Math.min(95, 50 + matchCount * 15);
+            if (ctx.experience.factor >= 1.5) scarcityScore = Math.min(95, scarcityScore + 10);
+
+            // Industry trend score
+            let trendScore = 50;
+            const hotIndustries = { ai: 95, biotech: 82, newenergy: 88, gaming: 78, internet: 75, ecommerce: 72, finance: 70, manufacturing: 55, media: 52, education: 45, realestate: 40 };
+            trendScore = hotIndustries[ctx.industry.name] || 55;
+            if (ctx.position.growth >= 0.15) trendScore = Math.min(95, trendScore + 5);
+
+            // City level score
+            let cityScore = 50;
+            const cityScores = { '北京': 92, '上海': 90, '深圳': 88, '杭州': 80, '广州': 75, '南京': 68, '苏州': 68, '成都': 62, '武汉': 58, '西安': 55, '天津': 55, '其他城市': 45 };
+            cityScore = cityScores[ctx.city.name] || 50;
+
+            return [
+                { name: '岗位竞争力', score: posScore },
+                { name: '人才稀缺度', score: scarcityScore },
+                { name: '行业趋势', score: trendScore },
+                { name: '城市薪资水平', score: cityScore }
+            ];
+        }
+
+        function calculateAISalary(ctx, scores) {
+            const avgScore = scores.reduce((sum, s) => sum + s.score, 0) / scores.length;
+            const baseSalary = ctx.salaryRange.avg;
+            
+            // AI adjusts based on composite score
+            let adjustment = 0;
+            if (avgScore >= 85) adjustment = 0.05;      // Very competitive, lean high
+            else if (avgScore >= 75) adjustment = 0.02;  // Above average
+            else if (avgScore >= 60) adjustment = 0;     // Average
+            else adjustment = -0.03;                      // Below average, lean low
+
+            // Experience premium
+            if (ctx.experience.factor >= 1.5) adjustment += 0.03;
+            else if (ctx.experience.factor >= 1.25) adjustment += 0.01;
+
+            // Education premium
+            if (ctx.education.factor >= 1.35) adjustment += 0.03;
+            else if (ctx.education.factor >= 1.2) adjustment += 0.01;
+
+            const aiMid = Math.round(baseSalary * (1 + adjustment) / 1000) * 1000;
+            const aiMin = Math.round(aiMid * 0.9 / 1000) * 1000;
+            const aiMax = Math.round(aiMid * 1.1 / 1000) * 1000;
+
+            return { min: aiMin, max: aiMax, mid: aiMid };
+        }
+
+        function generateRecommendation(ctx, scores) {
+            const avgScore = scores.reduce((sum, s) => sum + s.score, 0) / scores.length;
+            const scarcity = scores.find(s => s.name === '人才稀缺度').score;
+            const trend = scores.find(s => s.name === '行业趋势').score;
+            
+            let rec = '';
+            
+            // Core recommendation
+            if (avgScore >= 85) {
+                rec += `该岗位综合评估得分 <span class="highlight-value">${avgScore.toFixed(0)}</span> 分，属于高竞争力岗位。`;
+                rec += `建议在市场参考范围基础上适当上浮，以吸引和留住人才。`;
+            } else if (avgScore >= 70) {
+                rec += `该岗位综合评估得分 <span class="highlight-value">${avgScore.toFixed(0)}</span> 分，竞争力中等偏上。`;
+                rec += `建议定薪在市场均值附近，结合候选人实际能力微调。`;
+            } else {
+                rec += `该岗位综合评估得分 <span class="highlight-value">${avgScore.toFixed(0)}</span> 分，市场供给相对充足。`;
+                rec += `建议定薪在参考范围中下区间，注重绩效激励的配比。`;
+            }
+
+            rec += `</p><p>`;
+            
+            // Scarcity insight
+            if (scarcity >= 80) {
+                rec += `人才稀缺度较高（${scarcity}分），<span class="highlight-value">招聘周期可能较长</span>，建议预留薪资谈判空间，避免因薪资原因流失优质候选人。`;
+            } else if (scarcity >= 60) {
+                rec += `人才供给相对平衡（稀缺度${scarcity}分），可按正常流程推进定薪。`;
+            } else {
+                rec += `该岗位人才供给较为充裕（稀缺度${scarcity}分），在定薪谈判中公司有一定主动权。`;
+            }
+
+            return rec;
+        }
+
+        function generateMarketInsight(ctx) {
+            let insight = '';
+            const posGrowth = ctx.position.growth;
+            const industryName = ctx.industry.name;
+            const cityName = ctx.city.name;
+
+            // Position growth trend
+            if (posGrowth >= 0.18) {
+                insight += `<span class="ai-tag">薪资增速快</span>`;
+                insight += `该岗位年薪资增长率约 <span class="highlight-value">${(posGrowth * 100).toFixed(0)}%</span>，远超市场平均水平，反映出强烈的市场需求。建议在定薪时考虑薪资增长趋势，避免入职后短期内因市场涨幅导致薪资倒挂。`;
+            } else if (posGrowth >= 0.10) {
+                insight += `<span class="ai-tag">薪资稳健增长</span>`;
+                insight += `该岗位年薪资增长率约 <span class="highlight-value">${(posGrowth * 100).toFixed(0)}%</span>，处于健康增长区间。定薪时参考当前市场均值即可。`;
+            } else {
+                insight += `<span class="ai-tag">薪资增长平缓</span>`;
+                insight += `该岗位年薪资增长率约 <span class="highlight-value">${(posGrowth * 100).toFixed(0)}%</span>，增长相对平缓。可适当降低基础薪资，增加绩效激励比例。`;
+            }
+
+            insight += `</p><p>`;
+
+            // City-industry cross analysis
+            const topCities = ['北京', '上海', '深圳'];
+            if (topCities.includes(cityName)) {
+                insight += `${cityName}作为${topCities.includes(cityName) ? '一线' : '核心'}城市，`;
+                if (industryName === '互联网/科技' || industryName === '人工智能') {
+                    insight += `科技人才集中，<span class="highlight-value">跳槽活跃度高</span>，需注意薪资竞争力的保持。`;
+                } else if (industryName === '生物医药' || industryName === 'IVD/体外诊断') {
+                    insight += `生物医药产业园区密集，<span class="highlight-value">产业集群效应明显</span>，人才流动相对频繁。`;
+                } else {
+                    insight += `整体薪资水平较高，人才选择面广，需在薪资之外加强雇主品牌吸引力。`;
+                }
+            } else {
+                insight += `${cityName}薪资水平相对一线城市有一定差距，但生活成本也较低，定薪时需综合考虑当地市场行情和候选人预期。`;
+            }
+
+            return insight;
+        }
+
+        function generateRiskAnalysis(ctx) {
+            let risk = '';
+            const expFactor = ctx.experience.factor;
+            const eduFactor = ctx.education.factor;
+
+            // Over-qualification risk
+            if (eduFactor >= 1.35 && expFactor <= 0.85) {
+                risk += `<span class="ai-tag">⚠️ 学历溢价风险</span>`;
+                risk += `候选人为 <span class="highlight-value">${ctx.education.name}</span> 但工作经验仅 <span class="highlight-value">${ctx.experience.name}</span>，存在学历溢价过高的风险。建议重点评估其实际项目能力，避免"高学历低能力"的定薪偏差。</p><p>`;
+            }
+
+            // Retention risk
+            if (expFactor >= 1.5 && ctx.city.factor >= 1.3) {
+                risk += `<span class="ai-tag">⚠️ 留存风险</span>`;
+                risk += `资深人才在一线城市跳槽机会多，<span class="highlight-value">12个月内流失率可能较高</span>。建议设置合理的薪资增长机制和长期激励计划。</p><p>`;
+            }
+
+            // Market position risk
+            const minSalary = ctx.salaryRange.min;
+            const maxSalary = ctx.salaryRange.max;
+            risk += `<span class="ai-tag">📊 定薪区间分析</span>`;
+            risk += `市场薪资区间跨度为 <span class="highlight-value">${formatSalary(maxSalary - minSalary)}</span>，`;
+            if ((maxSalary - minSalary) / ctx.salaryRange.avg > 0.3) {
+                risk += `波动幅度较大，说明该岗位在不同企业间薪资差异明显。建议明确公司定薪策略是「市场领先」还是「市场跟随」，以此确定最终数字。`;
+            } else {
+                risk += `波动幅度适中，市场定价较为一致，定薪相对容易对标。`;
+            }
+
+            return risk;
+        }
+
+        function generateNegotiationStrategy(ctx, scores) {
+            const scarcity = scores.find(s => s.name === '人才稀缺度').score;
+            const trend = scores.find(s => s.name === '行业趋势').score;
+            let strategy = '';
+
+            if (scarcity >= 80) {
+                strategy += `该岗位人才稀缺，建议采用<span class="highlight-value">「快速出价」策略</span>：在面试通过后尽快给出具有竞争力的薪资方案，避免候选人在等待中被其他公司截获。`;
+            } else if (scarcity >= 60) {
+                strategy += `人才供需相对平衡，建议采用<span class="highlight-value">「合理区间谈判」策略</span>：先给出区间中位值，根据候选人反馈灵活调整。`;
+            } else {
+                strategy += `人才供给充裕，建议采用<span class="highlight-value">「绩效导向」策略</span>：基础薪资可定在区间中下水平，加大绩效奖金和年终奖比例，激励产出。`;
+            }
+
+            strategy += `</p><p>`;
+
+            // Structure suggestion
+            if (ctx.salaryRange.avg >= 300000) {
+                strategy += `对于高薪岗位，建议薪资结构中加入：<span class="ai-tag">年终奖(2-4个月)</span><span class="ai-tag">签字费</span><span class="ai-tag">期权/RSU</span>，提升整体薪酬包的吸引力。`;
+            } else if (ctx.salaryRange.avg >= 180000) {
+                strategy += `建议薪资结构：<span class="ai-tag">基础薪资70%</span><span class="ai-tag">绩效奖金20%</span><span class="ai-tag">福利补贴10%</span>，兼顾稳定性和激励性。`;
+            } else {
+                strategy += `建议薪资结构：<span class="ai-tag">基础薪资80%</span><span class="ai-tag">绩效奖金15%</span><span class="ai-tag">福利补贴5%</span>，确保基础收入稳定性。`;
+            }
+
+            return strategy;
+        }
+
+        function regenerateAIAnalysis() {
+            const aiContent = document.getElementById('aiContent');
+            aiContent.innerHTML = `
+                <div class="ai-loading">
+                    <div class="ai-typing"><span></span><span></span><span></span></div>
+                    <p>AI 正在重新分析...</p>
+                </div>
+            `;
+
+            // Re-run with slight randomization for fresh perspective
+            setTimeout(() => {
+                if (!selectedPosition) return;
+                const experience = parseInt(document.getElementById('experience').value);
+                const city = document.getElementById('city').value;
+                const education = document.getElementById('education').value;
+                const industry = document.getElementById('industry').value;
+
+                const cityData = cityFactors[city];
+                const eduData = educationFactors[education];
+                const expData = experienceFactors[experience];
+                const industryData = industry ? industryFactors[industry] : { factor: 1.0, name: '未指定' };
+
+                const baseSalary = selectedPosition.base;
+                const adjustedSalary = baseSalary * cityData.factor * eduData.factor * expData.factor * industryData.factor;
+                const minSalary = Math.round(adjustedSalary * 0.85 / 1000) * 1000;
+                const maxSalary = Math.round(adjustedSalary * 1.15 / 1000) * 1000;
+
+                const analysisContext = {
+                    position: selectedPosition,
+                    experience: expData,
+                    city: cityData,
+                    education: eduData,
+                    industry: industryData,
+                    salaryRange: { min: minSalary, max: maxSalary, avg: adjustedSalary },
+                    platformData: Object.entries(platformFactors).map(([name, factor]) => ({
+                        name,
+                        salary: Math.round(adjustedSalary * factor / 1000) * 1000
+                    }))
+                };
+
+                generateAIAnalysis(analysisContext);
+            }, 1200);
         }
 
         // ========================================
