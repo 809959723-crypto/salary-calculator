@@ -3004,7 +3004,7 @@
 请严格按以下JSON格式返回（不要添加markdown代码块标记）：
 {
   "scores": [{"name": "维度名", "score": 数字}],
-  "aiSalary": {"min": 数字, "max": 数字, "mid": 数字},
+  "aiSalary": {"min": 数字(单位:元), "max": 数字(单位:元), "mid": 数字(单位:元)},  // 注意：薪资数值请以元为单位，如180000而非18万
   "recommendation": "定薪建议",
   "marketInsight": "市场洞察",
   "riskAnalysis": "风险评估",
@@ -4338,7 +4338,7 @@
                     <div class="ai-summary-box">
                         <div style="font-size:13px;color:rgba(255,255,255,0.5);">AI 推荐定薪区间</div>
                         <div class="ai-final-salary">${formatSalary(aiSalary.min)} - ${formatSalary(aiSalary.max)}/年</div>
-                        <div style="font-size:13px;color:rgba(255,255,255,0.5);">建议中间值：${formatSalary(aiSalary.mid)}/年</div>
+                            <div style="font-size:13px;color:rgba(255,255,255,0.5);">建议中间值：${formatSalary(aiSalary.mid)}/年</div>
                     </div>
                 </div>
 
@@ -4365,7 +4365,11 @@
         // Render AI-structured salary analysis result
         function renderSalaryAIResult(data, ctx, aiContent) {
             const scores = data.scores || [];
-            const aiSalary = data.aiSalary || { min: ctx.salaryRange.min, max: ctx.salaryRange.max, mid: Math.round((ctx.salaryRange.min + ctx.salaryRange.max) / 2) };
+            let aiSalary = data.aiSalary || { min: ctx.salaryRange.min, max: ctx.salaryRange.max, mid: Math.round((ctx.salaryRange.min + ctx.salaryRange.max) / 2) };
+            // 兼容处理：AI可能返回万元单位的值，自动转换为元
+            if (aiSalary.min < 1000 && aiSalary.max < 1000) {
+                aiSalary = { min: aiSalary.min * 10000, max: aiSalary.max * 10000, mid: (aiSalary.mid || Math.round((aiSalary.min + aiSalary.max) / 2)) * 10000 };
+            }
             const companyRef = generateCompanyRef(ctx);
 
             let html = '';
